@@ -22,6 +22,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/group', require('./routes/group'));
+app.use('/api/stack', require('./routes/stack'));
 
 app.use(errorHandler);
 
