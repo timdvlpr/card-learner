@@ -1,0 +1,30 @@
+@import '_variables';
+@import '_mixins';
+
+section {
+  background: $medium;
+  width: 100%;
+  height: auto;
+  color: $text;
+  @include for-tablet-landscape-up {
+    width: 20rem;
+    height: calc(100vh - 4rem);
+  }
+}
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  width: 100%;
+  font-size: 1rem;
+  text-align: right;
+  border-bottom: 2px solid $light;
+  i {
+    cursor: pointer;
+  }
+}
+.collapsed {
+  width: 100%;
+}
+
