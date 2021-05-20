@@ -1,0 +1,18 @@
+@import '_variables';
+
+.btn {
+  cursor: pointer;
+  border: none;
+  color: $text;
+  padding: 0.25rem 1rem;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: 0.25s;
+}
+.btn-blue {
+  background: $btnBlue;
+  &:hover {
+    background: $btnBlueHover;
+  }
+}

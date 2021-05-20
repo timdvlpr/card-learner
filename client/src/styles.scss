@@ -1,8 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@import '_variables';
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Assistant', sans-serif;
   letter-spacing: 0.05rem;
+}
+a {
+  text-decoration: none;
+  color: $text;
+}
+:focus {
+  outline: none;
+}
+input, button {
+  &:focus {
+    outline: none;
+  }
+}
+button:disabled {
+  opacity: 50%;
+  pointer-events: none;
 }
