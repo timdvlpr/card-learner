@@ -1,0 +1,58 @@
+@import '_variables';
+@import '_mixins';
+
+.stack-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 11rem;
+  height: 11rem;
+  color: $text;
+  background: $medium;
+  border-radius: 0.25rem;
+  margin: 1rem;
+  padding: 1rem;
+  box-shadow: 5px 5px 5px $dark;
+  transition: 0.25s;
+  @include for-tablet-landscape-up {
+    width: 15rem;
+    height: 15rem;
+  }
+  button {
+    display: none;
+    cursor: pointer;
+    width: 100%;
+    padding: 0.5rem 0;
+    background: $btnBlue;
+    color: $text;
+    border: none;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: 0.25s;
+    &:hover {
+      background: $btnBlueHover;
+    }
+  }
+  &:hover {
+    justify-content: space-between;
+    transform: scale(1.05);
+    box-shadow: 8px 8px 5px $dark;
+  }
+  &:hover .stack-item-actions,
+  &:hover button {
+    display: block;
+  }
+}
+.stack-item-actions {
+  display: none;
+  align-self: flex-end;
+  i {
+    margin: 0 0.25rem;
+    cursor: pointer;
+    &:hover {
+      color: $btnBlue;
+    }
+  }
+}
