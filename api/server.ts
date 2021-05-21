@@ -29,3 +29,6 @@ app.use(errorHandler);
 
 // Starting server
 app.listen(PORT, () => console.log(`Server gestartet auf Port ${PORT}`));
+
+app.use('/', express.static(`${__dirname}/../client/dist/client`));
+app.use('/*', express.static(`${__dirname}/../client/dist/client`));
