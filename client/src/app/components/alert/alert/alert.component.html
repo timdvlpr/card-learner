@@ -1,0 +1,7 @@
+<div class="alert"
+     [class.success-alert]="type === 'success'"
+     [class.error-alert]="type === 'error'"
+>
+  <p>{{message}}</p>
+  <i class="fas fa-times-circle" (click)="this.alertService.removeAlert(this.alert)"></i>
+</div>

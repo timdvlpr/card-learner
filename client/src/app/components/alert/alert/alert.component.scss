@@ -1,0 +1,21 @@
+@import '_variables';
+
+.alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $text;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  margin: 1rem 0;
+  i {
+    cursor: pointer;
+  }
+}
+.success-alert {
+  background: #1ba11b;
+}
+.error-alert {
+  background: #b82121;
+}
