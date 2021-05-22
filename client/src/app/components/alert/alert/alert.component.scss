@@ -11,11 +11,14 @@
   margin: 1rem 0;
   i {
     cursor: pointer;
+    margin-left: 1rem;
   }
 }
 .success-alert {
-  background: #1ba11b;
+  border: 1px solid #1ba11b;
+  background: #1ba11b80;
 }
 .error-alert {
-  background: #b82121;
+  border: 1px solid #b82121;
+  background: #b8212180;
 }
