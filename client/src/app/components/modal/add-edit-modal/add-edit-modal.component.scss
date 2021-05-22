@@ -1,0 +1,55 @@
+@import '_variables';
+@import '_mixins';
+
+.modal-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #00000070;
+  color: $text;
+  @include flex-center;
+  z-index: 99;
+}
+.add-edit-modal {
+  background: $medium;
+  border-radius: 0.25rem;
+  min-width: 25rem;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: $dark;
+  padding: 1rem;
+  border-bottom: 1px solid $light;
+  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 0.25rem;
+  i {
+    cursor: pointer;
+    color: $btnRed;
+    font-size: 1.1rem;
+  }
+}
+.modal-body {
+  padding: 1rem;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+.selected-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    padding: 0.25rem 1rem;
+    background: transparent;
+    border: 2px solid $light;
+    border-radius: 0.25rem;
+    color: $text;
+    cursor: pointer;
+  }
+}
+.selected {
+  background: $btnBlue !important;
+}
