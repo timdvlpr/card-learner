@@ -1,0 +1,19 @@
+<form class="app-form" (ngSubmit)="submitForm()" [formGroup]="groupForm">
+
+  <label>
+    <span>Name:</span>
+    <input type="text" formControlName="name" required>
+  </label>
+
+  <div class="form-error" *ngIf="name.invalid && (name.dirty || name.touched)">
+    <div class="form-error-message" *ngIf="name.errors?.required">
+      <i class="fas fa-exclamation-circle"></i> Name benötigt
+    </div>
+  </div>
+
+  <div class="form-btns">
+    <button class="btn btn-blue" type="submit" [disabled]="!groupForm.valid" *ngIf="!modalService.editMode">Hinzufügen</button>
+    <button class="btn btn-blue" type="submit" [disabled]="!groupForm.valid" *ngIf="modalService.editMode">Speichern</button>
+  </div>
+
+</form>

@@ -1,0 +1,47 @@
+@import '_variables';
+@import '_mixins';
+
+.app-form {
+  @include flex-center-column;
+  margin: 1rem 0;
+  label {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 1rem 0;
+    span {
+      margin: 0.25rem 0;
+    }
+  }
+  textarea, select, input {
+    padding: 0.5rem 0.25rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid $light;
+    color: $text;
+    transition: 0.25s;
+    &:focus {
+      border-bottom: 2px solid $btnBlue;
+    }
+  }
+  textarea {
+    resize: none;
+  }
+  option {
+    color: $dark;
+  }
+}
+.form-btns {
+  margin-top: 1rem;
+}
+.form-error {
+  width: 100%;
+}
+.form-error-message {
+  color: #c71c1c;
+  width: 100%;
+  padding: 0.25rem 0;
+  text-align: left;
+  border-radius: 0.25rem;
+}
