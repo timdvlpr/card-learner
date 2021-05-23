@@ -16,3 +16,16 @@
     background: $btnBlueHover;
   }
 }
+.btn-red {
+  background: $btnRed;
+  &:hover {
+    background: $btnRedHover;
+  }
+}
+.btn-outline-red {
+  border: 1px solid $btnRed;
+  background: transparent;
+  &:hover {
+    background: $btnRed;
+  }
+}
