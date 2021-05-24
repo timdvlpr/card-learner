@@ -15,6 +15,7 @@ import { StackFormComponent } from './components/stack/stack-form/stack-form.com
 import { GroupFormComponent } from './components/group/group-form/group-form.component';
 import { CardFormComponent } from './components/card/card-form/card-form.component';
 import { AlertComponent } from './components/alert/alert/alert.component';
+import { ConfirmationModalComponent } from './components/modal/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AlertComponent } from './components/alert/alert/alert.component';
     GroupFormComponent,
     CardFormComponent,
     AlertComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     BrowserModule,

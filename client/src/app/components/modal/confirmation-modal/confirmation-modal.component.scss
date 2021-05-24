@@ -1,0 +1,21 @@
+@import '_variables';
+@import '_modal';
+
+.confirm-bold {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  span {
+    color: $btnBlue !important;
+  }
+}
+.confirm-btns {
+  text-align: right;
+  button {
+    margin: 0 0.5rem;
+  }
+}
+.warning-text {
+  color: #e83535;
+  margin: 0.5rem 0;
+}
