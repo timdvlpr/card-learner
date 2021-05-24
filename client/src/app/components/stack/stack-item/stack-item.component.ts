@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Stack } from '../stack.model';
 import { ModalService } from '../../modal/modal.service';
-import { StackService } from '../stack.service';
 
 @Component({
   selector: 'app-stack-item',
@@ -12,16 +11,16 @@ export class StackItemComponent {
 
   @Input() stack: Stack;
 
-  constructor(private modalService: ModalService, private stackService: StackService) {
+  constructor(private modalService: ModalService) {
     this.stack = {} as Stack;
   }
 
-  editStack(type: 'stack', stack: Stack): void {
-    this.modalService.showEditModal(type, stack);
+  editStack(): void {
+    this.modalService.showEditModal('stack', this.stack);
   }
 
-  deleteStack(id: number) {
-    this.stackService.deleteStack(id);
+  deleteStack() {
+    this.modalService.showConfirmationModal('stack', this.stack);
   }
 
 }
