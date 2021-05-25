@@ -20,6 +20,7 @@
   position: relative;
   width: 20%;
   text-align: center;
+  padding: 1rem 0;
   .subnav-options {
     @include flex-center-column;
     display: none !important;
@@ -28,6 +29,7 @@
     left: -6rem;
     background: $dark;
     border-radius: 0.25rem;
+    z-index: 99;
     @include for-tablet-landscape-up {
       left: 4rem;
     }

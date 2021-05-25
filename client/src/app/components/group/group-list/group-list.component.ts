@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GroupService } from '../group.service';
 import { StackService } from '../../stack/stack.service';
 import { ModalService } from '../../modal/modal.service';
@@ -11,10 +11,6 @@ import { Group } from '../group.model';
 })
 export class GroupListComponent implements OnInit {
 
-  @Output() errorEvent = new EventEmitter<string>();
-  allStacksSelected = true;
-  selectedGroupId = -1;
-
   constructor(
     private modalService: ModalService,
     public groupService: GroupService,
@@ -23,30 +19,22 @@ export class GroupListComponent implements OnInit {
 
   selectGroup(id: number): void {
     this.stackService.getStacksInGroup(id)
-      .then(() => this.errorEvent.emit(''))
-      .catch(e => this.errorEvent.emit(e));
-    this.selectedGroupId = id;
-    this.allStacksSelected = false;
+      .then(() => this.groupService.selectedGroup = id)
+      .catch(() => this.groupService.selectedGroup = id);
   }
 
-  selectAllStacks(): void {
-    this.stackService.getAllStacks()
-      .then(() => this.errorEvent.emit(''))
-      .catch(e => this.errorEvent.emit(e));
-    this.allStacksSelected = true;
-    this.selectedGroupId = -1;
+  editGroup(group: Group): void {
+    this.modalService.showEditModal('group', group);
   }
 
-  editGroup(type: 'group', group: Group): void {
-    this.modalService.showEditModal(type, group);
+  deleteGroup(group: Group) {
+    this.modalService.showConfirmationModal('group', group);
   }
 
-  deleteGroup(id: number) {
-    this.groupService.deleteGroup(id);
-  }
-
-  ngOnInit(): void {
-    this.groupService.getGroups();
+  async ngOnInit(): Promise<void> {
+    await this.groupService.getGroups();
+    this.groupService.selectedGroup = this.groupService.groups[0].id;
+    await this.stackService.getStacksInGroup(this.groupService.selectedGroup);
   }
 
 }

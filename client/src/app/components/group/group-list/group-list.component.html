@@ -1,21 +1,17 @@
 <div class="group-list">
 
-  <div class="group-item" [class.selected]="allStacksSelected" (click)="selectAllStacks()">
-    <p>Alle</p>
-  </div>
-
   <div class="group-item"
        *ngFor="let group of groupService.groups"
-       [class.selected]="selectedGroupId === group.id"
+       [class.selected]="groupService.selectedGroup === group.id"
   >
     <p (click)="selectGroup(group.id)">{{group.name}}</p>
     <div class="group-item-subnav">
       <i class="fas fa-sort-down"></i>
       <div class="subnav-options">
-        <span (click)="editGroup('group', group)">
+        <span (click)="editGroup(group)">
           <i class="fas fa-edit" title="Bearbeiten"></i> Bearbeiten
         </span>
-        <span (click)="deleteGroup(group.id)">
+        <span (click)="deleteGroup(group)">
           <i class="fas fa-trash" title="Löschen"></i> Löschen
         </span>
       </div>
