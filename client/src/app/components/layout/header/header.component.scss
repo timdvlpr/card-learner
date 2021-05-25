@@ -11,13 +11,19 @@ header {
   align-items: center;
   justify-content: flex-start;
   font-size: 1.1rem;
-  div {
-    margin: 0 1.5rem;
+  a {
+    margin: 0 1rem;
     cursor: pointer;
-    padding: 0.25rem 0;
-    transition: 0.25s;
-    &:hover {
+    i {
+      transition: 0.25s;
+    }
+    &:hover i {
       color: $btnBlue;
     }
+  }
+  div {
+    margin: 0 1.5rem;
+    padding: 0.25rem 0;
+    transition: 0.25s;
   }
 }
