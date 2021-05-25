@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,7 +7,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class SidebarComponent {
 
-  @Output() stackError = new EventEmitter<string>();
   sidebarCollapsed = false;
 
   constructor() { }
@@ -18,10 +17,6 @@ export class SidebarComponent {
 
   showSidebar(): void {
     this.sidebarCollapsed = false;
-  }
-
-  showStackError(error: string): void {
-    this.stackError.emit(error);
   }
 
 }

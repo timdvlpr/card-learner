@@ -2,13 +2,15 @@
 
   <app-add-edit-modal></app-add-edit-modal>
 
+  <app-confirmation-modal [object]="modalService.deleteObject"></app-confirmation-modal>
+
   <aside>
-    <app-sidebar (stackError)="showStackError($event)"></app-sidebar>
+    <app-sidebar></app-sidebar>
   </aside>
 
   <div class="stack-container">
-    <div class="no-stack-message" *ngIf="errorMessage.length > 0">
-      <i class="fas fa-info-circle"></i> {{errorMessage}}
+    <div class="no-stack-message" *ngIf="stackService.stacks.length === 0">
+      <i class="fas fa-info-circle"></i> Keine Stapel vorhanden
     </div>
     <app-stack-item
       *ngFor="let stack of stackService.stacks"
