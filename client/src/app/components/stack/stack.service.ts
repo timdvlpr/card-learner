@@ -12,49 +12,40 @@ export class StackService {
 
   constructor(private http: HttpClient) { }
 
-  async getAllStacks(): Promise<void> {
-    await this.http.get(`${this.API_URL}/all`)
-      .toPromise()
-      .then((stacks: any) => this.stacks = stacks.data)
-      .catch(e => {
-        throw e.error.message;
-      });
-  }
-
   async getStacksInGroup(id: number): Promise<void> {
     await this.http.get(`${this.API_URL}/all/${id}`)
       .toPromise()
       .then((stacks: any) => this.stacks = stacks.data)
       .catch((e) => {
         this.stacks = [];
-        throw e.error.message;
+        throw e;
       });
   }
 
   async createStack(data: any): Promise<void> {
     await this.http.post(this.API_URL, data)
       .toPromise()
-      .then(() => this.getAllStacks())
+      .then(() => this.getStacksInGroup(data.inGroup))
       .catch(e => {
-        throw e.error.message
+        throw e;
       });
   }
 
   async updateStack(id: number, data: any): Promise<void> {
     await this.http.put(`${this.API_URL}/${id}`, data)
       .toPromise()
-      .then(() => this.getAllStacks())
+      .then(() => this.getStacksInGroup(data.inGroup))
       .catch(e => {
-        throw e.error.message;
+        throw e;
       });
   }
 
-  async deleteStack(id: number): Promise<void> {
+  async deleteStack(id: number, groupId: number): Promise<void> {
     await this.http.delete(`${this.API_URL}/${id}`)
       .toPromise()
-      .then(() => this.getAllStacks())
+      .then(() => this.getStacksInGroup(groupId))
       .catch(e => {
-        throw e.error.message;
+        throw e;
       });
   }
 

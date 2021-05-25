@@ -57,17 +57,19 @@ export class StackFormComponent {
     if (!this.modalService.editMode) {
       try {
         await this.stackService.createStack(data);
+        this.groupService.selectedGroup = data.inGroup;
         this.alertService.activateAlert('success', 'Stapel erfolgreich angelegt');
         this.stackForm.reset();
       } catch (e) {
-        this.alertService.activateAlert('error', e);
+        this.alertService.activateAlert('error', e.error.message);
       }
     } else {
       try {
         await this.stackService.updateStack(this.stack.id, data);
+        this.groupService.selectedGroup = data.inGroup;
         this.alertService.activateAlert('success', 'Stapel erfolgreich bearbeitet');
       } catch (e) {
-        this.alertService.activateAlert('error', e);
+        this.alertService.activateAlert('error', e.error.message);
       }
     }
   }

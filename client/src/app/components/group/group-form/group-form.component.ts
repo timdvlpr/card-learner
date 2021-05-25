@@ -45,14 +45,14 @@ export class GroupFormComponent {
         this.alertService.activateAlert('success', 'Gruppe erfolgreich angelegt');
         this.groupForm.reset();
       } catch (e) {
-        this.alertService.activateAlert('error', e);
+        this.alertService.activateAlert('error', e.error.message);
       }
     } else {
       try {
         await this.groupService.updateGroup(this.group.id, data);
         this.alertService.activateAlert('success', 'Gruppe erfolgreich bearbeitet');
       } catch (e) {
-        this.alertService.activateAlert('error', e);
+        this.alertService.activateAlert('error', e.error.message);
       }
     }
   }

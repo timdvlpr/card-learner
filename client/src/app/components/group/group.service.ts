@@ -9,6 +9,7 @@ export class GroupService {
 
   API_URL = 'http://localhost:5000/api/group'
   groups: Group[] = [];
+  selectedGroup = -1;
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +18,7 @@ export class GroupService {
       .toPromise()
       .then((groups: any) => this.groups = groups.data)
       .catch(e => {
-        throw e.error.message;
+        throw e;
       });
   }
 
@@ -26,7 +27,7 @@ export class GroupService {
       .toPromise()
       .then(() => this.getGroups())
       .catch(e => {
-        throw e.error.message;
+        throw e;
       });
   }
 
@@ -35,7 +36,7 @@ export class GroupService {
       .toPromise()
       .then(() => this.getGroups())
       .catch(e => {
-        throw e.error.message;
+        throw e;
       });
   }
 
@@ -44,7 +45,7 @@ export class GroupService {
       .toPromise()
       .then(() => this.getGroups())
       .catch(e => {
-        throw e.error.message;
+        throw e;
       });
   }
 

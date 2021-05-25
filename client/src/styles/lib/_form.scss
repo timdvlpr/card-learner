@@ -3,7 +3,6 @@
 
 .app-form {
   @include flex-center-column;
-  margin: 1rem 0;
   label {
     display: flex;
     flex-direction: column;
