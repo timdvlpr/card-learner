@@ -16,6 +16,8 @@ import { GroupFormComponent } from './components/group/group-form/group-form.com
 import { CardFormComponent } from './components/card/card-form/card-form.component';
 import { AlertComponent } from './components/alert/alert/alert.component';
 import { ConfirmationModalComponent } from './components/modal/confirmation-modal/confirmation-modal.component';
+import { CardsComponent } from './views/cards/cards.component';
+import { StackListComponent } from './components/stack/stack-list/stack-list.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { ConfirmationModalComponent } from './components/modal/confirmation-moda
     CardFormComponent,
     AlertComponent,
     ConfirmationModalComponent,
+    CardsComponent,
+    StackListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,57 @@
+@import '_variables';
+@import '_mixins';
+
+.stack-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: 0.25s;
+  &:hover {
+    background: $light;
+  }
+  p {
+    overflow: auto;
+    width: 80%;
+    padding: 1rem;
+  }
+}
+.stack-item-subnav {
+  position: relative;
+  width: 20%;
+  text-align: center;
+  padding: 1rem 0;
+  .subnav-options {
+    @include flex-center-column;
+    display: none !important;
+    position: absolute;
+    top: 0;
+    left: -6rem;
+    background: $dark;
+    border-radius: 0.25rem;
+    z-index: 99;
+    @include for-tablet-landscape-up {
+      left: 4rem;
+    }
+  }
+  span {
+    display: flex;
+    padding: 0.75rem;
+    transition: 0.25s;
+    &:hover {
+      background: $medium;
+    }
+  }
+  &:hover .fa-sort-down {
+    transition: 0.25s;
+    color: $btnBlue;
+  }
+}
+.stack-item-subnav {
+  &:hover .subnav-options {
+    display: block !important;
+  }
+}
+.selected {
+  background: $light;
+}
