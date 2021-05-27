@@ -34,7 +34,8 @@ export class GroupListComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.groupService.getGroups();
     this.groupService.selectedGroup = this.groupService.groups[0].id;
-    await this.stackService.getStacksInGroup(this.groupService.selectedGroup);
+    this.stackService.getStacksInGroup(this.groupService.selectedGroup)
+      .catch(() => this.stackService.stacksInGroup = []);
   }
 
 }

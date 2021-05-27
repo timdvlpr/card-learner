@@ -10,6 +10,9 @@
   &:hover {
     background: $light;
   }
+  &:hover .fa-sort-down {
+    display: block !important;
+  }
   p {
     overflow: auto;
     width: 80%;
@@ -30,6 +33,9 @@
     background: $dark;
     border-radius: 0.25rem;
     z-index: 99;
+    i {
+      margin-right: 0.5rem;
+    }
     @include for-tablet-landscape-up {
       left: 4rem;
     }
@@ -46,6 +52,10 @@
     transition: 0.25s;
     color: $btnBlue;
   }
+}
+.fa-sort-down {
+  display: none;
+  transform: rotate(270deg);
 }
 .group-item-subnav {
   &:hover .subnav-options {
