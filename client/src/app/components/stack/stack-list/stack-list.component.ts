@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../../modal/modal.service';
 import { StackService } from '../stack.service';
 import { CardService } from '../../card/card.service';
-import { Stack } from '../stack.model';
 
 @Component({
   selector: 'app-stack-list',
@@ -23,18 +22,12 @@ export class StackListComponent implements OnInit {
       .catch(() => this.stackService.selectedStack = id);
   }
 
-  editStack(stack: Stack) {
-    this.modalService.showEditModal('stack', stack);
-  }
-
-  deleteStack(stack: Stack) {
-    this.modalService.showConfirmationModal('stack', stack);
-  }
-
   async ngOnInit(): Promise<void> {
-    await this.stackService.getStacks();
-    this.stackService.selectedStack = this.stackService.stacks[0].id;
-    await this.cardService.getCardsInStack(this.stackService.selectedStack);
+    try {
+      await this.stackService.getStacks();
+      this.stackService.selectedStack = this.stackService.stacks[0].id;
+      await this.cardService.getCardsInStack(this.stackService.selectedStack);
+    } catch (e) { }
   }
 
 }

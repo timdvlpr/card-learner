@@ -5,17 +5,6 @@
        [class.selected]="stackService.selectedStack === stack.id"
   >
     <p (click)="selectStack(stack.id)">{{stack.name}}</p>
-    <div class="stack-item-subnav">
-      <i class="fas fa-sort-down"></i>
-      <div class="subnav-options">
-        <span (click)="editStack(stack)">
-          <i class="fas fa-edit" title="Bearbeiten"></i> Bearbeiten
-        </span>
-        <span (click)="deleteStack(stack)">
-          <i class="fas fa-trash" title="Löschen"></i> Löschen
-        </span>
-      </div>
-    </div>
   </div>
 
 </div>

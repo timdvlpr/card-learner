@@ -9,12 +9,12 @@
     <div class="modal-body">
 
       <div class="confirmation-group" *ngIf="modalService.type === 'group'">
-        <p class="confirm-bold">Möchten Sie die Gruppe <span>"{{object.name}}"</span> wirklich löschen?</p>
+        <p class="confirm-bold">Möchten Sie die Gruppe <span>"{{modalService.deleteObject.name}}"</span> wirklich löschen?</p>
         <p>Alle in dieser Gruppe enthaltenen Stapel werden ebenfalls gelöscht!</p>
         <p class="warning-text"><i class="fas fa-exclamation-triangle"></i> Diese Aktion kann nicht rückgängig gemacht werden!</p>
       </div>
       <div class="confirmation-stack" *ngIf="modalService.type === 'stack'">
-        <p class="confirm-bold">Möchten Sie den Stapel <span>"{{object.name}}"</span> wirklich löschen?</p>
+        <p class="confirm-bold">Möchten Sie den Stapel <span>"{{modalService.deleteObject.name}}"</span> wirklich löschen?</p>
         <p>Alle in diesem Stapel enthaltenen Karten werden ebenfalls gelöscht!</p>
         <p class="warning-text"><i class="fas fa-exclamation-triangle"></i> Diese Aktion kann nicht rückgängig gemacht werden!</p>
       </div>

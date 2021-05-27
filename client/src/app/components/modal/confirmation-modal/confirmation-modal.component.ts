@@ -1,8 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalService } from '../modal.service';
-import { Stack } from '../../stack/stack.model';
-import { Group } from '../../group/group.model';
-import { Card } from '../../card/card.model';
 
 @Component({
   selector: 'app-confirmation-modal',
@@ -11,11 +8,7 @@ import { Card } from '../../card/card.model';
 })
 export class ConfirmationModalComponent {
 
-  @Input() object: Stack | Group | Card;
-
-  constructor(public modalService: ModalService) {
-    this.object = {} as Stack | Group | Card;
-  }
+  constructor(public modalService: ModalService) { }
 
   confirmAction(): void {
     this.modalService.handleConfirmAction();
