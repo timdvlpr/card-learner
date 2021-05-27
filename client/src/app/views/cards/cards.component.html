@@ -1,0 +1,21 @@
+<main>
+
+  <app-confirmation-modal></app-confirmation-modal>
+
+  <app-add-edit-modal></app-add-edit-modal>
+
+  <aside>
+    <app-sidebar listType="stack"></app-sidebar>
+  </aside>
+
+  <div class="cards-container">
+    <div class="no-cards-message" *ngIf="cardService.cards.length === 0">
+      <i class="fas fa-info-circle"></i> Keine Karten vorhanden
+    </div>
+    <app-card-item
+      *ngFor="let card of cardService.cards"
+      [card]="card"
+    ></app-card-item>
+  </div>
+
+</main>

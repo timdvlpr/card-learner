@@ -18,6 +18,7 @@ import { AlertComponent } from './components/alert/alert/alert.component';
 import { ConfirmationModalComponent } from './components/modal/confirmation-modal/confirmation-modal.component';
 import { CardsComponent } from './views/cards/cards.component';
 import { StackListComponent } from './components/stack/stack-list/stack-list.component';
+import { CardItemComponent } from './components/card/card-item/card-item.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { StackListComponent } from './components/stack/stack-list/stack-list.com
     ConfirmationModalComponent,
     CardsComponent,
     StackListComponent,
+    CardItemComponent,
   ],
   imports: [
     BrowserModule,

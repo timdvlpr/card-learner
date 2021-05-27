@@ -1,0 +1,38 @@
+@import '_variables';
+@import '_mixins';
+
+main {
+  height: calc(100vh - 4rem);
+  background: $light;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  @include for-tablet-landscape-up {
+    flex-direction: row;
+  }
+}
+aside {
+  width: 100%;
+  @include for-tablet-landscape-up {
+    width: 20rem;
+  }
+}
+.cards-container {
+  width: 100%;
+  padding: 0.25rem;
+  overflow: auto;
+  @include for-tablet-landscape-up {
+    padding: 2rem;
+    width: calc(100vw - 20rem);
+  }
+}
+.no-cards-message {
+  text-align: center;
+  width: 100%;
+  border: 1px solid rgba(255, 192, 0, 0.8);
+  background: rgba(232, 174, 17, 0.5);
+  padding: 1rem;
+  color: $text;
+  border-radius: 0.25rem;
+}
