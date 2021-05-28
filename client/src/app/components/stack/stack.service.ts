@@ -9,15 +9,27 @@ export class StackService {
 
   API_URL = 'http://localhost:5000/api/stack';
   stacks: Stack[] = [];
+  stacksInGroup: Stack[] = [];
+  selectedStack = -1;
 
   constructor(private http: HttpClient) { }
+
+  async getStacks(): Promise<void> {
+    await this.http.get(`${this.API_URL}/all`)
+      .toPromise()
+      .then((data: any) => this.stacks = data.data)
+      .catch((e) => {
+        this.stacks = [];
+        throw e;
+      })
+  }
 
   async getStacksInGroup(id: number): Promise<void> {
     await this.http.get(`${this.API_URL}/all/${id}`)
       .toPromise()
-      .then((stacks: any) => this.stacks = stacks.data)
+      .then((stacks: any) => this.stacksInGroup = stacks.data)
       .catch((e) => {
-        this.stacks = [];
+        this.stacksInGroup = [];
         throw e;
       });
   }

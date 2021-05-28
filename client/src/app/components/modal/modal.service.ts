@@ -45,7 +45,11 @@ export class ModalService {
     this.editMode = true;
     this.type = type;
     this.editObject = object;
-    this.location.go(`/edit/${type}/${object.slug}`);
+    if (type === 'card') {
+      this.location.go(`/edit/${type}`);
+    } else {
+      this.location.go(`/edit/${type}/${object.slug}`);
+    }
     this.addEditModal = true;
   }
 
@@ -78,7 +82,13 @@ export class ModalService {
         }
         break;
       case 'card':
-        await this.cardService.deleteCard(this.deleteObject.id);
+        if ("inStack" in this.deleteObject) {
+          try {
+            await this.cardService.deleteCard(this.deleteObject.id, this.deleteObject.inStack);
+          } catch (e) {
+            this.cardService.cards = [];
+          }
+        }
         break;
     }
     this.confirmationModal = false;
