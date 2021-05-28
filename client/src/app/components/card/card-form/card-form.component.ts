@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../../modal/modal.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Card } from '../card.model';
@@ -11,7 +11,7 @@ import { CardService } from '../card.service';
   templateUrl: './card-form.component.html',
   styleUrls: ['./card-form.component.scss']
 })
-export class CardFormComponent{
+export class CardFormComponent implements OnInit {
 
   cardForm: FormGroup;
   card: Card;
@@ -55,18 +55,23 @@ export class CardFormComponent{
       try {
         await this.cardService.createCard(data);
         this.alertService.activateAlert('success', 'Karte erfolgreich angelegt');
-        this.cardForm.reset();
+        this.cardForm.reset({question: '', answer: '', inStack: data.inStack});
       } catch (e) {
         this.alertService.activateAlert('error', e.error.message);
       }
     } else {
       try {
         await this.cardService.updateCard(this.card.id, data);
+        this.stackService.selectedStack = data.inStack;
         this.alertService.activateAlert('success', 'Karte erfolgreich bearbeitet');
       } catch (e) {
         this.alertService.activateAlert('error', e.error.message);
       }
     }
+  }
+
+  ngOnInit() {
+    this.stackService.getStacks()
   }
 
 }
