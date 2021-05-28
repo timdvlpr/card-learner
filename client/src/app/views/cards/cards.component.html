@@ -9,7 +9,7 @@
   </aside>
 
   <div class="cards-container">
-    <div class="no-cards-message" *ngIf="cardService.cards.length === 0">
+    <div class="no-cards-message fade-in-anim" *ngIf="cardService.cards.length === 0">
       <i class="fas fa-info-circle"></i> Keine Karten vorhanden
     </div>
     <app-card-item
