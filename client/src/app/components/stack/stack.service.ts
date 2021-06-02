@@ -8,11 +8,22 @@ import { Stack } from './stack.model';
 export class StackService {
 
   API_URL = 'http://localhost:5000/api/stack';
+  stack: Stack = {} as Stack;
   stacks: Stack[] = [];
   stacksInGroup: Stack[] = [];
   selectedStack = -1;
 
   constructor(private http: HttpClient) { }
+
+  async getStack(slug: string): Promise<void> {
+    await this.http.get(`${this.API_URL}/${slug}`)
+      .toPromise()
+      .then((data: any) => this.stack = data.stack)
+      .catch((e) => {
+        this.stack = {} as Stack;
+        throw e;
+      })
+  }
 
   async getStacks(): Promise<void> {
     await this.http.get(`${this.API_URL}/all`)

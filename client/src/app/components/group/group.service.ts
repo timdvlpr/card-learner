@@ -7,17 +7,29 @@ import { HttpClient } from "@angular/common/http";
 })
 export class GroupService {
 
-  API_URL = 'http://localhost:5000/api/group'
+  API_URL = 'http://localhost:5000/api/group';
+  group: Group = {} as Group;
   groups: Group[] = [];
   selectedGroup = -1;
 
   constructor(private http: HttpClient) { }
+
+  async getGroup(slug: string): Promise<void> {
+    await this.http.get(`${this.API_URL}/${slug}`)
+      .toPromise()
+      .then((data: any) => this.group = data.group)
+      .catch(e => {
+        this.group = {} as Group;
+        throw e;
+      })
+  }
 
   async getGroups(): Promise<void> {
     await this.http.get(`${this.API_URL}/all`)
       .toPromise()
       .then((groups: any) => this.groups = groups.data)
       .catch(e => {
+        this.groups = [];
         throw e;
       });
   }
