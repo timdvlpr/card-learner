@@ -29,15 +29,15 @@ exports.getAllGroups = async function(req: express.Request, res: express.Respons
 
 /**
  * @desc        Get single group
- * @route       GET /api/group/:id
+ * @route       GET /api/group/:slug
  * @access      Public
  */
 exports.getGroup = async function (req: express.Request, res: express.Response, next) {
-    const groupID = req.params.id;
-    const query = 'SELECT * FROM groups WHERE id = ?;';
+    const slug = req.params.slug;
+    const query = 'SELECT * FROM groups WHERE slug = ?;';
 
     try {
-        const dbdata = await dbquery(query, [groupID]);
+        const dbdata = await dbquery(query, [slug]);
         if (dbdata.length !== 1) {
             return next(new ErrorResponse(404, 'Gruppe nicht gefunden'));
         }

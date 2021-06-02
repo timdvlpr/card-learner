@@ -6,7 +6,7 @@ const router = express();
 
 router.get('/all', groupController.getAllGroups);
 
-router.get('/:id', groupController.getGroup);
+router.get('/:slug', groupController.getGroup);
 
 router.post('/', validateGroup, groupController.createGroup);
 

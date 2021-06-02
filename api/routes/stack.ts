@@ -8,7 +8,7 @@ router.get('/all', stackController.getAllStacks);
 
 router.get('/all/:groupID', stackController.getAllStacksInGroup);
 
-router.get('/:id', stackController.getStack);
+router.get('/:slug', stackController.getStack);
 
 router.post('/', validateStack, stackController.createStack);
 

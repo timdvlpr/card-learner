@@ -51,15 +51,15 @@ exports.getAllStacksInGroup = async function(req: express.Request, res: express.
 
 /**
  * @desc        Get single stack
- * @route       GET /api/stack
+ * @route       GET /api/stack/:slug
  * @access      Public
  */
 exports.getStack = async function(req: express.Request, res: express.Response, next) {
-    const stackID = req.params.id;
-    const query = 'SELECT * FROM stacks WHERE id = ?;';
+    const slug = req.params.slug;
+    const query = 'SELECT * FROM stacks WHERE slug = ?;';
 
     try {
-        const dbdata = await dbquery(query, [stackID]);
+        const dbdata = await dbquery(query, [slug]);
         if (dbdata.length !== 1) {
             return next(new ErrorResponse(404, 'Stapel nicht gefunden'));
         }
