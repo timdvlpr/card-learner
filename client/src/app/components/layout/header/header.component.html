@@ -1,12 +1,12 @@
 <header>
-  <div class="header-text">
+  <nav>
     <a routerLink="/">
-      <i class="fas fa-vr-cardboard"></i>
-      CardLearner
+      <i class="fas fa-home" [class.active]="activeRoute === '/'"></i>
+      Home
     </a>
     <a routerLink="/cards">
-      <i class="fab fa-leanpub"></i>
+      <i class="fab fa-leanpub" [class.active]="activeRoute === '/cards'"></i>
       Kartenverwaltung
     </a>
-  </div>
+  </nav>
 </header>
