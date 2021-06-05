@@ -68,9 +68,13 @@ export class ModalService {
   async handleConfirmAction(): Promise<void> {
     switch (this.type) {
       case 'group':
-        await this.groupService.deleteGroup(this.deleteObject.id);
-        await this.stackService.getStacksInGroup(this.groupService.groups[0].id);
-        this.groupService.selectedGroup = this.groupService.groups[0].id;
+        try {
+          await this.groupService.deleteGroup(this.deleteObject.id);
+          await this.stackService.getStacksInGroup(this.groupService.groups[0].id);
+          this.groupService.selectedGroup = this.groupService.groups[0].id;
+        } catch (e) {
+          this.stackService.stacks = [];
+        }
         break;
       case 'stack':
         if ("inGroup" in this.deleteObject) {
