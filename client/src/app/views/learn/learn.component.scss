@@ -1,0 +1,44 @@
+@import '_variables';
+@import '_mixins';
+
+main {
+  height: calc(100vh - 4rem);
+  background: $light;
+  width: 100%;
+  @include flex-center;
+}
+.learn-container {
+  width: 95vw;
+  @include for-tablet-landscape-up {
+    width: 60vw;
+  }
+  @include for-desktop-up {
+    width: 50vw;
+  }
+  @include for-big-desktop-up {
+    width: 45vw;
+  }
+}
+.learn-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 2rem 0;
+  color: $text;
+  i {
+    cursor: pointer;
+    transition: 0.25s;
+    &:hover {
+      color: $btnBlue;
+    }
+  }
+}
+.no-cards-message {
+  text-align: center;
+  width: 100%;
+  border: 1px solid rgba(255, 192, 0, 0.8);
+  background: rgba(232, 174, 17, 0.5);
+  padding: 1rem;
+  color: $text;
+  border-radius: 0.25rem;
+}

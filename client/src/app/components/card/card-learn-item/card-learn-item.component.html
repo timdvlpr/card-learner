@@ -1,0 +1,12 @@
+<div class="card-learn-item" (click)="flipCard()" [@openClose]="showAnswer ? 'open' : 'closed'">
+  <div class="card-side-indicator">
+    <p *ngIf="!showAnswer">
+      <i class="far fa-question-circle"></i> Frage
+    </p>
+    <p *ngIf="showAnswer">
+      <i class="fas fa-exclamation-circle"></i> Anwort
+    </p>
+  </div>
+  <p *ngIf="!showAnswer">{{question}}</p>
+  <p *ngIf="showAnswer">{{answer}}</p>
+</div>

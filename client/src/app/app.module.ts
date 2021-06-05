@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,6 +20,8 @@ import { ConfirmationModalComponent } from './components/modal/confirmation-moda
 import { CardsComponent } from './views/cards/cards.component';
 import { StackListComponent } from './components/stack/stack-list/stack-list.component';
 import { CardItemComponent } from './components/card/card-item/card-item.component';
+import { LearnComponent } from './views/learn/learn.component';
+import { CardLearnItemComponent } from './components/card/card-learn-item/card-learn-item.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +40,16 @@ import { CardItemComponent } from './components/card/card-item/card-item.compone
     CardsComponent,
     StackListComponent,
     CardItemComponent,
+    LearnComponent,
+    CardLearnItemComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

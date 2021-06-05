@@ -1,0 +1,32 @@
+@import '_variables';
+@import '_mixins';
+
+.card-learn-item {
+  @include flex-center;
+  position: relative;
+  color: $text;
+  width: 100%;
+  height: 25rem;
+  background: $medium;
+  border-radius: 0.25rem;
+  box-shadow: 5px 5px 5px $dark;
+  padding: 2rem;
+  font-size: 1.5rem;
+  overflow-y: auto;
+  p {
+    text-align: center;
+  }
+}
+.card-side-indicator {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 1rem;
+  color: $btnBlue;
+  p {
+    @include flex-center;
+    i {
+      margin-right: 0.25rem;
+    }
+  }
+}

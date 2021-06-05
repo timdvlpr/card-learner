@@ -1,0 +1,25 @@
+<main>
+  <div class="learn-container fade-in-anim">
+
+    <div class="no-cards-message" *ngIf="cards.length === 0">
+      <i class="fas fa-info-circle"></i> Keine Karten in diesem Stapel vorhanden
+    </div>
+
+    <section class="learn-content" *ngIf="cards.length > 0">
+      <app-card-learn-item
+        (toggleCardEvent)="toggleCard($event)"
+        [showAnswer]="showAnswer"
+        [question]="cards[currentCardIndex].question"
+        [answer]="cards[currentCardIndex].answer">
+      </app-card-learn-item>
+
+      <div class="learn-toolbar">
+        <i class="fas fa-chevron-left" (click)="showPreviousCard()"></i>
+        <p>{{currentCardIndex + 1}}/{{cards.length}}</p>
+        <i class="fas fa-chevron-right" (click)="showNextCard()"></i>
+      </div>
+    </section>
+
+
+  </div>
+</main>
