@@ -1,6 +1,14 @@
 @import '_variables';
 @import '_mixins';
+@import '_btns';
 
+.group-list {
+  text-align: center;
+  button {
+    width: 90%;
+    margin-top: 1rem;
+  }
+}
 .group-item {
   display: flex;
   align-items: center;

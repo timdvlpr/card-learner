@@ -23,6 +23,10 @@ export class GroupListComponent implements OnInit {
       .catch(() => this.groupService.selectedGroup = id);
   }
 
+  addGroup(): void {
+    this.modalService.showAddModal('group');
+  }
+
   editGroup(group: Group): void {
     this.modalService.showEditModal('group', group);
   }
@@ -32,8 +36,12 @@ export class GroupListComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.groupService.getGroups();
-    this.groupService.selectedGroup = this.groupService.groups[0].id;
+    try {
+      await this.groupService.getGroups();
+      this.groupService.selectedGroup = this.groupService.groups[0].id;
+    } catch (e) {
+      this.groupService.groups = [];
+    }
     this.stackService.getStacksInGroup(this.groupService.selectedGroup)
       .catch(() => this.stackService.stacksInGroup = []);
   }
