@@ -25,7 +25,7 @@ export class LearnComponent implements OnDestroy {
       this.id = params['id'];
       this.cardService.getCardsInStack(Number(this.id))
         .then(() => {
-          this.cards = this.cardService.cards;
+          this.cards = this.shuffleCards(this.cardService.cards);
         })
         .catch(() => this.cards = []);
     });
@@ -47,6 +47,17 @@ export class LearnComponent implements OnDestroy {
 
   toggleCard(showAnswer: boolean): void {
     this.showAnswer = showAnswer;
+  }
+
+  shuffleCards(cards: Card[]): Card[] {
+    const shuffledCards = cards;
+    for (let i = shuffledCards.length - 1; i > 0; i--) {
+      const newIndex = Math.floor(Math.random() * (i + 1));
+      const oldValue = shuffledCards[newIndex];
+      shuffledCards[newIndex] = shuffledCards[i];
+      shuffledCards[i] = oldValue;
+    }
+    return shuffledCards;
   }
 
   resetCardState(): void {
