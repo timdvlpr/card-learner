@@ -36,9 +36,13 @@ main {
 .no-cards-message {
   text-align: center;
   width: 100%;
-  border: 1px solid rgba(255, 192, 0, 0.8);
-  background: rgba(232, 174, 17, 0.5);
   padding: 1rem;
   color: $text;
-  border-radius: 0.25rem;
+  a {
+    color: $btnBlue;
+  }
+}
+.disabled {
+  opacity: 25%;
+  pointer-events: none;
 }
