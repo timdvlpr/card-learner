@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalService } from '../../modal/modal.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Card } from '../card.model';
 import { StackService } from '../../stack/stack.service';
 import { AlertService } from '../../alert/alert.service';
 import { CardService } from '../card.service';
+import { Stack } from '../../stack/stack.model';
 
 @Component({
   selector: 'app-card-form',
   templateUrl: './card-form.component.html',
   styleUrls: ['./card-form.component.scss']
 })
-export class CardFormComponent implements OnInit {
+export class CardFormComponent {
 
   cardForm: FormGroup;
   card: Card;
+  stackOptions: Stack[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -37,6 +39,9 @@ export class CardFormComponent implements OnInit {
         inStack: new FormControl(null, [Validators.required])
       });
     }
+    this.stackService.getStacks()
+      .then(() => this.stackOptions = this.stackService.stacks)
+      .catch(() => this.stackOptions = []);
   }
 
   get question() { return this.cardForm.controls.question; }
@@ -68,10 +73,6 @@ export class CardFormComponent implements OnInit {
         this.alertService.activateAlert('error', e.error.message);
       }
     }
-  }
-
-  ngOnInit() {
-    this.stackService.getStacks()
   }
 
 }

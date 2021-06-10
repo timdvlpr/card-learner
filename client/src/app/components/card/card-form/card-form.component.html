@@ -3,7 +3,7 @@
   <label>
     <span>Stapel:</span>
     <select formControlName="inStack">
-      <option *ngFor="let stack of stackService.stacks" [value]="stack.id">{{stack.name}}</option>
+      <option *ngFor="let stack of stackOptions" [value]="stack.id">{{stack.name}}</option>
     </select>
   </label>
 
