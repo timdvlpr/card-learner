@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CardService } from '../../components/card/card.service';
 import { Card } from '../../components/card/card.model';
 import { Subscription } from 'rxjs';
@@ -19,6 +19,7 @@ export class LearnComponent implements OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     public cardService: CardService
   ) {
     this.subRoute = this.route.params.subscribe(params => {
@@ -35,7 +36,9 @@ export class LearnComponent implements OnDestroy {
     if (this.currentCardIndex + 1 < this.cards.length) {
       this.currentCardIndex++;
       this.resetCardState();
+      return;
     }
+    this.router.navigate(['/']);
   }
 
   showPreviousCard(): void {
