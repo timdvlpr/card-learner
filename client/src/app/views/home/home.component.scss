@@ -40,7 +40,7 @@ aside {
   bottom: 0;
   right: 0;
   margin: 2rem;
-  padding: 1.75rem;
+  padding: 1.5rem;
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -53,6 +53,9 @@ aside {
   &:hover {
     background: $btnBlueHover;
     transform: scale(1.05);
+  }
+  @include for-tablet-portrait-up {
+    padding: 1.75rem;
   }
 }
 .no-stack-message {
