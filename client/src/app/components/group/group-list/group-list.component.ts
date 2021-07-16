@@ -31,7 +31,7 @@ export class GroupListComponent implements OnInit {
     this.modalService.showEditModal('group', group);
   }
 
-  deleteGroup(group: Group) {
+  deleteGroup(group: Group): void {
     this.modalService.showConfirmationModal('group', group);
   }
 
