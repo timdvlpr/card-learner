@@ -18,20 +18,20 @@
   &:hover {
     background: $light;
   }
-  &:hover .fa-sort-down {
+  &:hover .fa-sort-down, &:hover .group-item-subnav {
     display: block !important;
   }
   p {
     overflow: auto;
-    width: 80%;
+    width: 100%;
     padding: 1rem;
   }
 }
 .group-item-subnav {
+  display: none;
   position: relative;
-  width: 20%;
   text-align: center;
-  padding: 1rem 0;
+  padding: 1rem;
   .subnav-options {
     @include flex-center-column;
     display: none !important;
@@ -45,7 +45,7 @@
       margin-right: 0.5rem;
     }
     @include for-tablet-landscape-up {
-      left: 4rem;
+      left: 2.7rem;
     }
   }
   span {

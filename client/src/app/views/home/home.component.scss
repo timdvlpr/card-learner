@@ -48,14 +48,14 @@ aside {
   color: $text;
   transition: 0.25s;
   i {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
   }
   &:hover {
     background: $btnBlueHover;
     transform: scale(1.05);
   }
   @include for-tablet-portrait-up {
-    padding: 1.75rem;
+    padding: 1.5rem;
   }
 }
 .no-stack-message {

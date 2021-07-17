@@ -1,6 +1,9 @@
 @import '_variables';
 @import '_mixins';
 
+.stack-list {
+  text-align: center;
+}
 .stack-item {
   display: flex;
   align-items: center;
@@ -12,7 +15,7 @@
   }
   p {
     overflow: auto;
-    width: 80%;
+    width: 100%;
     padding: 1rem;
   }
 }

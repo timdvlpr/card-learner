@@ -2,6 +2,7 @@
 @import '_mixins';
 
 section {
+  position: relative;
   background: $medium;
   width: 100%;
   height: auto;
@@ -15,11 +16,11 @@ section {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: $btnBlue;
   padding: 1rem;
   width: 100%;
   font-size: 1rem;
   text-align: right;
-  border-bottom: 2px solid $light;
   i {
     cursor: pointer;
   }
@@ -28,11 +29,25 @@ section {
   i {
     transition: 0.25s;
     &:hover {
-      color: $btnBlue;
+      color: $medium;
     }
   }
 }
 .collapsed {
   width: 100%;
 }
-
+.info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 2px solid $light;
+  font-size: 0.9rem;
+  padding: 0.75rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  i {
+    margin-right: 0.5rem;
+  }
+}
