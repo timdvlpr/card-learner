@@ -5,22 +5,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 11rem;
-  height: 11rem;
+  justify-content: space-between;
+  height: 15rem;
+  width: 15rem;
   color: $text;
-  background: radial-gradient($light, $medium 95%);
+  background: $medium;
   border-radius: 0.25rem;
   margin: 1rem;
   padding: 1rem;
   box-shadow: 5px 5px 5px $dark;
   transition: 0.25s;
-  @include for-tablet-landscape-up {
-    width: 15rem;
-    height: 15rem;
-  }
   button {
-    display: none;
+    display: block;
     cursor: pointer;
     width: 100%;
     padding: 0.5rem 0;
@@ -36,7 +32,6 @@
     }
   }
   &:hover {
-    justify-content: space-between;
     transform: scale(1.05);
     box-shadow: 8px 8px 5px $dark;
   }
@@ -46,7 +41,7 @@
   }
 }
 .stack-item-actions {
-  display: none;
+  display: block;
   align-self: flex-end;
   i {
     margin: 0 0.25rem;
