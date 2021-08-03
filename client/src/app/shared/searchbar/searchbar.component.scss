@@ -1,0 +1,21 @@
+@import '_variables';
+
+.searchbar {
+  position: relative;
+  i {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+  }
+  input {
+    width: 100%;
+    padding: 1rem 2.5rem;
+    text-align: center;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid $light;
+    background: $medium !important;
+    color: white;
+  }
+}
+

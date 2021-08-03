@@ -22,6 +22,7 @@ import { StackListComponent } from './components/stack/stack-list/stack-list.com
 import { CardItemComponent } from './components/card/card-item/card-item.component';
 import { LearnComponent } from './views/learn/learn.component';
 import { CardLearnItemComponent } from './components/card/card-learn-item/card-learn-item.component';
+import { SearchbarComponent } from './shared/searchbar/searchbar.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { CardLearnItemComponent } from './components/card/card-learn-item/card-l
     CardItemComponent,
     LearnComponent,
     CardLearnItemComponent,
+    SearchbarComponent,
   ],
   imports: [
     BrowserModule,
