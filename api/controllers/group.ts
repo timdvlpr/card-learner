@@ -62,10 +62,12 @@ exports.createGroup = async function (req: express.Request, res: express.Respons
     const query = 'INSERT INTO groups (name, slug) VALUES (?, ?);';
 
     try {
-        await dbquery(query, [name, slug]);
+        const dbdata = await dbquery(query, [name, slug]);
+        const group = new Group(dbdata.insertId, name, slug);
         res.status(201).json({
             success: true,
-            msg: 'Gruppe erfolgreich erstellt'
+            msg: 'Gruppe erfolgreich erstellt',
+            group
         });
     } catch (e) {
         return next(new ErrorResponse(500, e.message));
@@ -88,9 +90,11 @@ exports.updateGroup = async function (req: express.Request, res: express.Respons
         if (dbdata.affectedRows !== 1) {
             return next(new ErrorResponse(404, 'Gruppe nicht gefunden'));
         }
+        const group = new Group(Number(groupID), name, slug);
         res.status(200).json({
             success: true,
-            message: 'Gruppe erfolgreich bearbeitet'
+            message: 'Gruppe erfolgreich bearbeitet',
+            group
         });
     } catch (e) {
         next(new ErrorResponse(500, e.message));

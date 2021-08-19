@@ -63,10 +63,12 @@ exports.createCard = async function(req: express.Request, res: express.Response,
     const query = 'INSERT INTO cards (question, answer, inStack) VALUES (?, ?, ?);';
 
     try {
-        await dbquery(query, [question, answer, inStack]);
+        const dbdata = await dbquery(query, [question, answer, inStack]);
+        const card = new Card(dbdata.insertId, question, answer, inStack);
         res.status(201).json({
             success: true,
-            msg: 'Karte erfolgreich erstellt'
+            msg: 'Karte erfolgreich erstellt',
+            card
         });
     } catch (e) {
         return next(new ErrorResponse(500, e.message));
@@ -90,9 +92,11 @@ exports.updateCard = async function(req: express.Request, res: express.Response,
         if (dbdata.affectedRows !== 1) {
             return next(new ErrorResponse(404, 'Karte nicht gefunden'));
         }
+        const card = new Card(Number(cardID), question, answer, inStack);
         res.status(200).json({
             success: true,
-            message: 'Karte erfolgreich bearbeitet'
+            message: 'Karte erfolgreich bearbeitet',
+            card
         });
     } catch (e) {
         next(new ErrorResponse(500, e.message));

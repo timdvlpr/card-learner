@@ -85,10 +85,12 @@ exports.createStack = async function(req: express.Request, res: express.Response
     const query = 'INSERT INTO stacks (name, slug, inGroup) VALUES (?, ?, ?);';
 
     try {
-        await dbquery(query, [name, slug, inGroup]);
+        const dbdata = await dbquery(query, [name, slug, inGroup]);
+        const stack = new Stack(dbdata.insertId, name, slug, inGroup);
         res.status(201).json({
             success: true,
-            msg: 'Stapel erfolgreich erstellt'
+            msg: 'Stapel erfolgreich erstellt',
+            stack
         });
     } catch (e) {
         return next(new ErrorResponse(500, e.message));
@@ -112,9 +114,11 @@ exports.updateStack = async function(req: express.Request, res: express.Response
         if (dbdata.affectedRows !== 1) {
             return next(new ErrorResponse(404, 'Stapel nicht gefunden'));
         }
+        const stack = new Stack(Number(stackID), name, slug, inGroup);
         res.status(200).json({
             success: true,
-            message: 'Stapel erfolgreich bearbeitet'
+            message: 'Stapel erfolgreich bearbeitet',
+            stack
         });
     } catch (e) {
         next(new ErrorResponse(500, e.message));
