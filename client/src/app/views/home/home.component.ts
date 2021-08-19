@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GroupService } from '../../components/group/group.service';
 import { CardService } from '../../components/card/card.service';
 import { Subscription } from 'rxjs';
+import { Stack } from '../../components/stack/stack.model';
 
 @Component({
   selector: 'app-home',
@@ -14,12 +15,14 @@ import { Subscription } from 'rxjs';
 export class HomeComponent implements OnDestroy {
 
   private subRoute: Subscription;
+  private subStacks: Subscription;
+  stacks: Stack[] = [];
 
   constructor(
-    public stackService: StackService,
+    private stackService: StackService,
     private groupService: GroupService,
     private cardService: CardService,
-    public modalService: ModalService,
+    private modalService: ModalService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -31,6 +34,8 @@ export class HomeComponent implements OnDestroy {
         this.checkEditRoute(params['editType'], params['slug']);
       }
     });
+    this.subStacks = this.stackService.findAll()
+      .subscribe(stacks => this.stacks = stacks);
   }
 
   checkAddRoute(type: string): void {
@@ -54,11 +59,13 @@ export class HomeComponent implements OnDestroy {
       switch (type) {
         case 'stack':
           this.stackService.getStack(slug)
-            .then(() => this.modalService.showEditModal('stack', this.stackService.stack));
+            .then(stack => this.modalService.showEditModal('stack', stack))
+            .catch(() => this.router.navigate(['home']))
           break;
         case 'group':
           this.groupService.getGroup(slug)
-            .then(() => this.modalService.showEditModal('group', this.groupService.group));
+            .then(group => this.modalService.showEditModal('group', group))
+            .catch(() => this.router.navigate(['home']))
           break;
         default:
           this.router.navigate(['home']);
@@ -66,8 +73,13 @@ export class HomeComponent implements OnDestroy {
       }
   }
 
+  showAddModal(): void {
+    this.modalService.showAddModal('stack');
+  }
+
   ngOnDestroy() {
     this.subRoute.unsubscribe();
+    this.subStacks.unsubscribe();
   }
 
 }

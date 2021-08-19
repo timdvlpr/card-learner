@@ -1,9 +1,15 @@
 <div class="group-list">
 
-  <button *ngIf="groupService.groups.length === 0" class="btn btn-blue" (click)="addGroup()">Gruppe hinzufügen</button>
+  <p class="msg" *ngIf="groups.length === 0 && !loading">Keine Gruppen vorhanden!</p>
+
+  <app-searchbar
+    (searchUpdate)="filterGroups($event)"
+    [searchArray]="groups"></app-searchbar>
+
+  <p class="msg" *ngIf="filteredGroups.length === 0">Kein Suchergebnis!</p>
 
   <div class="group-item"
-       *ngFor="let group of groupService.groups"
+       *ngFor="let group of filteredGroups"
        [class.selected]="groupService.selectedGroup === group.id"
   >
     <p (click)="selectGroup(group.id)">{{group.name}}</p>

@@ -1,8 +1,14 @@
 <div class="stack-list">
 
+  <p class="msg" *ngIf="stacks.length === 0 && !loading">Keine Stapel vorhanden!</p>
+
+  <app-searchbar (searchUpdate)="filterStacks($event)" [searchArray]="stacks"></app-searchbar>
+
+  <p class="msg" *ngIf="filteredStacks.length === 0">Kein Suchergebnis!</p>
+
   <div class="stack-item"
-       *ngFor="let stack of stackService.stacks"
-       [class.selected]="stackService.selectedStack === stack.id"
+       *ngFor="let stack of filteredStacks"
+       [class.selected]="selectedStack === stack.id"
   >
     <p (click)="selectStack(stack.id)">{{stack.name}}</p>
   </div>
