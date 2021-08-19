@@ -70,27 +70,28 @@ export class ModalService {
       case 'group':
         try {
           await this.groupService.deleteGroup(this.deleteObject.id);
-          await this.stackService.getStacksInGroup(this.groupService.groups[0].id);
-          this.groupService.selectedGroup = this.groupService.groups[0].id;
+          await this.groupService.getGroups();
         } catch (e) {
-          this.stackService.stacks = [];
+          this.groupService.updateGroups([]);
         }
         break;
       case 'stack':
         if ("inGroup" in this.deleteObject) {
           try {
-            await this.stackService.deleteStack(this.deleteObject.id, this.deleteObject.inGroup);
+            await this.stackService.deleteStack(this.deleteObject.id);
+            await this.stackService.getStacksInGroup(this.deleteObject.inGroup)
           } catch (e) {
-            this.stackService.stacks = [];
+            this.stackService.updateStacks([]);
           }
         }
         break;
       case 'card':
         if ("inStack" in this.deleteObject) {
           try {
-            await this.cardService.deleteCard(this.deleteObject.id, this.deleteObject.inStack);
+            await this.cardService.deleteCard(this.deleteObject.id);
+            await this.cardService.getCardsInStack(this.deleteObject.inStack);
           } catch (e) {
-            this.cardService.cards = [];
+            this.cardService.updateCards([]);
           }
         }
         break;
