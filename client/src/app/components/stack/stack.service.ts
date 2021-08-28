@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Stack } from './stack.model';
-import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,60 +8,36 @@ import { Observable, Subject } from 'rxjs';
 export class StackService {
 
   API_URL = 'http://localhost:5000/api/stack';
-  stacks: Stack[] = [];
-  stacksSubject = new Subject<Stack[]>();
-  stacksObservable = this.stacksSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
   getStack(slug: string): Promise<Stack> {
     return this.http.get(`${this.API_URL}/${slug}`)
       .toPromise()
-      .then((data: any) => new Stack(data.stack.id, data.stack.name, data.stack.slug, data.stack.inGroup));
+      .then((data: any) => data.stack);
   }
 
-  getStacks(): Promise<void> {
+  getStacks(): Promise<Stack[]> {
     return this.http.get(`${this.API_URL}/all`)
       .toPromise()
-      .then((data: any) => this.stacks = data.data);
+      .then((data: any) => data.stacks);
   }
 
-  getStacksInGroup(id: number): Promise<void> {
-    return this.http.get(`${this.API_URL}/all/${id}`)
+  createStack(stack: Stack): Promise<Stack> {
+    return this.http.post(this.API_URL, stack)
       .toPromise()
-      .then((stacks: any) => {
-        this.stacks = stacks.data;
-        this.updateStacks(stacks.data);
-      })
-      .catch((e) => {
-        this.updateStacks([]);
-        throw e;
-      });
+      .then((data: any) => data.stack);
   }
 
-  createStack(data: any): Promise<void> {
-    return this.http.post(this.API_URL, data)
-      .toPromise()
-      .then(() => this.getStacksInGroup(data.inGroup));
-  }
-
-  updateStack(id: number, data: any): Promise<void> {
+  updateStack(id: number, data: any): Promise<Stack> {
     return this.http.put(`${this.API_URL}/${id}`, data)
       .toPromise()
-      .then(() => this.getStacksInGroup(data.inGroup));
+      .then((data: any) => data.stack);
   }
 
-  deleteStack(id: number): Promise<Object> {
+  deleteStack(id: number): Promise<any> {
     return this.http.delete(`${this.API_URL}/${id}`)
       .toPromise();
-  }
-
-  updateStacks(stacks: Stack[]): void {
-    this.stacksSubject.next(stacks);
-  }
-
-  findAll(): Observable<Stack[]> {
-    return this.stacksObservable;
   }
 
 }

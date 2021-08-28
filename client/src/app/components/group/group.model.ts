@@ -1,11 +1,11 @@
 export class Group {
-  id: number;
+  id?: number;
+  slug?: string;
   name: string;
-  slug: string;
 
-  constructor(id: number, name: string, slug: string) {
-    this.id = id;
+  constructor(name: string, id?: number, slug?: string) {
     this.name = name;
+    this.id = id;
     this.slug = slug;
   }
 }
