@@ -1,0 +1,11 @@
+<ngx-smart-modal identifier="edit-data-modal" (onOpen)="getData()" [customClass]="'modal nsm-dialog-animation-ttb'">
+
+  <app-alert [type]="alert.type" [message]="alert.message" *ngFor="let alert of alertService.activeAlerts"></app-alert>
+
+  <app-group-form [group]="editGroup" type="edit" *ngIf="editType === 'group'"></app-group-form>
+
+  <app-stack-form [stack]="editStack" type="edit" *ngIf="editType === 'stack'"></app-stack-form>
+
+  <app-card-form [card]="editCard" type="edit" *ngIf="editType === 'card'"></app-card-form>
+
+</ngx-smart-modal>

@@ -1,46 +1,14 @@
 @import '_variables';
-@import '_mixins';
 @import '_btns';
 
-.modal-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #00000090;
-  color: $text;
-  @include flex-center;
-  z-index: 99;
-}
+$dialog-position-top: 20%;
+@import '~ngx-smart-modal/ngx-smart-modal';
 .modal {
-  background: $medium;
-  border-radius: 0.25rem;
-  min-width: 20rem;
-  @include for-tablet-portrait-up {
-    min-width: 25rem;
+  .nsm-content {
+    background-color: $medium !important;
+    color: white !important;
   }
-}
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: $dark;
-  padding: 1rem;
-  border-bottom: 1px solid $light;
-  border-top-right-radius: 0.25rem;
-  border-top-left-radius: 0.25rem;
-  i {
-    cursor: pointer;
-    color: $btnRed;
-    font-size: 1.1rem;
+  .nsm-dialog-btn-close {
+    color: $btnRed !important;
   }
-}
-.modal-body {
-  padding: 1rem;
-  border-bottom-right-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-}
-.modal-footer {
-  padding: 0 1rem 1rem 1rem;
 }

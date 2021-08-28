@@ -1,6 +1,9 @@
 @import '_variables';
 @import '_modal';
 
+.confirmation {
+  margin: 1.5rem 0;
+}
 .confirm-bold {
   font-weight: bold;
   font-size: 1.1rem;
@@ -17,5 +20,5 @@
 }
 .warning-text {
   color: #e83535;
-  margin: 0.5rem 0;
+  margin: 1rem 0;
 }

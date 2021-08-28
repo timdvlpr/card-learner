@@ -1,0 +1,11 @@
+<ngx-smart-modal identifier="add-data-modal" (onOpen)="getData()" [customClass]="'modal nsm-dialog-animation-ttb'">
+
+  <app-alert [type]="alert.type" [message]="alert.message" *ngFor="let alert of alertService.activeAlerts"></app-alert>
+
+  <app-group-form type="add" *ngIf="addType === 'group'"></app-group-form>
+
+  <app-stack-form type="add" *ngIf="addType === 'stack'"></app-stack-form>
+
+  <app-card-form type="add" *ngIf="addType === 'card'"></app-card-form>
+
+</ngx-smart-modal>

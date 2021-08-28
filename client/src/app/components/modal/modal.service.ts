@@ -1,107 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
-import { Stack } from '../stack/stack.model';
-import { Group } from '../group/group.model';
-import { Card } from '../card/card.model';
 import { StackService } from '../stack/stack.service';
 import { GroupService } from '../group/group.service';
 import { CardService } from '../card/card.service';
+import { NgxSmartModalService } from "ngx-smart-modal";
+import { ModalData } from "./modal-data";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
 
-  type: 'stack' | 'group' | 'card';
-  editMode = false;
-  editObject = {} as Stack | Group | Card;
-  deleteObject = {} as Stack | Group | Card;
-  confirmationModal = false;
-  addEditModal = false;
-
   constructor(
     private location: Location,
     private stackService: StackService,
     private groupService: GroupService,
-    private cardService: CardService
-  ) {
-    this.type = 'stack';
+    private cardService: CardService,
+    private ngxSmartModalService: NgxSmartModalService
+  ) { }
+
+  openModalWithData(modalId: string, data: ModalData) {
+    this.ngxSmartModalService
+      .getModal(modalId)
+      .setData(data, true)
+      .open();
   }
 
-  setModalType(type: 'stack' | 'group' | 'card'): void {
-    this.type = type;
-    this.location.go(`/add/${type}`);
-  }
-
-  showAddModal(type: 'stack' | 'group' | 'card'): void {
-    this.editMode = false;
-    this.type = type;
-    this.editObject = {} as Stack | Group | Card;
-    this.location.go(`/add/${type}`);
-    this.addEditModal = true;
-  }
-
-  showEditModal(type: 'stack' | 'group' | 'card', object: Stack | Group | Card): void {
-    this.editMode = true;
-    this.type = type;
-    this.editObject = object;
-    if (type === 'card') {
-      this.location.go(`/edit/${type}`);
-    } else {
-      this.location.go(`/edit/${type}/${object.slug}`);
-    }
-    this.addEditModal = true;
-  }
-
-  handleClose(): void {
-    this.editObject = {} as Stack | Group | Card;
-    this.location.go('/');
-    this.addEditModal = false;
-  }
-
-  showConfirmationModal(type: 'stack' | 'group' | 'card', object: Stack | Group | Card): void {
-    this.type = type;
-    this.deleteObject = object;
-    this.confirmationModal = true;
-  }
-
-  async handleConfirmAction(): Promise<void> {
-    switch (this.type) {
-      case 'group':
-        try {
-          await this.groupService.deleteGroup(this.deleteObject.id);
-          await this.groupService.getGroups();
-        } catch (e) {
-          this.groupService.updateGroups([]);
-        }
-        break;
-      case 'stack':
-        if ("inGroup" in this.deleteObject) {
-          try {
-            await this.stackService.deleteStack(this.deleteObject.id);
-            await this.stackService.getStacksInGroup(this.deleteObject.inGroup)
-          } catch (e) {
-            this.stackService.updateStacks([]);
-          }
-        }
-        break;
-      case 'card':
-        if ("inStack" in this.deleteObject) {
-          try {
-            await this.cardService.deleteCard(this.deleteObject.id);
-            await this.cardService.getCardsInStack(this.deleteObject.inStack);
-          } catch (e) {
-            this.cardService.updateCards([]);
-          }
-        }
-        break;
-    }
-    this.confirmationModal = false;
-  }
-
-  handleCancelAction(): void {
-    this.deleteObject = {} as Stack | Group | Card;
-    this.confirmationModal = false;
+  openModal(modalId: string) {
+    this.ngxSmartModalService
+      .getModal(modalId)
+      .open();
   }
 
 }

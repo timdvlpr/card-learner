@@ -1,0 +1,29 @@
+<ngx-smart-modal identifier="delete-data-modal" (onOpen)="getData()" [customClass]="'modal nsm-dialog-animation-ttb'">
+  <div class="confirmation" *ngIf="modalData.type === 'group'">
+    <p class="confirm-bold">Möchten Sie die Gruppe <span>"{{modalData.data!.name}}"</span> wirklich löschen?</p>
+    <p>Alle in dieser Gruppe enthaltenen Stapel werden ebenfalls gelöscht!</p>
+    <p class="warning-text">
+      <i class="fas fa-exclamation-triangle"></i>
+      Diese Aktion kann nicht rückgängig gemacht werden!
+    </p>
+  </div>
+  <div class="confirmation" *ngIf="modalData.type === 'stack'">
+    <p class="confirm-bold">Möchten Sie den Stapel <span>"{{modalData.data!.name}}"</span> wirklich löschen?</p>
+    <p>Alle in diesem Stapel enthaltenen Karten werden ebenfalls gelöscht!</p>
+    <p class="warning-text">
+      <i class="fas fa-exclamation-triangle"></i>
+      Diese Aktion kann nicht rückgängig gemacht werden!
+    </p>
+  </div>
+  <div class="confirmation" *ngIf="modalData.type === 'card'">
+    <p class="confirm-bold">Möchten Sie die Karte wirklich löschen?</p>
+    <p class="warning-text">
+      <i class="fas fa-exclamation-triangle"></i>
+      Diese Aktion kann nicht rückgängig gemacht werden!
+    </p>
+  </div>
+  <div class="confirm-btns">
+    <button class="btn btn-blue" (click)="confirm()">Ja</button>
+    <button class="btn btn-outline-red" (click)="closeModal()">Abbrechen</button>
+  </div>
+</ngx-smart-modal>
