@@ -22,7 +22,7 @@ export class EditDataModalComponent {
     public alertService: AlertService
   ) { }
 
-  getData() {
+  getData(): void {
     this.alertService.reset();
     const modalData = this.ngxSmartModalService.getModalData('edit-data-modal');
 
@@ -40,6 +40,10 @@ export class EditDataModalComponent {
         this.editType = modalData.type;
         break;
     }
+  }
+
+  closeModal(): void {
+    this.ngxSmartModalService.close('edit-data-modal');
   }
 
 }

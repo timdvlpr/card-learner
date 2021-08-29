@@ -20,4 +20,8 @@ export class AddDataModalComponent {
     this.addType = this.ngxSmartModalService.getModalData('add-data-modal').type;
   }
 
+  closeModal(): void {
+    this.ngxSmartModalService.close('add-data-modal');
+  }
+
 }
