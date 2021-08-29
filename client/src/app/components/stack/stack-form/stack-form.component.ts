@@ -1,77 +1,55 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ModalService } from '../../modal/modal.service';
+import { Component, Input, OnDestroy, ViewChild } from '@angular/core';
 import { Stack } from '../stack.model';
-import { GroupService } from '../../group/group.service';
-import { StackService } from '../stack.service';
 import { AlertService } from '../../alert/alert.service';
+import { GroupStoreService } from '../../group/group-store.service';
+import { Group } from '../../group/group.model';
+import { Subscription } from 'rxjs';
+import { StackStoreService } from '../stack-store.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-stack-form',
   templateUrl: './stack-form.component.html',
   styleUrls: ['./stack-form.component.scss']
 })
-export class StackFormComponent {
+export class StackFormComponent implements OnDestroy {
 
-  stackForm: FormGroup;
-  stack: Stack;
+  @ViewChild('stackForm') stackForm: NgForm | undefined;
+  @Input() stack: Stack = {} as Stack;
+  @Input() type: 'add' | 'edit' = 'add';
+  groupOptions: Group[] = [];
+  subGroups: Subscription;
 
   constructor(
-    private fb: FormBuilder,
-    private stackService: StackService,
-    public modalService: ModalService,
-    public groupService: GroupService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private groupStore: GroupStoreService,
+    private stackStore: StackStoreService,
   ) {
-    this.stack = this.modalService.editObject as Stack;
-    if (this.modalService.editMode) {
-      this.stackForm = this.fb.group({
-        name: new FormControl(this.stack.name, [
-          Validators.required
-        ]),
-        inGroup: new FormControl(this.stack.inGroup, [
-          Validators.required]
-        )
-      });
-    } else {
-      this.stackForm = this.fb.group({
-        name: new FormControl('', [
-          Validators.required
-        ]),
-        inGroup: new FormControl(null, [
-          Validators.required
-        ])
-      });
-    }
+    this.subGroups = this.groupStore.groups$
+      .subscribe(groups => this.groupOptions = groups);
   }
 
-  get name() { return this.stackForm.controls.name; }
-
-  get inGroup() { return this.stackForm.controls.inGroup; }
-
   async submitForm(): Promise<void> {
-    const data = {
-      name: this.stackForm.value.name,
-      inGroup: Number(this.stackForm.value.inGroup)
-    }
-    if (!this.modalService.editMode) {
+    if (this.type === 'add') {
       try {
-        await this.stackService.createStack(data);
-        this.groupService.selectedGroup = data.inGroup;
+        await this.stackStore.addStack(this.stack);
         this.alertService.activateAlert('success', 'Stapel erfolgreich angelegt');
-        this.stackForm.reset();
+        this.stackForm!.resetForm();
       } catch (e) {
         this.alertService.activateAlert('error', e.error.message);
       }
     } else {
       try {
-        await this.stackService.updateStack(this.stack.id, data);
-        this.groupService.selectedGroup = data.inGroup;
+        await this.stackStore.updateStack(this.stack.id, this.stack);
         this.alertService.activateAlert('success', 'Stapel erfolgreich bearbeitet');
       } catch (e) {
         this.alertService.activateAlert('error', e.error.message);
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.subGroups.unsubscribe();
   }
 
 }

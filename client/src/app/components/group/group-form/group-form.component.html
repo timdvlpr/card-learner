@@ -1,8 +1,8 @@
-<form class="app-form" (ngSubmit)="submitForm()" [formGroup]="groupForm">
+<form class="app-form" (ngSubmit)="submitForm()" #groupForm="ngForm">
 
   <label>
     <span>Name:</span>
-    <input type="text" formControlName="name" required>
+    <input type="text" [(ngModel)]="group.name" name="name" #name="ngModel" required >
   </label>
 
   <div class="form-error" *ngIf="name.invalid && (name.dirty || name.touched)">
@@ -12,8 +12,8 @@
   </div>
 
   <div class="form-btns">
-    <button class="btn btn-blue" type="submit" [disabled]="!groupForm.valid" *ngIf="!modalService.editMode">Hinzufügen</button>
-    <button class="btn btn-blue" type="submit" [disabled]="!groupForm.valid" *ngIf="modalService.editMode">Speichern</button>
+    <button class="btn btn-blue" type="submit" [disabled]="!groupForm.valid" *ngIf="type === 'add'">Hinzufügen</button>
+    <button class="btn btn-blue" type="submit" [disabled]="!groupForm.valid" *ngIf="type === 'edit'">Speichern</button>
   </div>
 
 </form>

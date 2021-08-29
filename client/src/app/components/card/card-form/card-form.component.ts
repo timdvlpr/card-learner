@@ -1,78 +1,59 @@
-import { Component } from '@angular/core';
-import { ModalService } from '../../modal/modal.service';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component, Input, OnDestroy, ViewChild } from '@angular/core';
 import { Card } from '../card.model';
 import { StackService } from '../../stack/stack.service';
 import { AlertService } from '../../alert/alert.service';
 import { CardService } from '../card.service';
 import { Stack } from '../../stack/stack.model';
+import { Subscription } from 'rxjs';
+import { StackStoreService } from '../../stack/stack-store.service';
+import { CardStoreService } from '../card-store.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-card-form',
   templateUrl: './card-form.component.html',
   styleUrls: ['./card-form.component.scss']
 })
-export class CardFormComponent {
+export class CardFormComponent implements OnDestroy {
 
-  cardForm: FormGroup;
-  card: Card;
+  @ViewChild('cardForm') cardForm: NgForm | undefined;
+  @Input() card: Card = {} as Card;
+  @Input() type: 'add' | 'edit' = 'add';
   stackOptions: Stack[] = [];
+  subStacks: Subscription;
 
   constructor(
-    private fb: FormBuilder,
     private alertService: AlertService,
     private cardService: CardService,
-    public modalService: ModalService,
-    public stackService: StackService
+    private stackService: StackService,
+    private stackStore: StackStoreService,
+    private cardStore: CardStoreService
   ) {
-    this.card = this.modalService.editObject as Card;
-    if (this.modalService.editMode) {
-      this.cardForm = this.fb.group({
-        question: new FormControl(this.card.question, [Validators.required]),
-        answer: new FormControl(this.card.answer, [Validators.required]),
-        inStack: new FormControl(this.card.inStack, [Validators.required])
-      });
-    } else {
-      this.cardForm = this.fb.group({
-        question: new FormControl('', [Validators.required]),
-        answer: new FormControl('', [Validators.required]),
-        inStack: new FormControl(null, [Validators.required])
-      });
-    }
-    this.stackService.getStacks()
-      .then(() => this.stackOptions = this.stackService.stacks)
-      .catch(() => this.stackOptions = []);
+    this.subStacks = this.stackStore.stacks$
+      .subscribe(stacks => this.stackOptions = stacks);
   }
 
-  get question() { return this.cardForm.controls.question; }
-
-  get answer() { return this.cardForm.controls.answer; }
-
-  get inStack() { return this.cardForm.controls.inStack; }
-
   async submitForm(): Promise<void> {
-    const data = {
-      question: this.cardForm.value.question,
-      answer: this.cardForm.value.answer,
-      inStack: Number(this.cardForm.value.inStack)
-    }
-    if (!this.modalService.editMode) {
+    if (this.type === 'add') {
       try {
-        await this.cardService.createCard(data);
+        await this.cardStore.addCard(this.card);
         this.alertService.activateAlert('success', 'Karte erfolgreich angelegt');
-        this.cardForm.reset({question: '', answer: '', inStack: data.inStack});
+        this.cardForm?.resetForm();
       } catch (e) {
         this.alertService.activateAlert('error', e.error.message);
       }
     } else {
       try {
-        await this.cardService.updateCard(this.card.id, data);
-        this.stackService.selectedStack = data.inStack;
+        await this.cardStore.updateCard(this.card.id, this.card);
         this.alertService.activateAlert('success', 'Karte erfolgreich bearbeitet');
       } catch (e) {
         this.alertService.activateAlert('error', e.error.message);
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.subStacks.unsubscribe();
   }
 
 }

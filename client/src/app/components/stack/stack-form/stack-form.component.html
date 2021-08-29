@@ -1,8 +1,8 @@
-<form class="app-form" (ngSubmit)="submitForm()" [formGroup]="stackForm">
+<form class="app-form" (ngSubmit)="submitForm()" #stackForm="ngForm">
 
   <label>
     <span>Name:</span>
-    <input type="text" formControlName="name" required>
+    <input type="text" [(ngModel)]="stack.name" name="name" #name="ngModel" required>
   </label>
 
   <div class="form-error" *ngIf="name.invalid && (name.dirty || name.touched)">
@@ -13,20 +13,20 @@
 
   <label>
     <span>Gruppe:</span>
-    <select formControlName="inGroup">
-      <option *ngFor="let group of groupService.groups" [value]="group.id">{{group.name}}</option>
+    <select [(ngModel)]="stack.inGroup" name="inGroup" #inGroup="ngModel" required>
+      <option *ngFor="let group of groupOptions" [value]="group.id">{{group.name}}</option>
     </select>
   </label>
 
-  <div class="form-error" *ngIf="inGroup.invalid && inGroup.touched">
+  <div class="form-error" *ngIf="inGroup.invalid && (inGroup.dirty || inGroup.touched)">
     <div class="form-error-message" *ngIf="inGroup.errors?.required">
       <i class="fas fa-exclamation-circle"></i> Gruppe zuweisen
     </div>
   </div>
 
   <div class="form-btns">
-    <button class="btn btn-blue" type="submit" [disabled]="!stackForm.valid" *ngIf="!modalService.editMode">Hinzufügen</button>
-    <button class="btn btn-blue" type="submit" [disabled]="!stackForm.valid" *ngIf="modalService.editMode">Speichern</button>
+    <button class="btn btn-blue" type="submit" [disabled]="!stackForm.valid" *ngIf="type === 'add'">Hinzufügen</button>
+    <button class="btn btn-blue" type="submit" [disabled]="!stackForm.valid" *ngIf="type === 'edit'">Speichern</button>
   </div>
 
 </form>

@@ -1,13 +1,13 @@
-<form class="app-form" (ngSubmit)="submitForm()" [formGroup]="cardForm">
+<form class="app-form" (ngSubmit)="submitForm()" #cardForm="ngForm">
 
   <label>
     <span>Stapel:</span>
-    <select formControlName="inStack">
+    <select [(ngModel)]="card.inStack" name="inStack" #inStack="ngModel" >
       <option *ngFor="let stack of stackOptions" [value]="stack.id">{{stack.name}}</option>
     </select>
   </label>
 
-  <div class="form-error" *ngIf="inStack.invalid && inStack.touched">
+  <div class="form-error" *ngIf="inStack.invalid && (inStack.dirty || inStack.touched)">
     <div class="form-error-message" *ngIf="inStack.errors?.required">
       <i class="fas fa-exclamation-circle"></i> Stapel zuweisen
     </div>
@@ -15,7 +15,7 @@
 
   <label>
     <span>Frage:</span>
-    <textarea type="text" formControlName="question" rows="5" required></textarea>
+    <textarea type="text" rows="5" [(ngModel)]="card.question" name="question" #question="ngModel" required></textarea>
   </label>
 
   <div class="form-error" *ngIf="question.invalid && (question.dirty || question.touched)">
@@ -26,7 +26,7 @@
 
   <label>
     <span>Antwort:</span>
-    <textarea type="text" formControlName="answer" rows="5" required></textarea>
+    <textarea type="text" rows="5" [(ngModel)]="card.answer" name="answer" #answer="ngModel" required></textarea>
   </label>
 
   <div class="form-error" *ngIf="answer.invalid && (answer.dirty || answer.touched)">
@@ -36,8 +36,8 @@
   </div>
 
   <div class="form-btns">
-    <button class="btn btn-blue" type="submit" [disabled]="!cardForm.valid" *ngIf="!modalService.editMode">Hinzufügen</button>
-    <button class="btn btn-blue" type="submit" [disabled]="!cardForm.valid" *ngIf="modalService.editMode">Speichern</button>
+    <button class="btn btn-blue" type="submit" [disabled]="!cardForm.valid" *ngIf="type === 'add'">Hinzufügen</button>
+    <button class="btn btn-blue" type="submit" [disabled]="!cardForm.valid" *ngIf="type === 'edit'">Speichern</button>
   </div>
 
 </form>
