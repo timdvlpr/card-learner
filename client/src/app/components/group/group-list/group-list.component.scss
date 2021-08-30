@@ -9,7 +9,7 @@
     margin-top: 1rem;
   }
 }
-.group-item {
+.group-item, .overview {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -45,7 +45,7 @@
       margin-right: 0.5rem;
     }
     @include for-tablet-landscape-up {
-      left: 2.7rem;
+      left: 2.55rem;
     }
   }
   span {
@@ -72,7 +72,7 @@
 }
 .selected {
   background: $light;
-  border-left: 2px solid $btnBlue;
+  border-left: 3px solid $btnBlue;
 }
 .msg {
   padding: 1rem 0;

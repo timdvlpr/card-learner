@@ -1,69 +1,56 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { GroupService } from '../group.service';
-import { StackService } from '../../stack/stack.service';
+import { Component, OnDestroy } from '@angular/core';
 import { ModalService } from '../../modal/modal.service';
 import { Group } from '../group.model';
 import { Subscription } from 'rxjs';
+import { GroupStoreService } from '../group-store.service';
 
 @Component({
   selector: 'app-group-list',
   templateUrl: './group-list.component.html',
   styleUrls: ['./group-list.component.scss']
 })
-export class GroupListComponent implements OnInit, OnDestroy {
+export class GroupListComponent implements OnDestroy {
 
   subGroup: Subscription;
+  subSelectedGroup: Subscription;
   groups: Group[] = [];
   filteredGroups: Group[] = [];
-  loading = true;
+  selectedGroup = -1;
 
   constructor(
     private modalService: ModalService,
-    public groupService: GroupService,
-    private stackService: StackService
+    private groupStore: GroupStoreService
   ) {
-    this.subGroup = this.groupService.findAll()
+    this.subGroup = this.groupStore.groups$
       .subscribe(groups => {
         this.groups = groups;
         this.filteredGroups = this.groups;
       });
+    this.subSelectedGroup = this.groupStore.selectedGroup$
+      .subscribe(selectedGroup => this.selectedGroup = selectedGroup);
   }
 
-  selectGroup(id: number): void {
-    this.stackService.getStacksInGroup(id)
-      .then(() => this.groupService.selectedGroup = id)
-      .catch(() => this.groupService.selectedGroup = id);
+  async selectGroup(group: Group) {
+    this.groupStore.updateSelectedGroup(group.id!);
   }
 
   editGroup(group: Group): void {
-    this.modalService.showEditModal('group', group);
+    const editGroup = new Group(group.name, group.id, group.slug)
+    this.modalService.openModalWithData('edit-data-modal', {type: 'group', data: editGroup})
   }
 
   deleteGroup(group: Group): void {
-    this.modalService.showConfirmationModal('group', group);
+    const deleteGroup = new Group(group.name, group.id, group.slug);
+    this.modalService.openModalWithData('delete-data-modal', {type: 'group', data: deleteGroup});
   }
 
   filterGroups(groups: Group[]): void {
     this.filteredGroups = groups;
   }
 
-  async ngOnInit() {
-    try {
-      await this.groupService.getGroups();
-      this.groupService.selectedGroup = this.groupService.groups[0].id
-    } catch (e) {
-      this.groupService.updateGroups([]);
-    }
-    try {
-      await this.stackService.getStacksInGroup(this.groupService.selectedGroup)
-    } catch (e) {
-      this.stackService.updateStacks([])
-    }
-    this.loading = false;
-  }
-
   ngOnDestroy() {
     this.subGroup.unsubscribe();
+    this.subSelectedGroup.unsubscribe();
   }
 
 }

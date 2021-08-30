@@ -1,18 +1,18 @@
 <div class="group-list">
 
-  <p class="msg" *ngIf="groups.length === 0 && !loading">Keine Gruppen vorhanden!</p>
-
   <app-searchbar
     (searchUpdate)="filterGroups($event)"
     [searchArray]="groups"></app-searchbar>
+
+  <p class="msg" *ngIf="groups.length === 0">Keine Gruppen vorhanden!</p>
 
   <p class="msg" *ngIf="filteredGroups.length === 0">Kein Suchergebnis!</p>
 
   <div class="group-item"
        *ngFor="let group of filteredGroups"
-       [class.selected]="groupService.selectedGroup === group.id"
+       [class.selected]="selectedGroup === group.id"
   >
-    <p (click)="selectGroup(group.id)">{{group.name}}</p>
+    <p (click)="selectGroup(group)">{{group.name}}</p>
     <div class="group-item-subnav">
       <i class="fas fa-sort-down"></i>
       <div class="subnav-options">

@@ -1,70 +1,48 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { StackService } from '../stack.service';
 import { CardService } from '../../card/card.service';
 import { Stack } from '../stack.model';
 import { Subscription } from 'rxjs';
+import { StackStoreService } from '../stack-store.service';
 
 @Component({
   selector: 'app-stack-list',
   templateUrl: './stack-list.component.html',
   styleUrls: ['./stack-list.component.scss']
 })
-export class StackListComponent implements OnInit, OnDestroy {
+export class StackListComponent implements OnDestroy {
 
+  subStack: Subscription;
+  subSelectedStack: Subscription;
   stacks: Stack[] = [];
   filteredStacks: Stack[] = [];
   selectedStack = -1;
-  subStacks: Subscription;
-  subCards: Subscription;
-  loading = true;
 
   constructor(
     private cardService: CardService,
-    private stackService: StackService
+    private stackService: StackService,
+    private stackStore: StackStoreService
   ) {
-    this.subStacks = this.stackService.findAll()
+    this.subStack = this.stackStore.stacks$
       .subscribe(stacks => {
         this.stacks = stacks;
         this.filteredStacks = this.stacks;
-      })
-    this.subCards = this.cardService.findAll()
-      .subscribe(cards =>  {
-        if (cards.length > 0) {
-          this.selectedStack = cards[0].inStack
-        }
-      })
+      });
+    this.subSelectedStack = this.stackStore.selectedStack$
+      .subscribe(selectedStack => this.selectedStack = selectedStack);
   }
 
-  selectStack(id: number): void {
-    this.cardService.getCardsInStack(id)
-      .then(() => this.selectedStack = id)
-      .catch(() => this.selectedStack = id);
+  selectStack(stack: Stack): void {
+    this.stackStore.updateSelectedStack(stack.id!);
   }
 
   filterStacks(stacks: Stack[]): void {
     this.filteredStacks = stacks;
   }
 
-  async ngOnInit() {
-    try {
-      await this.stackService.getStacks();
-      this.stacks = this.stackService.stacks;
-      this.filteredStacks = this.stacks;
-      this.selectedStack = this.stackService.stacks[0].id;
-    } catch (e) {
-      this.stackService.updateStacks([]);
-    }
-    try {
-      await this.cardService.getCardsInStack(this.selectedStack);
-    } catch (e) {
-      this.cardService.updateCards([]);
-    }
-    this.loading = false;
-  }
-
   ngOnDestroy() {
-    this.subStacks.unsubscribe();
-    this.subCards.unsubscribe();
+    this.subStack.unsubscribe();
+    this.subSelectedStack.unsubscribe();
   }
 
 }
