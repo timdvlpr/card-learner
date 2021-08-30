@@ -6,10 +6,8 @@ import { LearnComponent } from './views/learn/learn.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'add/:addType', component: HomeComponent },
-  { path: 'edit/:editType/:slug', component: HomeComponent },
   { path: 'cards', component: CardsComponent },
-  { path: 'learn/:id', component: LearnComponent },
+  { path: 'learn/:slug', component: LearnComponent },
   { path: '**', redirectTo: '' }
 ];
 

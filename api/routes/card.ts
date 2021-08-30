@@ -4,7 +4,9 @@ const {validateCard} = require('../middleware/cardValidator')
 const cardController = require('../controllers/card');
 const router = express();
 
-router.get('/all/:stackID', cardController.getAllCardsInStack);
+router.get('/all', cardController.getAllCards);
+
+router.get('/all/:stackSlug', cardController.getAllCardsInStack);
 
 router.get('/:id', cardController.getCard);
 

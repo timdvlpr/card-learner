@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class LearnComponent implements OnDestroy {
 
-  id = '';
+  slug = '';
   cards: Card[] = [];
   currentCardIndex = 0;
   subRoute: Subscription;
@@ -20,14 +20,12 @@ export class LearnComponent implements OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public cardService: CardService
+    private cardService: CardService
   ) {
     this.subRoute = this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.cardService.getCardsInStack(Number(this.id))
-        .then(() => {
-          this.cards = this.shuffleCards(this.cardService.cards);
-        })
+      this.slug = params['slug'];
+      this.cardService.getCardsInStack(this.slug)
+        .then((cards: Card[]) => this.cards = this.shuffleCards(cards))
         .catch(() => this.cards = []);
     });
   }

@@ -17,6 +17,12 @@ export class CardService {
       .then((data: any) => data.cards);
   }
 
+  getCardsInStack(slug: string): Promise<Card[]> {
+    return this.http.get(`${this.API_URL}/all/${slug}`)
+      .toPromise()
+      .then((data: any) => data.cards);
+  }
+
   createCard(card: Card): Promise<Card> {
     return this.http.post(this.API_URL, card)
       .toPromise()

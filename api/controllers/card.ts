@@ -5,22 +5,43 @@ import {ErrorResponse} from '../utils/errorResponse';
 const dbquery = require('../utils/dbquery');
 
 /**
+ * @desc        Get all cards
+ * @route       GET /api/card/all
+ * @access      Public
+ */
+exports.getAllCards = async function(req: express.Request, res: express.Response, next) {
+    const query = 'SELECT * FROM cards';
+    try {
+        const dbdata = await dbquery(query, []);
+        if (dbdata.length === 0) {
+            return next(new ErrorResponse(404, 'Keine Karten vorhanden'));
+        }
+        res.status(200).json({
+            success: true,
+            cards: dbdata
+        });
+    } catch (e) {
+        next(new ErrorResponse(500, e.message));
+    }
+}
+
+/**
  * @desc        Get all cards in stack
- * @route       GET /api/card/all/:stackID
+ * @route       GET /api/card/all/:stackSlug
  * @access      Public
  */
 exports.getAllCardsInStack = async function(req: express.Request, res: express.Response, next) {
-    const stackID = req.params.stackID;
-    const query = 'SELECT * FROM cards WHERE inStack = ?;';
+    const stackSlug = req.params.stackSlug;
+    const query = 'SELECT * FROM cards WHERE inStack = (SELECT id FROM stacks WHERE slug = ?);';
 
     try {
-        const dbdata = await dbquery(query, [stackID]);
+        const dbdata = await dbquery(query, [stackSlug]);
         if (dbdata.length === 0) {
             return next(new ErrorResponse(404, 'Keine Karten in diesem Stapel vorhanden'));
         }
         res.status(200).json({
             success: true,
-            data: dbdata
+            cards: dbdata
         });
     } catch (e) {
         next(new ErrorResponse(500, e.message));
