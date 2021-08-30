@@ -1,0 +1,9 @@
+<div class="cards-container">
+  <div class="no-cards-message fade-in-anim" *ngIf="cards.length === 0">
+    <i class="fas fa-info-circle"></i> Keine Karten vorhanden
+  </div>
+  <app-card-item
+    *ngFor="let card of cards"
+    [card]="card"
+  ></app-card-item>
+</div>
