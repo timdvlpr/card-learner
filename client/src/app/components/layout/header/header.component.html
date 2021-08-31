@@ -2,15 +2,15 @@
   <nav>
     <a routerLink="/">
       <i class="fas fa-home" [class.active]="activeRoute === '/'"></i>
-      Home
+      <span>Home</span>
     </a>
     <a routerLink="/cards">
       <i class="fab fa-leanpub" [class.active]="activeRoute === '/cards'"></i>
-      Kartenverwaltung
+      <span>Kartenverwaltung</span>
     </a>
     <a (click)="showAddModal()">
       <i class="fas fa-plus-circle" [class.active]="activeRoute === '/add'"></i>
-      Hinzufügen
+      <span>Hinzufügen</span>
     </a>
   </nav>
 </header>

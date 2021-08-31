@@ -4,24 +4,37 @@
 header {
   width: 100%;
   height: 4rem;
+  @include flex-center;
   background-color: $dark;
   color: $text;
-  @include flex-center;
   font-size: 1rem;
-  box-shadow: 0 1px 0.5vw #cdcdcd;
   @include for-tablet-portrait-up {
     font-size: 1.1rem;
   }
   nav {
-    @include flex-center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    @include for-tablet-portrait-up {
+      justify-content: center;
+    }
     a {
       margin: 0 1rem;
       cursor: pointer;
       i {
+        font-size: 1.1rem;
         transition: 0.25s;
       }
       &:hover i {
         color: $btnBlue;
+      }
+      span {
+        display: none;
+        @include for-tablet-portrait-up {
+          display: inline-block;
+          margin: 0 0.5rem;
+        }
       }
     }
   }
