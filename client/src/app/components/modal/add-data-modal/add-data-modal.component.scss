@@ -1,0 +1,18 @@
+@import '_variables';
+
+.add-data-btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  button {
+    background: transparent;
+    border: 2px solid $light;
+    color: $text;
+    border-radius: 0.25rem;
+    padding: 0.5rem 2rem;
+    cursor: pointer;
+  }
+}
+.selected-btn {
+  background: $btnBlue !important;
+}

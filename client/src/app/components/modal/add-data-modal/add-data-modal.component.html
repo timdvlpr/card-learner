@@ -13,6 +13,15 @@
   </div>
 
   <div class="modal-body">
+
+    <div class="add-data-btns">
+      <button [class.selected-btn]="addType === 'group'" (click)="setAddType('group')">Gruppe</button>
+
+      <button [class.selected-btn]="addType === 'stack'" (click)="setAddType('stack')">Stapel</button>
+
+      <button [class.selected-btn]="addType === 'card'" (click)="setAddType('card')">Karte</button>
+    </div>
+
     <app-alert [type]="alert.type" [message]="alert.message" *ngFor="let alert of alertService.activeAlerts"></app-alert>
 
     <app-group-form type="add" *ngIf="addType === 'group'"></app-group-form>

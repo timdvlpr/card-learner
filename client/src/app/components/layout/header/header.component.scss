@@ -6,22 +6,23 @@ header {
   height: 4rem;
   background-color: $dark;
   color: $text;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   font-size: 1rem;
   box-shadow: 0 1px 0.5vw #cdcdcd;
   @include for-tablet-portrait-up {
     font-size: 1.1rem;
   }
-  a {
-    margin: 0 1rem;
-    cursor: pointer;
-    i {
-      transition: 0.25s;
-    }
-    &:hover i {
-      color: $btnBlue;
+  nav {
+    @include flex-center;
+    a {
+      margin: 0 1rem;
+      cursor: pointer;
+      i {
+        transition: 0.25s;
+      }
+      &:hover i {
+        color: $btnBlue;
+      }
     }
   }
 }

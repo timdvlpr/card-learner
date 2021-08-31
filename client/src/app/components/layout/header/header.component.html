@@ -8,5 +8,9 @@
       <i class="fab fa-leanpub" [class.active]="activeRoute === '/cards'"></i>
       Kartenverwaltung
     </a>
+    <a (click)="showAddModal()">
+      <i class="fas fa-plus-circle" [class.active]="activeRoute === '/add'"></i>
+      Hinzufügen
+    </a>
   </nav>
 </header>
