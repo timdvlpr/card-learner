@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ModalService } from '../../components/modal/modal.service';
-import { CardService } from '../../components/card/card.service';
+import { ModalData } from '../../components/modal/modal-data';
+import { CardStoreService } from '../../components/card/card-store.service';
 
 @Component({
   selector: 'app-cards',
@@ -10,8 +10,13 @@ import { CardService } from '../../components/card/card.service';
 export class CardsComponent {
 
   constructor(
-    public modalService: ModalService,
-    public cardService: CardService
+    private cardStore: CardStoreService
   ) { }
+
+  delete(data: ModalData): void {
+    if (data.type === 'card') {
+      this.cardStore.removeCard(data.data!.id!);
+    }
+  }
 
 }

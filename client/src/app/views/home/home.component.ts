@@ -1,22 +1,19 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { StackService } from '../../components/stack/stack.service';
 import { ModalService } from '../../components/modal/modal.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GroupService } from '../../components/group/group.service';
 import { CardService } from '../../components/card/card.service';
-import { Subscription } from 'rxjs';
-import { Stack } from '../../components/stack/stack.model';
+import { ModalData } from '../../components/modal/modal-data';
+import { GroupStoreService } from '../../components/group/group-store.service';
+import { StackStoreService } from '../../components/stack/stack-store.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnDestroy {
-
-  private subRoute: Subscription;
-  private subStacks: Subscription;
-  stacks: Stack[] = [];
+export class HomeComponent {
 
   constructor(
     private stackService: StackService,
@@ -24,62 +21,20 @@ export class HomeComponent implements OnDestroy {
     private cardService: CardService,
     private modalService: ModalService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {
-    this.subRoute = this.route.params.subscribe(params => {
-      if (params['addType']) {
-        this.checkAddRoute(params['addType']);
-      }
-      if (params['editType'] && params['slug']) {
-        this.checkEditRoute(params['editType'], params['slug']);
-      }
-    });
-    this.subStacks = this.stackService.findAll()
-      .subscribe(stacks => this.stacks = stacks);
-  }
+    private router: Router,
+    private groupStore: GroupStoreService,
+    private stackStore: StackStoreService
+  ) { }
 
-  checkAddRoute(type: string): void {
-    switch (type) {
-      case 'stack':
-        this.modalService.showAddModal('stack');
-        break;
+  delete(data: ModalData): void {
+    switch (data.type) {
       case 'group':
-        this.modalService.showAddModal('group');
+        this.groupStore.removeGroup(data.data!.id!)
         break;
-      case 'card':
-        this.modalService.showAddModal('card');
-        break;
-      default:
-        this.router.navigate(['home']);
+      case 'stack':
+        this.stackStore.removeStack(data.data!.id!);
         break;
     }
-  }
-
-  checkEditRoute(type: string, slug: string): void {
-      switch (type) {
-        case 'stack':
-          this.stackService.getStack(slug)
-            .then(stack => this.modalService.showEditModal('stack', stack))
-            .catch(() => this.router.navigate(['home']))
-          break;
-        case 'group':
-          this.groupService.getGroup(slug)
-            .then(group => this.modalService.showEditModal('group', group))
-            .catch(() => this.router.navigate(['home']))
-          break;
-        default:
-          this.router.navigate(['home']);
-          break;
-      }
-  }
-
-  showAddModal(): void {
-    this.modalService.showAddModal('stack');
-  }
-
-  ngOnDestroy() {
-    this.subRoute.unsubscribe();
-    this.subStacks.unsubscribe();
   }
 
 }

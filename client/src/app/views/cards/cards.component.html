@@ -1,21 +1,15 @@
 <main>
 
-  <app-confirmation-modal></app-confirmation-modal>
+  <app-add-data-modal></app-add-data-modal>
 
-  <app-add-edit-modal></app-add-edit-modal>
+  <app-edit-data-modal></app-edit-data-modal>
+
+  <app-delete-data-modal (deleteEvent)="delete($event)"></app-delete-data-modal>
 
   <aside>
     <app-sidebar listType="stack"></app-sidebar>
   </aside>
 
-  <div class="cards-container">
-    <div class="no-cards-message fade-in-anim" *ngIf="cardService.cards.length === 0">
-      <i class="fas fa-info-circle"></i> Keine Karten vorhanden
-    </div>
-    <app-card-item
-      *ngFor="let card of cardService.cards"
-      [card]="card"
-    ></app-card-item>
-  </div>
+  <app-card-item-list></app-card-item-list>
 
 </main>
