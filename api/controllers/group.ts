@@ -20,7 +20,7 @@ exports.getAllGroups = async function(req: express.Request, res: express.Respons
         }
         res.status(200).json({
             success: true,
-            data: dbdata
+            groups: dbdata
         });
     } catch (e) {
         next(new ErrorResponse(500, e.message));
