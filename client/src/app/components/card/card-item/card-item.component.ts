@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Card} from '../card.model';
-import {ModalService} from '../../modal/modal.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Card } from '../card.model';
+import { ModalService } from '../../modal/modal.service';
 
 @Component({
   selector: 'app-card-item',
@@ -17,11 +17,12 @@ export class CardItemComponent implements OnInit {
   }
 
   editCard(): void {
-    this.modalService.showEditModal('card', this.card);
+    const card = new Card(this.card.id, this.card.question, this.card.answer, this.card.inStack, this.card.slug);
+    this.modalService.openModalWithData('edit-data-modal', {type: 'card', data: card});
   }
 
   deleteCard(): void {
-    this.modalService.showConfirmationModal('card', this.card);
+    this.modalService.openModalWithData('delete-data-modal', {type: 'card', data: this.card});
   }
 
   transformCard(characters: number): string {

@@ -11,26 +11,25 @@ import { Router } from '@angular/router';
 })
 export class StackItemComponent {
 
-  @Input() stack: Stack;
+  @Input() stack: Stack = {} as Stack;
 
   constructor(
     private modalService: ModalService,
     private cardService: CardService,
     private router: Router
-  ) {
-    this.stack = {} as Stack;
-  }
+  ) { }
 
   editStack(): void {
-    this.modalService.showEditModal('stack', this.stack);
+    const stack = new Stack(this.stack.id, this.stack.name, this.stack.slug, this.stack.inGroup);
+    this.modalService.openModalWithData('edit-data-modal', {type: 'stack', data: stack});
   }
 
   deleteStack(): void {
-    this.modalService.showConfirmationModal('stack', this.stack);
+    this.modalService.openModalWithData('delete-data-modal', {type: 'stack', data: this.stack});
   }
 
-  learnStack(id: number): void {
-    this.router.navigate([`/learn/${id}`])
+  learnStack(): void {
+    this.router.navigate([`/learn/${this.stack.slug}`])
   }
 
 }
