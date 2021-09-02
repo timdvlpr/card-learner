@@ -27,6 +27,7 @@ import { EditDataModalComponent } from './components/modal/edit-data-modal/edit-
 import { StackItemListComponent } from './components/stack/stack-item-list/stack-item-list.component';
 import { DeleteDataModalComponent } from './components/modal/delete-data-modal/delete-data-modal.component';
 import { CardItemListComponent } from './components/card/card-item-list/card-item-list.component';
+import { DataOptionBarComponent } from './shared/data-option-bar/data-option-bar.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { CardItemListComponent } from './components/card/card-item-list/card-ite
     StackItemListComponent,
     DeleteDataModalComponent,
     CardItemListComponent,
+    DataOptionBarComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,10 @@
+<app-data-option-bar
+  *ngIf="stacks.length > 0"
+  (sortedByNameEvent)="sortByName(stacks)"
+  (sortedOrderEvent)="changeSortOrder()"
+  [sortedDescending]="sortedDescending"
+  [sortedByName]="sortedByName" >
+</app-data-option-bar>
 <div class="stack-container">
   <div class="no-stack-message fade-in-anim" *ngIf="stacks.length === 0">
     <i class="fas fa-info-circle"></i> Keine Stapel vorhanden

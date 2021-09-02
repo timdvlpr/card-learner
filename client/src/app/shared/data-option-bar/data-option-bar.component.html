@@ -1,0 +1,12 @@
+<div class="option-bar">
+  <p>Sortieren nach:</p>
+  <button [class.selected]="sortedByName" (click)="sortByName()">
+    Name
+  </button>
+  <button [class.selected]="!sortedDescending" (click)="changeSortOrder()">
+    <i class="fas fa-sort-up"></i>
+  </button>
+  <button [class.selected]="sortedDescending" (click)="changeSortOrder()">
+    <i class="fas fa-sort-down"></i>
+  </button>
+</div>

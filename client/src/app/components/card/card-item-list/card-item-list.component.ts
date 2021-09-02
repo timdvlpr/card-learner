@@ -15,6 +15,8 @@ export class CardItemListComponent implements OnDestroy {
   subCards: Subscription;
   subSelectedStack: Subscription;
   selectedStack = -1;
+  sortedByName = true;
+  sortedDescending = false;
 
   constructor(
     private cardStore: CardStoreService,
@@ -27,12 +29,41 @@ export class CardItemListComponent implements OnDestroy {
         } else {
           this.cards = cards;
         }
+        this.checkCardSortOptions();
       });
     this.subSelectedStack = this.stackStore.selectedStack$
       .subscribe(stackId => {
         this.selectedStack = stackId;
         this.cards = this.cardStore.getCards().filter(card => card.inStack == this.selectedStack);
+        this.checkCardSortOptions();
       });
+  }
+
+  sortByQuestionName(cards: Card[]): Card[] {
+    return cards.sort((a, b) => a.question.localeCompare(b.question));
+  }
+
+  sortByQuestionNameDesc(cards: Card[]): Card[] {
+    return cards
+      .sort((a, b) => a.question.localeCompare(b.question))
+      .reverse();
+  }
+
+  changeSortOrder(): void {
+    this.sortedDescending = !this.sortedDescending;
+    if (this.sortedDescending) {
+      this.sortByQuestionNameDesc(this.cards);
+      return;
+    }
+    this.sortByQuestionName(this.cards);
+  }
+
+  checkCardSortOptions(): void {
+    if (this.sortedByName && !this.sortedDescending) {
+      this.sortByQuestionName(this.cards);
+    } else {
+      this.sortByQuestionNameDesc(this.cards);
+    }
   }
 
   ngOnDestroy() {

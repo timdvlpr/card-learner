@@ -1,0 +1,29 @@
+@import '_variables';
+@import '_mixins';
+
+.option-bar {
+  display: inline-flex;
+  align-items: center;
+  color: $text;
+  background: $medium;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 5px 5px 5px $dark;
+  button {
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border: 2px solid $light;
+    background: transparent;
+    color: $text;
+    margin-left: 1rem;
+    transition: 0.25s;
+    border-radius: 0.25rem;
+    &:hover {
+      background: $btnBlue;
+    }
+  }
+}
+.selected {
+  background: $btnBlue !important;
+}

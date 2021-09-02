@@ -14,7 +14,7 @@
     justify-content: flex-start;
   }
   @include for-tablet-landscape-up {
-    padding: 1rem;
+    width: calc(100vw - 20rem);
     max-height: calc(100vh - 4rem);
   }
 }
@@ -24,6 +24,7 @@
   border: 1px solid rgba(255, 192, 0, 0.8);
   background: rgba(232, 174, 17, 0.5);
   padding: 1rem;
+  margin: 1rem;
   color: $text;
   border-radius: 0.25rem;
 }

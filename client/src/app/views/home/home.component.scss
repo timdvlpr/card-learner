@@ -2,7 +2,7 @@
 @import '_mixins';
 
 main {
-  min-height: calc(100vh - 4rem);
+  height: calc(100vh - 4rem);
   background: $light;
   width: 100%;
   display: flex;
