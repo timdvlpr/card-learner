@@ -8,8 +8,10 @@ main {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+  overflow: auto;
   @include for-tablet-landscape-up {
     flex-direction: row;
+    overflow: hidden;
   }
 }
 aside {

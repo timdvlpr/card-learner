@@ -2,9 +2,9 @@
 @import '_mixins';
 
 .cards-container {
-  width: 100%;
   padding: 0.5rem;
   overflow: auto;
+  width: calc(100vw - 1.25rem);
   @include for-tablet-landscape-up {
     padding: 1rem;
     width: calc(100vw - 20rem);
@@ -17,7 +17,6 @@
   border: 1px solid rgba(255, 192, 0, 0.8);
   background: rgba(232, 174, 17, 0.5);
   padding: 1rem;
-  margin: 1rem;
   color: $text;
   border-radius: 0.25rem;
 }
