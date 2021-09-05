@@ -21,7 +21,8 @@ export class CardStoreService {
 
   private _loadInitialData(): void {
     this.cardService.getCards()
-      .then((cards: Card[]) => this._setCards(cards));
+      .then((cards: Card[]) => this._setCards(cards))
+      .catch(() => this._setCards([]));
   }
 
   getCards(): Card[] {

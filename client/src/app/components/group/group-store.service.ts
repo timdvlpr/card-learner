@@ -29,7 +29,8 @@ export class GroupStoreService {
         if (groups.length > 0) {
           this.updateSelectedGroup(groups[0].id!);
         }
-      });
+      })
+      .catch(() => this._setGroups([]));
   }
 
   getGroups(): Group[] {

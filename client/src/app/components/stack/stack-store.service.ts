@@ -29,7 +29,8 @@ export class StackStoreService {
         if (stacks.length > 0) {
           this.updateSelectedStack(stacks[0].id);
         }
-      });
+      })
+      .catch(() => this._setStacks([]));
   }
 
   getStacks(): Stack[] {
