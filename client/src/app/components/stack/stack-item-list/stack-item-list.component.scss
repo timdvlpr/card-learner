@@ -15,7 +15,7 @@
   }
   @include for-tablet-landscape-up {
     width: calc(100vw - 20rem);
-    max-height: calc(100vh - 4rem);
+    max-height: calc(100vh - 8.5rem);
   }
 }
 .no-stack-message {

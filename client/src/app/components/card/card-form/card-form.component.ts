@@ -1,8 +1,6 @@
 import { Component, Input, OnDestroy, ViewChild } from '@angular/core';
 import { Card } from '../card.model';
-import { StackService } from '../../stack/stack.service';
 import { AlertService } from '../../alert/alert.service';
-import { CardService } from '../card.service';
 import { Stack } from '../../stack/stack.model';
 import { Subscription } from 'rxjs';
 import { StackStoreService } from '../../stack/stack-store.service';
@@ -24,8 +22,6 @@ export class CardFormComponent implements OnDestroy {
 
   constructor(
     private alertService: AlertService,
-    private cardService: CardService,
-    private stackService: StackService,
     private stackStore: StackStoreService,
     private cardStore: CardStoreService
   ) {

@@ -11,12 +11,6 @@ export class GroupService {
 
   constructor(private http: HttpClient) { }
 
-  getGroup(slug: string): Promise<Group> {
-    return this.http.get(`${this.API_URL}/${slug}`)
-      .toPromise()
-      .then((data: any) => data.group);
-  }
-
   getGroups(): Promise<Group[]> {
     return this.http.get(`${this.API_URL}/all`)
       .toPromise()

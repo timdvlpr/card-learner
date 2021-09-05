@@ -1,9 +1,4 @@
 import { Component } from '@angular/core';
-import { StackService } from '../../components/stack/stack.service';
-import { ModalService } from '../../components/modal/modal.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GroupService } from '../../components/group/group.service';
-import { CardService } from '../../components/card/card.service';
 import { ModalData } from '../../components/modal/modal-data';
 import { GroupStoreService } from '../../components/group/group-store.service';
 import { StackStoreService } from '../../components/stack/stack-store.service';
@@ -16,12 +11,6 @@ import { StackStoreService } from '../../components/stack/stack-store.service';
 export class HomeComponent {
 
   constructor(
-    private stackService: StackService,
-    private groupService: GroupService,
-    private cardService: CardService,
-    private modalService: ModalService,
-    private route: ActivatedRoute,
-    private router: Router,
     private groupStore: GroupStoreService,
     private stackStore: StackStoreService
   ) { }

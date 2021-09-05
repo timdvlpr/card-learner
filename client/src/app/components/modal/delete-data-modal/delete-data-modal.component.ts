@@ -1,5 +1,4 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { ModalService } from '../modal.service';
 import { ModalData } from '../modal-data';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 
@@ -15,7 +14,6 @@ export class DeleteDataModalComponent {
   @Output() deleteEvent = new EventEmitter<ModalData>();
 
   constructor(
-    private modalService: ModalService,
     private ngxSmartModalService: NgxSmartModalService
   ) { }
 

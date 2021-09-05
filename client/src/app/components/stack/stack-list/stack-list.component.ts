@@ -1,6 +1,4 @@
 import { Component, OnDestroy } from '@angular/core';
-import { StackService } from '../stack.service';
-import { CardService } from '../../card/card.service';
 import { Stack } from '../stack.model';
 import { Subscription } from 'rxjs';
 import { StackStoreService } from '../stack-store.service';
@@ -19,8 +17,6 @@ export class StackListComponent implements OnDestroy {
   selectedStack = -1;
 
   constructor(
-    private cardService: CardService,
-    private stackService: StackService,
     private stackStore: StackStoreService
   ) {
     this.subStack = this.stackStore.stacks$

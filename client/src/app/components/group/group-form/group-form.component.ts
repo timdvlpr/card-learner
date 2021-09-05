@@ -1,6 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Group } from '../group.model';
-import { GroupService } from '../group.service';
 import { AlertService } from '../../alert/alert.service';
 import { GroupStoreService } from '../group-store.service';
 import { NgForm } from '@angular/forms';
@@ -17,7 +16,6 @@ export class GroupFormComponent {
   @Input() type: 'add' | 'edit' = 'add';
 
   constructor(
-    private groupService: GroupService,
     private groupStore: GroupStoreService,
     private alertService: AlertService
   ) { }

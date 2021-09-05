@@ -2,9 +2,15 @@
 
   <app-searchbar (searchUpdate)="filterStacks($event)" [searchArray]="stacks"></app-searchbar>
 
-  <p class="msg" *ngIf="stacks.length === 0">Keine Stapel vorhanden!</p>
+  <p class="msg" *ngIf="stacks.length === 0">
+    <i class="fas fa-info-circle"></i>
+    Keine Stapel vorhanden
+  </p>
 
-  <p class="msg" *ngIf="filteredStacks.length === 0">Kein Suchergebnis!</p>
+  <p class="msg" *ngIf="filteredStacks.length === 0 && stacks.length !== 0">
+    <i class="fas fa-info-circle"></i>
+    Kein Suchergebnis
+  </p>
 
   <div class="stack-item"
        *ngFor="let stack of filteredStacks"

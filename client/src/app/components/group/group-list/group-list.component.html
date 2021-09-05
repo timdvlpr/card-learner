@@ -4,9 +4,15 @@
     (searchUpdate)="filterGroups($event)"
     [searchArray]="groups"></app-searchbar>
 
-  <p class="msg" *ngIf="groups.length === 0">Keine Gruppen vorhanden!</p>
+  <p class="msg" *ngIf="groups.length === 0">
+    <i class="fas fa-info-circle"></i>
+    Keine Gruppen vorhanden
+  </p>
 
-  <p class="msg" *ngIf="filteredGroups.length === 0">Kein Suchergebnis!</p>
+  <p class="msg" *ngIf="filteredGroups.length === 0 && groups.length !== 0">
+    <i class="fas fa-info-circle"></i>
+    Kein Suchergebnis
+  </p>
 
   <div class="group-item"
        *ngFor="let group of filteredGroups"

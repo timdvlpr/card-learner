@@ -12,7 +12,7 @@ export class AlertComponent implements OnInit {
   @Input() alert: Alert;
   @Input() message: string = '';
   @Input() type: string = '';
-  showAlertTime = 5000;
+  showAlertTime = 3000;
 
   constructor(public alertService: AlertService) {
     this.alert = {} as Alert;

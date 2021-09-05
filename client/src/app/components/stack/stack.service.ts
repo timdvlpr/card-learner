@@ -11,12 +11,6 @@ export class StackService {
 
   constructor(private http: HttpClient) { }
 
-  getStack(slug: string): Promise<Stack> {
-    return this.http.get(`${this.API_URL}/${slug}`)
-      .toPromise()
-      .then((data: any) => data.stack);
-  }
-
   getStacks(): Promise<Stack[]> {
     return this.http.get(`${this.API_URL}/all`)
       .toPromise()
