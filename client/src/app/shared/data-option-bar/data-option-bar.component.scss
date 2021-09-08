@@ -7,9 +7,12 @@
   color: $text;
   background: $medium;
   padding: 0.5rem 1rem;
-  margin: 1rem;
+  margin: 0.5rem;
   border-radius: 0.25rem;
   box-shadow: 5px 5px 5px $dark;
+  @include for-tablet-landscape-up {
+    margin: 1rem;
+  }
   button {
     cursor: pointer;
     padding: 0.25rem 0.5rem;

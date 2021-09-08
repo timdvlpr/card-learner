@@ -2,32 +2,26 @@
 @import '_mixins';
 
 .stack-container {
-  display: flex;
+  @include flex-center;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  width: calc(100vw - 1.25rem);
-  grid-template-columns: repeat(3, 1fr);
-  padding: 0.25rem;
+  padding: 0.5rem;
   overflow: auto;
-  @include for-tablet-portrait-up {
-    justify-content: flex-start;
-  }
   @include for-tablet-landscape-up {
+    justify-content: flex-start;
     width: calc(100vw - 20rem);
     max-height: calc(100vh - 8.5rem);
   }
 }
 .no-stack-message {
   text-align: center;
-  width: 100%;
+  width: calc(100vw - 1rem);
   border: 1px solid rgba(255, 192, 0, 0.8);
   background: rgba(232, 174, 17, 0.5);
   padding: 1rem;
-  margin: 0.25rem;
   color: $text;
   border-radius: 0.25rem;
   @include for-tablet-landscape-up {
-    margin: 1rem;
+    width: 100%;
+    margin: 0.5rem;
   }
 }
