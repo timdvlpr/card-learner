@@ -1,12 +1,39 @@
-<main>
+<main
+  tabindex="0"
+  (keyup.arrowUp)="toggleCard(!showAnswer)"
+  (keyup.arrowDown)="toggleCard(!showAnswer)"
+  (keyup.arrowLeft)="showPreviousCard()"
+  (keyup.arrowRight)="showNextCard()" >
   <div class="learn-container fade-in-anim">
 
     <div class="no-cards-message" *ngIf="cards.length === 0">
       <i class="fas fa-info-circle"></i> Keine Karten in diesem Stapel vorhanden!
-      <a routerLink="/add/card">Karte hinzufügen</a>
+      <a routerLink="/">Karte hinzufügen</a>
     </div>
 
     <section class="learn-content" *ngIf="cards.length > 0">
+
+      <div class="learn-info">
+        <div class="tooltip tooltip-keys">
+          <i class="far fa-keyboard" title="Tastenkombinationen"></i>
+          <div class="tooltiptext">
+            <p>
+              Weiter <i class="fas fa-long-arrow-alt-right"></i>
+            </p>
+            <p>
+              Zurück <i class="fas fa-long-arrow-alt-left"></i>
+            </p>
+            <p>
+              Umdrehen
+              <span>
+                <i class="fas fa-long-arrow-alt-up"></i>
+                <i class="fas fa-long-arrow-alt-down"></i>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
       <app-card-learn-item
         (toggleCardEvent)="toggleCard($event)"
         [showAnswer]="showAnswer"
@@ -15,12 +42,12 @@
       </app-card-learn-item>
 
       <div class="learn-toolbar">
-        <i class="fas fa-chevron-left" (click)="showPreviousCard()" [class.disabled]="currentCardIndex === 0"></i>
-        <p>{{currentCardIndex + 1}}/{{cards.length}}</p>
-        <i class="fas fa-chevron-right" (click)="showNextCard()"></i>
+          <i class="fas fa-chevron-left" (click)="showPreviousCard()" [class.disabled]="currentCardIndex === 0"></i>
+          <p>{{currentCardIndex + 1}}/{{cards.length}}</p>
+          <i class="fas fa-chevron-right" (click)="showNextCard()"></i>
       </div>
-    </section>
 
+    </section>
 
   </div>
 </main>

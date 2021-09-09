@@ -5,10 +5,12 @@ main {
   height: calc(100vh - 4rem);
   background: $light;
   width: 100%;
+  overflow: auto;
   @include flex-center;
 }
 .learn-container {
   width: 95vw;
+  margin: auto 0;
   @include for-tablet-landscape-up {
     width: 60vw;
   }
@@ -20,17 +22,38 @@ main {
   }
 }
 .learn-toolbar {
-  display: flex;
-  align-items: center;
+  @include flex-center;
   justify-content: space-around;
   margin: 2rem 0;
   color: $text;
   i {
     cursor: pointer;
     transition: 0.25s;
+    border: 2px solid $light;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
     &:hover {
       color: $btnBlue;
     }
+  }
+}
+.learn-info {
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  color: $text;
+  padding: 1rem 0;
+  .fa-keyboard, .fa-info {
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.25s;
+    &:hover {
+      color: $btnBlue;
+    }
+  }
+  @include for-tablet-landscape-up {
+    display: flex;
   }
 }
 .no-cards-message {
@@ -45,4 +68,49 @@ main {
 .disabled {
   opacity: 25%;
   pointer-events: none;
+}
+
+.tooltip {
+  position: relative;
+  &:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  .tooltiptext {
+    visibility: hidden;
+    background-color: $dark;
+    color: $text;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    text-align: left;
+    width: 12rem;
+    p {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0.5rem 0;
+    }
+    i {
+      padding: 0.25rem;
+      border: 1px solid $text;
+      opacity: 50%;
+    }
+    position: absolute;
+    z-index: 100;
+    bottom: -305%;
+    left: -165%;
+    margin-left: -6rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 50%;
+      right: -5%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent transparent $dark;
+    }
+  }
 }

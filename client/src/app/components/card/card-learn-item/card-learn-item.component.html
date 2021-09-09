@@ -7,6 +7,8 @@
       <i class="fas fa-exclamation-circle"></i> Anwort
     </p>
   </div>
-  <p *ngIf="!showAnswer">{{question}}</p>
-  <p *ngIf="showAnswer">{{answer}}</p>
+  <div class="card-learn-text">
+    <p *ngIf="!showAnswer">{{question}}</p>
+    <p *ngIf="showAnswer">{{answer}}</p>
+  </div>
 </div>
