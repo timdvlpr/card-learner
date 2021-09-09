@@ -1,7 +1,10 @@
 <div class="alert"
      [class.success-alert]="type === 'success'"
-     [class.error-alert]="type === 'error'"
->
-  <p>{{message}}</p>
-  <i class="fas fa-times-circle" (click)="this.alertService.removeAlert(this.alert)"></i>
+     [class.error-alert]="type === 'error'" >
+  <p>
+    <i class="fas fa-times-circle" *ngIf="type === 'error'"></i>
+    <i class="fas fa-check-circle" *ngIf="type === 'success'"></i>
+    {{message}}
+  </p>
+  <p>{{remainingTime}}s</p>
 </div>

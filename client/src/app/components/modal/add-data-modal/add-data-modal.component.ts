@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 export class AddDataModalComponent {
 
   addType: 'stack' | 'group' | 'card' = 'group';
+  alertsActivated = false;
 
   constructor(
     private ngxSmartModalService: NgxSmartModalService,
@@ -20,6 +21,7 @@ export class AddDataModalComponent {
 
   getData(): void {
     this.alertService.reset();
+    this.alertsActivated = true;
     this.addType = this.ngxSmartModalService.getModalData('add-data-modal').type;
   }
 
@@ -30,6 +32,10 @@ export class AddDataModalComponent {
 
   closeModal(): void {
     this.ngxSmartModalService.close('add-data-modal');
+  }
+
+  locateBack(): void {
+    this.alertsActivated = false;
     this.location.back();
   }
 

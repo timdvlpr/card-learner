@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { Alert } from '../alert.model';
 import { AlertService } from '../alert.service';
 
@@ -7,21 +7,27 @@ import { AlertService } from '../alert.service';
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss']
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent implements AfterViewInit {
 
-  @Input() alert: Alert;
-  @Input() message: string = '';
-  @Input() type: string = '';
-  showAlertTime = 3000;
+  @Input() alert = {} as Alert;
+  @Input() message = '';
+  @Input() type = '';
+  remainingTime = 3;
 
-  constructor(public alertService: AlertService) {
-    this.alert = {} as Alert;
+  constructor(private alertService: AlertService) { }
+
+  startRemainingTime(): void {
+    const interval = setInterval(() => {
+      this.remainingTime--;
+      if (this.remainingTime < 1) {
+        this.alertService.removeAlert();
+        clearInterval(interval);
+      }
+    }, 1000);
   }
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.alertService.removeAlert(this.alert);
-    }, this.showAlertTime);
+  ngAfterViewInit() {
+    this.startRemainingTime();
   }
 
 }

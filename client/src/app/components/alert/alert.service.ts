@@ -8,16 +8,14 @@ export class AlertService {
 
   activeAlerts: Alert[] = [];
 
-  constructor() {
-    this.reset();
-  }
+  constructor() { }
 
-  removeAlert(alert: Alert): void {
-    this.activeAlerts.splice(this.activeAlerts.indexOf(alert), 1);
+  removeAlert(): void {
+    this.activeAlerts.shift();
   }
 
   activateAlert(alertType: string, message: string): void {
-    this.activeAlerts.push({type: alertType, message: message});
+    this.activeAlerts.push({ type: alertType, message: message });
   }
 
   reset(): void {

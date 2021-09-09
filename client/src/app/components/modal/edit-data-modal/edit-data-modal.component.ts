@@ -16,6 +16,7 @@ export class EditDataModalComponent {
   editGroup: Group = {} as Group;
   editStack: Stack = {} as Stack;
   editCard: Card = {} as Card;
+  alertsActivated = false;
 
   constructor(
     private ngxSmartModalService: NgxSmartModalService,
@@ -24,6 +25,7 @@ export class EditDataModalComponent {
 
   getData(): void {
     this.alertService.reset();
+    this.alertsActivated = true;
     const modalData = this.ngxSmartModalService.getModalData('edit-data-modal');
 
     switch (modalData.type) {
@@ -40,6 +42,10 @@ export class EditDataModalComponent {
         this.editType = modalData.type;
         break;
     }
+  }
+
+  reset(): void {
+    this.alertsActivated = false;
   }
 
   closeModal(): void {

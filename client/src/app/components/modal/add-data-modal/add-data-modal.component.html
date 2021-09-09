@@ -1,4 +1,4 @@
-<ngx-smart-modal identifier="add-data-modal" (onOpen)="getData()" [customClass]="'modal nsm-dialog-animation-ttb'">
+<ngx-smart-modal identifier="add-data-modal" (onOpen)="getData()" (onAnyCloseEvent)="locateBack()" [customClass]="'modal nsm-dialog-animation-ttb'">
 
   <div class="modal-header">
     <i class="fas fa-layer-group"></i>
@@ -13,7 +13,6 @@
   </div>
 
   <div class="modal-body">
-
     <div class="add-data-btns">
       <button [class.selected-btn]="addType === 'group'" (click)="setAddType('group')">Gruppe</button>
 
@@ -22,7 +21,9 @@
       <button [class.selected-btn]="addType === 'card'" (click)="setAddType('card')">Karte</button>
     </div>
 
-    <app-alert [type]="alert.type" [message]="alert.message" *ngFor="let alert of alertService.activeAlerts"></app-alert>
+    <div class="alerts" *ngIf="alertsActivated">
+      <app-alert [type]="alert.type" [message]="alert.message" *ngFor="let alert of alertService.activeAlerts"></app-alert>
+    </div>
 
     <app-group-form type="add" *ngIf="addType === 'group'"></app-group-form>
 
