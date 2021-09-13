@@ -16,19 +16,11 @@
 
   <div class="group-item"
        *ngFor="let group of filteredGroups"
-       [class.selected]="selectedGroup === group.id"
-  >
+       [class.selected]="selectedGroup === group.id" >
     <p (click)="selectGroup(group)">{{group.name}}</p>
-    <div class="group-item-subnav">
-      <i class="fas fa-sort-down"></i>
-      <div class="subnav-options">
-        <span (click)="editGroup(group)">
-          <i class="fas fa-edit" title="Bearbeiten"></i> Bearbeiten
-        </span>
-        <span (click)="deleteGroup(group)">
-          <i class="fas fa-trash" title="Löschen"></i> Löschen
-        </span>
-      </div>
+    <div class="group-item-actions">
+      <i class="fas fa-edit" (click)="editGroup(group)" title="Bearbeiten"></i>
+      <i class="fas fa-trash" (click)="deleteGroup(group)" title="Löschen"></i>
     </div>
   </div>
 

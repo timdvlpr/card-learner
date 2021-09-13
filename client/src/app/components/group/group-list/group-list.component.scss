@@ -4,12 +4,12 @@
 
 .group-list {
   text-align: center;
-  button {
-    width: 90%;
-    margin-top: 1rem;
+  @include for-tablet-landscape-up {
+    max-height: calc(100vh - 7.5rem);
+    overflow-y: auto;
   }
 }
-.group-item, .overview {
+.group-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,8 +18,8 @@
   &:hover {
     background: $light;
   }
-  &:hover .fa-sort-down, &:hover .group-item-subnav {
-    display: block !important;
+  &:hover .group-item-actions {
+    display: flex !important;
   }
   p {
     overflow: auto;
@@ -27,47 +27,15 @@
     padding: 1rem;
   }
 }
-.group-item-subnav {
+.group-item-actions {
   display: none;
-  position: relative;
-  text-align: center;
-  padding: 1rem;
-  .subnav-options {
-    @include flex-center-column;
-    display: none !important;
-    position: absolute;
-    top: 0;
-    left: -6rem;
-    background: $dark;
-    border-radius: 0.25rem;
-    z-index: 99;
-    i {
-      margin-right: 0.5rem;
-    }
-    @include for-tablet-landscape-up {
-      left: 2.55rem;
-    }
-  }
-  span {
-    display: flex;
-    padding: 0.75rem;
-    transition: 0.25s;
+  align-items: center;
+  justify-content: center;
+  i {
+    margin-right: 0.35rem;
     &:hover {
-      background: $medium;
+      color: $btnBlue;
     }
-  }
-  &:hover .fa-sort-down {
-    transition: 0.25s;
-    color: $btnBlue;
-  }
-}
-.fa-sort-down {
-  display: none;
-  transform: rotate(270deg);
-}
-.group-item-subnav {
-  &:hover .subnav-options {
-    display: block !important;
   }
 }
 .selected {
