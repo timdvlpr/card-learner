@@ -1,17 +1,6 @@
 <form class="app-form" (ngSubmit)="submitForm()" #stackForm="ngForm">
 
   <label>
-    <span>Name:</span>
-    <input type="text" [(ngModel)]="stack.name" name="name" #name="ngModel" required>
-  </label>
-
-  <div class="form-error" *ngIf="name.invalid && (name.dirty || name.touched)">
-    <div class="form-error-message" *ngIf="name.errors?.required">
-      <i class="fas fa-exclamation-circle"></i> Name benötigt
-    </div>
-  </div>
-
-  <label>
     <span>Gruppe:</span>
     <select [(ngModel)]="stack.inGroup" name="inGroup" #inGroup="ngModel" required>
       <option *ngFor="let group of groupOptions" [value]="group.id">{{group.name}}</option>
@@ -21,6 +10,17 @@
   <div class="form-error" *ngIf="inGroup.invalid && (inGroup.dirty || inGroup.touched)">
     <div class="form-error-message" *ngIf="inGroup.errors?.required">
       <i class="fas fa-exclamation-circle"></i> Gruppe zuweisen
+    </div>
+  </div>
+
+  <label>
+    <span>Name:</span>
+    <input type="text" [(ngModel)]="stack.name" name="name" #name="ngModel" autocomplete="off" required>
+  </label>
+
+  <div class="form-error" *ngIf="name.invalid && (name.dirty || name.touched)">
+    <div class="form-error-message" *ngIf="name.errors?.required">
+      <i class="fas fa-exclamation-circle"></i> Name benötigt
     </div>
   </div>
 

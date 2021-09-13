@@ -2,7 +2,7 @@
 
   <label>
     <span>Name:</span>
-    <input type="text" [(ngModel)]="group.name" name="name" #name="ngModel" required >
+    <input type="text" [(ngModel)]="group.name" name="name" #name="ngModel" autocomplete="off" required >
   </label>
 
   <div class="form-error" *ngIf="name.invalid && (name.dirty || name.touched)">

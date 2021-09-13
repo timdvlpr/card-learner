@@ -32,9 +32,10 @@ export class CardFormComponent implements OnDestroy {
   async submitForm(): Promise<void> {
     if (this.type === 'add') {
       try {
+        const inStack = this.card.inStack;
         await this.cardStore.addCard(this.card);
         this.alertService.activateAlert('success', 'Karte erfolgreich angelegt');
-        this.cardForm?.resetForm();
+        this.cardForm?.resetForm({ inStack: inStack });
       } catch (e) {
         this.alertService.activateAlert('error', e.error.message);
       }

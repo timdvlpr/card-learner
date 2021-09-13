@@ -2,7 +2,7 @@
 
   <label>
     <span>Stapel:</span>
-    <select [(ngModel)]="card.inStack" name="inStack" #inStack="ngModel" >
+    <select [(ngModel)]="card.inStack" name="inStack" #inStack="ngModel" required >
       <option *ngFor="let stack of stackOptions" [value]="stack.id">{{stack.name}}</option>
     </select>
   </label>
