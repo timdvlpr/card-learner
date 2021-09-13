@@ -3,8 +3,10 @@
 
 .stack-list {
   text-align: center;
-  max-height: calc(100vh - 7.5rem);
-  overflow-y: auto;
+  @include for-tablet-landscape-up {
+    max-height: calc(100vh - 7.5rem);
+    overflow-y: auto;
+  }
 }
 .stack-item {
   display: flex;

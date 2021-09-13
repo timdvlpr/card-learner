@@ -27,8 +27,12 @@
   textarea {
     resize: none;
   }
+  select {
+    background: $medium;
+  }
   option {
-    color: $dark;
+    color: $text;
+    background: $medium;
   }
 }
 .form-btns {
