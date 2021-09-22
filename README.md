@@ -9,14 +9,13 @@ CardLearner ist eine Web-Applikation, zum Anlegen, Verwalten und Lernen von Kart
 
 ## Screenshots
 
-#### Home
-![Home](https://user-images.githubusercontent.com/81222680/125986422-64ba5c8e-a216-4660-9cd7-4d139df22395.png)
+![Home](https://user-images.githubusercontent.com/81222680/134314344-0f0d27c4-0388-4606-92ac-48c7d6cf47c3.png)
 
-#### Kartenverwaltung
-![Kartenverwaltung](https://user-images.githubusercontent.com/81222680/125986503-557cc745-0d40-4d99-a4e7-ef8f0db855c9.png)
+![Add](https://user-images.githubusercontent.com/81222680/134314436-a0a3ce84-b8c3-4801-bdfb-95863541f5cf.png)
 
-### Hinzufügen
-![Add](https://user-images.githubusercontent.com/81222680/125986589-c10503aa-a330-485d-bb98-c3402a1e3541.png)
+![Cards](https://user-images.githubusercontent.com/81222680/134314471-3102d525-a3ee-4cb6-b502-1929f10120d6.png)
+
+![Learn](https://user-images.githubusercontent.com/81222680/134314501-94f1a703-9a74-47cc-a065-79c0849e136b.png)
 
 ## Beschreibung
 
@@ -38,3 +37,7 @@ CardLearner ist eine Web-Applikation, zum Anlegen, Verwalten und Lernen von Kart
 - Stapel können gelernt werden. Dabei werden alle Karten des ausgewählten Stapels geladen und in 
 beliebiger Reihenfolge abgefragt. Hierbei kann zwischen Frage und Antwort der Karte gewechselt werden,
 um sich die richtige Antwort zu der gestellten Frage anzuschauen.
+
+#### Zusätzliche Features
+- Suchfunktion
+- Sortierfunktion (Name - aufsteigend, absteigend)
