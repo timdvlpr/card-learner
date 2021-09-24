@@ -4,7 +4,6 @@ import {ErrorResponse} from "../utils/errorResponse";
 exports.validateStack = [
     check('name')
         .trim()
-        .escape()
         .notEmpty()
         .withMessage('Stapelname darf nicht leer sein')
         .bail()

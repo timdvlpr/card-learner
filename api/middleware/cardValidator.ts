@@ -4,12 +4,10 @@ import {ErrorResponse} from "../utils/errorResponse";
 exports.validateCard = [
     check('question')
         .trim()
-        .escape()
         .notEmpty()
         .withMessage('Fragefeld darf nicht leer sein'),
     check('answer')
         .trim()
-        .escape()
         .notEmpty()
         .withMessage('Antwortfeld darf nicht leer sein'),
     (req, res, next) => {

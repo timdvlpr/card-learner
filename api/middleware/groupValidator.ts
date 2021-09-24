@@ -4,7 +4,6 @@ import {ErrorResponse} from "../utils/errorResponse";
 exports.validateGroup = [
     check('name')
         .trim()
-        .escape()
         .notEmpty()
         .withMessage('Gruppenname darf nicht leer sein')
         .bail()
