@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalData } from '../../components/modal/modal-data';
 import { CardStoreService } from '../../components/card/card-store.service';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-cards',
@@ -10,12 +11,20 @@ import { CardStoreService } from '../../components/card/card-store.service';
 export class CardsComponent {
 
   constructor(
-    private cardStore: CardStoreService
+    private cardStore: CardStoreService,
+    private ngxSmartModalService: NgxSmartModalService
   ) { }
 
-  delete(data: ModalData): void {
+  async delete(data: ModalData): Promise<void> {
     if (data.type === 'card') {
-      this.cardStore.remove(data.data!.id!);
+      try {
+        await this.cardStore.remove(data.data!.id!);
+      } catch (e) {
+        this.ngxSmartModalService
+          .getModal('cards-info-modal')
+          .setData(e.error.message)
+          .open();
+      }
     }
   }
 
