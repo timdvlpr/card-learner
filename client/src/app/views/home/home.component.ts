@@ -18,10 +18,10 @@ export class HomeComponent {
   delete(data: ModalData): void {
     switch (data.type) {
       case 'group':
-        this.groupStore.removeGroup(data.data!.id!)
+        this.groupStore.remove(data.data!.id!)
         break;
       case 'stack':
-        this.stackStore.removeStack(data.data!.id!);
+        this.stackStore.remove(data.data!.id!);
         break;
     }
   }

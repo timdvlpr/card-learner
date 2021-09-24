@@ -33,7 +33,7 @@ export class CardFormComponent implements OnDestroy {
     if (this.type === 'add') {
       try {
         const inStack = this.card.inStack;
-        await this.cardStore.addCard(this.card);
+        await this.cardStore.add(this.card);
         this.alertService.activateAlert('success', 'Karte erfolgreich angelegt');
         this.cardForm?.resetForm({ inStack: inStack });
       } catch (e) {
@@ -41,7 +41,7 @@ export class CardFormComponent implements OnDestroy {
       }
     } else {
       try {
-        await this.cardStore.updateCard(this.card.id, this.card);
+        await this.cardStore.update(this.card.id, this.card);
         this.alertService.activateAlert('success', 'Karte erfolgreich bearbeitet');
       } catch (e) {
         this.alertService.activateAlert('error', e.error.message);

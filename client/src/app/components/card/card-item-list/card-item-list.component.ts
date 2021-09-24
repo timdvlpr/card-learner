@@ -34,7 +34,7 @@ export class CardItemListComponent implements OnDestroy {
     this.subSelectedStack = this.stackStore.selectedStack$
       .subscribe(stackId => {
         this.selectedStack = stackId;
-        this.cards = this.cardStore.getCards().filter(card => card.inStack == this.selectedStack);
+        this.cards = this.cardStore.getAll().filter(card => card.inStack == this.selectedStack);
         this.checkCardSortOptions();
       });
   }

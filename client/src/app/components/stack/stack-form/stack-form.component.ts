@@ -32,7 +32,7 @@ export class StackFormComponent implements OnDestroy {
   async submitForm(): Promise<void> {
     if (this.type === 'add') {
       try {
-        await this.stackStore.addStack(this.stack);
+        await this.stackStore.add(this.stack);
         this.alertService.activateAlert('success', 'Stapel erfolgreich angelegt');
         this.stackForm!.resetForm();
       } catch (e) {
@@ -40,7 +40,7 @@ export class StackFormComponent implements OnDestroy {
       }
     } else {
       try {
-        await this.stackStore.updateStack(this.stack.id, this.stack);
+        await this.stackStore.update(this.stack.id, this.stack);
         this.alertService.activateAlert('success', 'Stapel erfolgreich bearbeitet');
       } catch (e) {
         this.alertService.activateAlert('error', e.error.message);

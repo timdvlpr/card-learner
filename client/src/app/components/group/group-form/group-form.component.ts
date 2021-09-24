@@ -23,7 +23,7 @@ export class GroupFormComponent {
   async submitForm(): Promise<void> {
     if (this.type === 'add') {
       try {
-        await this.groupStore.addGroup(this.group);
+        await this.groupStore.add(this.group);
         this.alertService.activateAlert('success', 'Gruppe erfolgreich angelegt');
         this.groupForm!.resetForm();
       } catch (e) {
@@ -31,7 +31,7 @@ export class GroupFormComponent {
       }
     } else {
         try {
-          await this.groupStore.updateGroup(this.group.id!, this.group)
+          await this.groupStore.update(this.group.id!, this.group)
           this.alertService.activateAlert('success', 'Gruppe erfolgreich bearbeitet');
         } catch (e) {
           this.alertService.activateAlert('error', e.error.message);

@@ -15,7 +15,7 @@ export class CardsComponent {
 
   delete(data: ModalData): void {
     if (data.type === 'card') {
-      this.cardStore.removeCard(data.data!.id!);
+      this.cardStore.remove(data.data!.id!);
     }
   }
 

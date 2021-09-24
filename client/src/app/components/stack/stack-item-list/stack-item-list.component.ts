@@ -34,7 +34,7 @@ export class StackItemListComponent implements OnDestroy {
     this.subSelectedGroup = this.groupStore.selectedGroup$
       .subscribe(groupId => {
         this.selectedGroup = groupId;
-        this.stacks = this.stackStore.getStacks().filter(stack => stack.inGroup == this.selectedGroup);
+        this.stacks = this.stackStore.getAll().filter(stack => stack.inGroup == this.selectedGroup);
         this.checkStackSortOptions();
       });
   }
