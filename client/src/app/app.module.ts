@@ -28,6 +28,7 @@ import { StackItemListComponent } from './components/stack/stack-item-list/stack
 import { DeleteDataModalComponent } from './components/modal/delete-data-modal/delete-data-modal.component';
 import { CardItemListComponent } from './components/card/card-item-list/card-item-list.component';
 import { DataOptionBarComponent } from './shared/data-option-bar/data-option-bar.component';
+import { InfoModalComponent } from './components/modal/info-modal/info-modal.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { DataOptionBarComponent } from './shared/data-option-bar/data-option-bar
     DeleteDataModalComponent,
     CardItemListComponent,
     DataOptionBarComponent,
+    InfoModalComponent,
   ],
   imports: [
     BrowserModule,
