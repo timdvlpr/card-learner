@@ -2,66 +2,71 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Stack } from './stack.model';
 import { StackService } from './stack.service';
+import { Store } from '../../shared/store';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StackStoreService {
+export class StackStoreService implements Store<Stack> {
 
-  private readonly _stackSource = new BehaviorSubject<Stack[]>([]);
-  readonly stacks$ = this._stackSource.asObservable();
+  stackSource = new BehaviorSubject<Stack[]>([]);
+  stacks$ = this.stackSource.asObservable();
 
-  private readonly _selectedStackSource = new BehaviorSubject<number>(-1);
-  readonly selectedStack$ = this._selectedStackSource.asObservable();
+  selectedStackSource = new BehaviorSubject<number>(-1);
+  selectedStack$ = this.selectedStackSource.asObservable();
 
   constructor(private stackService: StackService) {
-    this._loadInitialData();
+    this.loadInitialData();
   }
 
-  private _setStacks(stacks: Stack[]): void {
-    this._stackSource.next(stacks);
+  private setStacks(stacks: Stack[]): void {
+    this.stackSource.next(stacks);
   }
 
-  private _loadInitialData() {
+  private loadInitialData() {
     this.stackService.getStacks()
       .then((stacks: Stack[]) => {
-        this._setStacks(stacks);
+        this.setStacks(stacks);
         if (stacks.length > 0) {
           this.updateSelectedStack(stacks[0].id);
         }
       })
-      .catch(() => this._setStacks([]));
+      .catch(() => this.setStacks([]));
   }
 
-  getStacks(): Stack[] {
-    return this._stackSource.getValue();
+  getAll(): Stack[] {
+    return this.stackSource.getValue();
   }
 
-  async addStack(stack: Stack): Promise<void> {
+  async add(stack: Stack): Promise<void> {
     const data = await this.stackService.createStack(stack);
 
-    const stacks = [...this.getStacks(), data];
-    this._setStacks(stacks);
+    const stacks = [...this.getAll(), data];
+    this.setStacks(stacks);
   }
 
-  async updateStack(id: number, stack: Stack): Promise<void> {
+  async update(id: number, stack: Stack): Promise<void> {
     const data = await this.stackService.updateStack(id, stack);
 
-    const stacks = this.getStacks().map(s =>
-      s.id === stack.id ? new Stack(data.id, data.name, data.slug, data.inGroup) : s
+    const stacks = this.getAll().map(s => {
+        if (s.id === stack.id) {
+          return new Stack(data.id, data.name, data.slug, data.inGroup)
+        }
+        return s;
+      }
     );
-    this._setStacks(stacks);
+    this.setStacks(stacks);
   }
 
-  async removeStack(id: number): Promise<void> {
+  async remove(id: number): Promise<void> {
     await this.stackService.deleteStack(id);
 
-    const stacks = this.getStacks().filter(s => s.id !== id);
-    this._setStacks(stacks);
+    const stacks = this.getAll().filter(stack => stack.id !== id);
+    this.setStacks(stacks);
   }
 
   updateSelectedStack(id: number) {
-    this._selectedStackSource.next(id);
+    this.selectedStackSource.next(id);
   }
 
 }

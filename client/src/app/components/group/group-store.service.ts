@@ -2,66 +2,71 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Group } from './group.model';
 import { GroupService } from './group.service';
+import { Store } from '../../shared/store';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GroupStoreService {
+export class GroupStoreService implements Store<Group> {
 
-  private readonly _groupSource = new BehaviorSubject<Group[]>([]);
-  readonly groups$ = this._groupSource.asObservable();
+  groupSource = new BehaviorSubject<Group[]>([]);
+  groups$ = this.groupSource.asObservable();
 
-  private readonly _selectedGroupSource = new BehaviorSubject<number>(-1);
-  readonly selectedGroup$ = this._selectedGroupSource.asObservable();
+  selectedGroupSource = new BehaviorSubject<number>(-1);
+  selectedGroup$ = this.selectedGroupSource.asObservable();
 
   constructor(private groupService: GroupService) {
-    this._loadInitialData();
+    this.loadInitialData();
   }
 
-  private _setGroups(groups: Group[]): void {
-    this._groupSource.next(groups);
+  private setGroups(groups: Group[]): void {
+    this.groupSource.next(groups);
   }
 
-  private _loadInitialData() {
+  private loadInitialData(): void {
     this.groupService.getGroups()
       .then((groups: Group[]) => {
-        this._setGroups(groups);
+        this.setGroups(groups);
         if (groups.length > 0) {
           this.updateSelectedGroup(groups[0].id!);
         }
       })
-      .catch(() => this._setGroups([]));
+      .catch(() => this.setGroups([]));
   }
 
-  getGroups(): Group[] {
-    return this._groupSource.getValue()
+  getAll(): Group[] {
+    return this.groupSource.getValue()
   }
 
-  async addGroup(group: Group): Promise<void> {
+  async add(group: Group): Promise<void> {
     const data = await this.groupService.createGroup(group);
 
-    const groups = [...this.getGroups(), data];
-    this._setGroups(groups);
+    const groups = [...this.getAll(), data];
+    this.setGroups(groups);
   }
 
-  async updateGroup(id: number, group: Group): Promise<void> {
+  async update(id: number, group: Group): Promise<void> {
     const data = await this.groupService.updateGroup(id, group);
 
-    const groups = this.getGroups().map(g =>
-      g.id === group.id ? new Group(data.name, data.id, data.slug) : g
+    const groups = this.getAll().map(g => {
+        if (g.id === group.id) {
+          return new Group(data.name, data.id, data.slug)
+        }
+        return g;
+      }
     );
-    this._setGroups(groups);
+    this.setGroups(groups);
   }
 
-  async removeGroup(id: number): Promise<void> {
+  async remove(id: number): Promise<void> {
     await this.groupService.deleteGroup(id);
 
-    const groups = this.getGroups().filter(g => g.id !== id);
-    this._setGroups(groups);
+    const groups = this.getAll().filter(group => group.id !== id);
+    this.setGroups(groups);
   }
 
   updateSelectedGroup(id: number) {
-    this._selectedGroupSource.next(id);
+    this.selectedGroupSource.next(id);
   }
 
 }
