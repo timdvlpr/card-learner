@@ -1,32 +1,24 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Stack } from '../stack.model';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { StackStoreService } from '../stack-store.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-stack-list',
   templateUrl: './stack-list.component.html',
   styleUrls: ['./stack-list.component.scss']
 })
-export class StackListComponent implements OnDestroy {
+export class StackListComponent implements OnInit, OnDestroy {
 
-  subStack: Subscription;
-  subSelectedStack: Subscription;
   stacks: Stack[] = [];
   filteredStacks: Stack[] = [];
   selectedStack = -1;
+  destroy$ = new Subject();
 
   constructor(
     private stackStore: StackStoreService
-  ) {
-    this.subStack = this.stackStore.stacks$
-      .subscribe(stacks => {
-        this.stacks = stacks;
-        this.filteredStacks = this.stacks;
-      });
-    this.subSelectedStack = this.stackStore.selectedStack$
-      .subscribe(selectedStack => this.selectedStack = selectedStack);
-  }
+  ) { }
 
   selectStack(stack: Stack): void {
     this.stackStore.updateSelectedStack(stack.id!);
@@ -36,9 +28,21 @@ export class StackListComponent implements OnDestroy {
     this.filteredStacks = stacks;
   }
 
+  ngOnInit() {
+    this.stackStore.stacks$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(stacks => {
+        this.stacks = stacks;
+        this.filteredStacks = this.stacks;
+      });
+    this.stackStore.selectedStack$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(selectedStack => this.selectedStack = selectedStack);
+  }
+
   ngOnDestroy() {
-    this.subStack.unsubscribe();
-    this.subSelectedStack.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

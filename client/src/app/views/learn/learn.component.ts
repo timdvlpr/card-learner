@@ -1,34 +1,28 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardService } from '../../components/card/card.service';
 import { Card } from '../../components/card/card.model';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-learn',
   templateUrl: './learn.component.html',
   styleUrls: ['./learn.component.scss']
 })
-export class LearnComponent implements OnDestroy {
+export class LearnComponent implements OnInit, OnDestroy {
 
   slug = '';
   cards: Card[] = [];
   currentCardIndex = 0;
-  subRoute: Subscription;
   showAnswer = false;
+  destroy$ = new Subject();
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private cardService: CardService
-  ) {
-    this.subRoute = this.route.params.subscribe(params => {
-      this.slug = params['slug'];
-      this.cardService.getCardsInStack(this.slug)
-        .then((cards: Card[]) => this.cards = this.shuffleCards(cards))
-        .catch(() => this.cards = []);
-    });
-  }
+  ) { }
 
   showNextCard(): void {
     if (this.currentCardIndex + 1 < this.cards.length) {
@@ -65,8 +59,20 @@ export class LearnComponent implements OnDestroy {
     this.showAnswer = false;
   }
 
+  ngOnInit() {
+    this.route.params
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(params => {
+        this.slug = params['slug'];
+        this.cardService.getCardsInStack(this.slug)
+          .then((cards: Card[]) => this.cards = this.shuffleCards(cards))
+          .catch(() => this.cards = []);
+      });
+  }
+
   ngOnDestroy() {
-    this.subRoute.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

@@ -1,43 +1,27 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Stack } from '../stack.model';
 import { StackStoreService } from '../stack-store.service';
 import { GroupStoreService } from '../../group/group-store.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-stack-item-list',
   templateUrl: './stack-item-list.component.html',
   styleUrls: ['./stack-item-list.component.scss']
 })
-export class StackItemListComponent implements OnDestroy {
+export class StackItemListComponent implements OnInit, OnDestroy {
 
   stacks: Stack[] = [];
-  subStacks: Subscription;
-  subSelectedGroup: Subscription;
   selectedGroup = -1;
   sortedByName = true;
   sortedDescending = false;
+  destroy$ = new Subject();
 
   constructor(
     private stackStore: StackStoreService,
     private groupStore: GroupStoreService
-  ) {
-    this.subStacks = this.stackStore.stacks$
-      .subscribe(stacks => {
-        if (this.selectedGroup !== -1) {
-          this.stacks = stacks.filter(s => s.inGroup == this.selectedGroup);
-        } else {
-          this.stacks = stacks;
-        }
-        this.checkStackSortOptions();
-      });
-    this.subSelectedGroup = this.groupStore.selectedGroup$
-      .subscribe(groupId => {
-        this.selectedGroup = groupId;
-        this.stacks = this.stackStore.getAll().filter(stack => stack.inGroup == this.selectedGroup);
-        this.checkStackSortOptions();
-      });
-  }
+  ) { }
 
   sortByName(stacks: Stack[]): Stack[] {
     return stacks.sort((a, b) => a.name.localeCompare(b.name));
@@ -67,9 +51,29 @@ export class StackItemListComponent implements OnDestroy {
     }
   }
 
+  ngOnInit() {
+    this.stackStore.stacks$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(stacks => {
+        if (this.selectedGroup !== -1) {
+          this.stacks = stacks.filter(s => s.inGroup == this.selectedGroup);
+        } else {
+          this.stacks = stacks;
+        }
+        this.checkStackSortOptions();
+      });
+    this.groupStore.selectedGroup$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(groupId => {
+        this.selectedGroup = groupId;
+        this.stacks = this.stackStore.getAll().filter(stack => stack.inGroup == this.selectedGroup);
+        this.checkStackSortOptions();
+      });
+  }
+
   ngOnDestroy() {
-    this.subStacks.unsubscribe();
-    this.subSelectedGroup.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

@@ -1,34 +1,26 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalService } from '../../modal/modal.service';
 import { Group } from '../group.model';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { GroupStoreService } from '../group-store.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-list',
   templateUrl: './group-list.component.html',
   styleUrls: ['./group-list.component.scss']
 })
-export class GroupListComponent implements OnDestroy {
+export class GroupListComponent implements OnInit, OnDestroy {
 
-  subGroup: Subscription;
-  subSelectedGroup: Subscription;
   groups: Group[] = [];
   filteredGroups: Group[] = [];
   selectedGroup = -1;
+  destroy$ = new Subject();
 
   constructor(
     private modalService: ModalService,
     private groupStore: GroupStoreService
-  ) {
-    this.subGroup = this.groupStore.groups$
-      .subscribe(groups => {
-        this.groups = groups;
-        this.filteredGroups = this.groups;
-      });
-    this.subSelectedGroup = this.groupStore.selectedGroup$
-      .subscribe(selectedGroup => this.selectedGroup = selectedGroup);
-  }
+  ) { }
 
   async selectGroup(group: Group) {
     this.groupStore.updateSelectedGroup(group.id!);
@@ -48,9 +40,21 @@ export class GroupListComponent implements OnDestroy {
     this.filteredGroups = groups;
   }
 
+  ngOnInit() {
+    this.groupStore.groups$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(groups => {
+        this.groups = groups;
+        this.filteredGroups = this.groups;
+      });
+    this.groupStore.selectedGroup$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(selectedGroup => this.selectedGroup = selectedGroup);
+  }
+
   ngOnDestroy() {
-    this.subGroup.unsubscribe();
-    this.subSelectedGroup.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

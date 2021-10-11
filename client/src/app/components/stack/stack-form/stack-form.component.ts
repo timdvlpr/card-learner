@@ -1,33 +1,31 @@
-import { Component, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Stack } from '../stack.model';
 import { AlertService } from '../../alert/alert.service';
 import { GroupStoreService } from '../../group/group-store.service';
 import { Group } from '../../group/group.model';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { StackStoreService } from '../stack-store.service';
 import { NgForm } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-stack-form',
   templateUrl: './stack-form.component.html',
   styleUrls: ['./stack-form.component.scss']
 })
-export class StackFormComponent implements OnDestroy {
+export class StackFormComponent implements OnInit, OnDestroy {
 
   @ViewChild('stackForm') stackForm: NgForm | undefined;
   @Input() stack: Stack = {} as Stack;
   @Input() type: 'add' | 'edit' = 'add';
   groupOptions: Group[] = [];
-  subGroups: Subscription;
+  destroy$ = new Subject();
 
   constructor(
     private alertService: AlertService,
     private groupStore: GroupStoreService,
     private stackStore: StackStoreService,
-  ) {
-    this.subGroups = this.groupStore.groups$
-      .subscribe(groups => this.groupOptions = groups);
-  }
+  ) { }
 
   async submitForm(): Promise<void> {
     if (this.type === 'add') {
@@ -48,8 +46,15 @@ export class StackFormComponent implements OnDestroy {
     }
   }
 
+  ngOnInit() {
+    this.groupStore.groups$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(groups => this.groupOptions = groups);
+  }
+
   ngOnDestroy() {
-    this.subGroups.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

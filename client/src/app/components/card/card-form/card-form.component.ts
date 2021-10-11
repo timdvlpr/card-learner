@@ -1,33 +1,31 @@
-import { Component, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Card } from '../card.model';
 import { AlertService } from '../../alert/alert.service';
 import { Stack } from '../../stack/stack.model';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { StackStoreService } from '../../stack/stack-store.service';
 import { CardStoreService } from '../card-store.service';
 import { NgForm } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-card-form',
   templateUrl: './card-form.component.html',
   styleUrls: ['./card-form.component.scss']
 })
-export class CardFormComponent implements OnDestroy {
+export class CardFormComponent implements OnInit, OnDestroy {
 
   @ViewChild('cardForm') cardForm: NgForm | undefined;
   @Input() card: Card = {} as Card;
   @Input() type: 'add' | 'edit' = 'add';
   stackOptions: Stack[] = [];
-  subStacks: Subscription;
+  destroy$ = new Subject();
 
   constructor(
     private alertService: AlertService,
     private stackStore: StackStoreService,
     private cardStore: CardStoreService
-  ) {
-    this.subStacks = this.stackStore.stacks$
-      .subscribe(stacks => this.stackOptions = stacks);
-  }
+  ) { }
 
   async submitForm(): Promise<void> {
     if (this.type === 'add') {
@@ -49,8 +47,15 @@ export class CardFormComponent implements OnDestroy {
     }
   }
 
+  ngOnInit() {
+    this.stackStore.stacks$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(stacks => this.stackOptions = stacks);
+  }
+
   ngOnDestroy() {
-    this.subStacks.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }
