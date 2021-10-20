@@ -1,37 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Group } from './group.model';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupService {
 
-  API_URL = 'http://localhost:5000/api/group';
+  readonly API_URL = 'http://localhost:5000/api/group';
 
   constructor(private http: HttpClient) { }
 
-  getGroups(): Promise<Group[]> {
-    return this.http.get(`${this.API_URL}/all`)
-      .toPromise()
-      .then((data: any) => data.groups);
+  getGroups(): Observable<any> {
+    return this.http.get(`${this.API_URL}/all`);
   }
 
-  createGroup(group: Group): Promise<Group> {
-    return this.http.post(this.API_URL, group)
-      .toPromise()
-      .then((data: any) => data.group);
+  createGroup(group: Group): Observable<any> {
+    return this.http.post(this.API_URL, group);
   }
 
-  updateGroup(id: number, data: any): Promise<Group> {
-    return this.http.put(`${this.API_URL}/${id}`, data)
-      .toPromise()
-      .then((data: any) => data.group);
+  updateGroup(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.API_URL}/${id}`, data);
   }
 
-  deleteGroup(id: number): Promise<any> {
-    return this.http.delete(`${this.API_URL}/${id}`)
-      .toPromise();
+  deleteGroup(id: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/${id}`);
   }
 
 }

@@ -65,8 +65,11 @@ export class LearnComponent implements OnInit, OnDestroy {
       .subscribe(params => {
         this.slug = params['slug'];
         this.cardService.getCardsInStack(this.slug)
-          .then((cards: Card[]) => this.cards = this.shuffleCards(cards))
-          .catch(() => this.cards = []);
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(
+            (data) => this.cards = this.shuffleCards(data.cards),
+            () => this.cards = []
+          );
       });
   }
 

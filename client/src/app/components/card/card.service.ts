@@ -1,43 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Card } from './card.model';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService {
 
-  API_URL = 'http://localhost:5000/api/card';
+  readonly API_URL = 'http://localhost:5000/api/card';
 
   constructor(private http: HttpClient) { }
 
-  getCards(): Promise<Card[]> {
-    return this.http.get(`${this.API_URL}/all`)
-      .toPromise()
-      .then((data: any) => data.cards);
+  getCardsInStack(slug: string): Observable<any> {
+    return this.http.get(`${this.API_URL}/all/${slug}`);
   }
 
-  getCardsInStack(slug: string): Promise<Card[]> {
-    return this.http.get(`${this.API_URL}/all/${slug}`)
-      .toPromise()
-      .then((data: any) => data.cards);
+  getCards(): Observable<any> {
+    return this.http.get(`${this.API_URL}/all`);
   }
 
-  createCard(card: Card): Promise<Card> {
-    return this.http.post(this.API_URL, card)
-      .toPromise()
-      .then((data: any) => data.card);
+  createCard(card: Card): Observable<any> {
+    return this.http.post(this.API_URL, card);
   }
 
-  updateCard(id: number, data: any): Promise<Card> {
-    return this.http.put(`${this.API_URL}/${id}`, data)
-      .toPromise()
-      .then((data: any) => data.card);
+  updateCard(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.API_URL}/${id}`, data);
   }
 
-  deleteCard(id: number): Promise<any> {
-    return this.http.delete(`${this.API_URL}/${id}`)
-      .toPromise();
+  deleteCard(id: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/${id}`);
   }
 
 }

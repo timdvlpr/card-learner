@@ -1,37 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Stack } from './stack.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StackService {
 
-  API_URL = 'http://localhost:5000/api/stack';
+  readonly API_URL = 'http://localhost:5000/api/stack';
 
   constructor(private http: HttpClient) { }
 
-  getStacks(): Promise<Stack[]> {
-    return this.http.get(`${this.API_URL}/all`)
-      .toPromise()
-      .then((data: any) => data.stacks);
+  getStacks(): Observable<any> {
+    return this.http.get(`${this.API_URL}/all`);
   }
 
-  createStack(stack: Stack): Promise<Stack> {
-    return this.http.post(this.API_URL, stack)
-      .toPromise()
-      .then((data: any) => data.stack);
+  createStack(stack: Stack): Observable<any> {
+    return this.http.post(this.API_URL, stack);
   }
 
-  updateStack(id: number, data: any): Promise<Stack> {
-    return this.http.put(`${this.API_URL}/${id}`, data)
-      .toPromise()
-      .then((data: any) => data.stack);
+  updateStack(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.API_URL}/${id}`, data);
   }
 
-  deleteStack(id: number): Promise<any> {
-    return this.http.delete(`${this.API_URL}/${id}`)
-      .toPromise();
+  deleteStack(id: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/${id}`);
   }
 
 }
