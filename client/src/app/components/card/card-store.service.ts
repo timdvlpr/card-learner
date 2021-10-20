@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Card } from './card.model';
 import { CardService } from './card.service';
 import { Store } from '../../shared/store';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,11 @@ export class CardStoreService implements Store<Card>{
 
   private loadInitialData(): void {
     this.cardService.getCards()
-      .then((cards: Card[]) => this.setCards(cards))
-      .catch(() => this.setCards([]));
+      .pipe(map(data => data.cards))
+      .subscribe(
+        (cards: Card[]) => this.setCards(cards),
+        () => this.setCards([])
+      );
   }
 
   getAll(): Card[] {
@@ -31,30 +35,35 @@ export class CardStoreService implements Store<Card>{
   }
 
   async add(card: Card): Promise<void> {
-    const data = await this.cardService.createCard(card);
-
-    const cards = [...this.getAll(), data];
-    this.setCards(cards);
+    this.cardService.createCard(card)
+      .pipe(map(data => data.card))
+      .subscribe((card: Card) => {
+        const cards = [...this.getAll(), card];
+        this.setCards(cards);
+      });
   }
 
   async update(id: number, card: Card): Promise<void> {
-    const data = await this.cardService.updateCard(id, card);
-
-    const cards = this.getAll().map(c => {
-        if (c.id === card.id) {
-          return new Card(data.id, data.question, data.answer, data.inStack, data.slug)
-        }
-        return c;
-      }
-    );
-    this.setCards(cards);
+    this.cardService.updateCard(id, card)
+      .pipe(map(data => data.card))
+      .subscribe((card: Card) => {
+        const cards = this.getAll().map(c => {
+            if (c.id === card.id) {
+              return new Card(card.id, card.question, card.answer, card.inStack, card.slug)
+            }
+            return c;
+          }
+        );
+        this.setCards(cards);
+      });
   }
 
   async remove(id: number): Promise<void> {
-    await this.cardService.deleteCard(id);
-
-    const cards = this.getAll().filter(card => card.id !== id);
-    this.setCards(cards);
+    this.cardService.deleteCard(id)
+      .subscribe(() => {
+        const cards = this.getAll().filter(card => card.id !== id);
+        this.setCards(cards);
+      });
   }
 
 }
