@@ -4,6 +4,7 @@
 .cards-container {
   padding: 0.5rem;
   overflow: auto;
+  width: 100vw;
   @include for-tablet-landscape-up {
     padding: 1rem;
     width: calc(100vw - 20rem);
