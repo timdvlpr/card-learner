@@ -1,13 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './views/home/home.component';
-import { CardsComponent } from './views/cards/cards.component';
-import { LearnComponent } from './views/learn/learn.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'cards', component: CardsComponent },
-  { path: 'learn/:slug', component: LearnComponent },
+  {
+    path: '',
+    loadChildren: () => import('./views/home/home.module').then((m) => m.HomeModule)
+  },
+  {
+    path: 'cards',
+    loadChildren: () => import('./views/cards/cards.module').then((m) => m.CardsModule)
+  },
+  {
+    path: 'learn/:slug',
+    loadChildren: () => import('./views/learn/learn.module').then((m) => m.LearnModule)
+  },
   { path: '**', redirectTo: '' }
 ];
 
