@@ -1,14 +1,19 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 
+const cors = require('cors');
 const errorHandler = require('./middleware/error');
 
 // Server setup
 const app = express();
 const PORT = process.env.PORT || 5000;
+app.use(cors({
+    origin: 'http://localhost:4200',
+    optionsSuccessStatus: 200
+}));
 
 // Dotenv environment variables config
-dotenv.config({path: './config/.env'});
+dotenv.config({path: './src/config/.env'});
 
 // Mysql database connection
 const connection = require('./config/dbconfig');
