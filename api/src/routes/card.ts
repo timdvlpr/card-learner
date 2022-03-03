@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 
 const {validateCard} = require('../middleware/cardValidator')
 const cardController = require('../controllers/card');

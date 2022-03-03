@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 
 const {validateGroup} = require('../middleware/groupValidator');
 const groupController = require('../controllers/group');

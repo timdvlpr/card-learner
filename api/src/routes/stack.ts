@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 
 const {validateStack} = require('../middleware/stackValidator');
 const stackController = require('../controllers/stack');
