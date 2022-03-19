@@ -21,14 +21,14 @@ import { StackListComponent } from './components/stack/stack-list/stack-list.com
 import { CardItemComponent } from './components/card/card-item/card-item.component';
 import { LearnComponent } from './views/learn/learn.component';
 import { CardLearnItemComponent } from './components/card/card-learn-item/card-learn-item.component';
-import { SearchbarComponent } from './shared/searchbar/searchbar.component';
 import { AddDataModalComponent } from './components/modal/add-data-modal/add-data-modal.component';
 import { EditDataModalComponent } from './components/modal/edit-data-modal/edit-data-modal.component';
 import { StackItemListComponent } from './components/stack/stack-item-list/stack-item-list.component';
 import { DeleteDataModalComponent } from './components/modal/delete-data-modal/delete-data-modal.component';
 import { CardItemListComponent } from './components/card/card-item-list/card-item-list.component';
-import { DataOptionBarComponent } from './shared/data-option-bar/data-option-bar.component';
 import { InfoModalComponent } from './components/modal/info-modal/info-modal.component';
+
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -47,19 +47,18 @@ import { InfoModalComponent } from './components/modal/info-modal/info-modal.com
     CardItemComponent,
     LearnComponent,
     CardLearnItemComponent,
-    SearchbarComponent,
     AddDataModalComponent,
     EditDataModalComponent,
     StackItemListComponent,
     DeleteDataModalComponent,
     CardItemListComponent,
-    DataOptionBarComponent,
     InfoModalComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    SharedModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
