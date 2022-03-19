@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { ModalService } from '../../modal/modal.service';
+import { ModalService } from '../../../components/modal/modal.service';
 import { Location } from '@angular/common';
 
 @Component({
