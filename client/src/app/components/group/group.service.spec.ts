@@ -4,10 +4,11 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { GroupService } from './group.service';
 import { Group } from './group.model';
+import { ApiPaths } from '../../core/enums/api-paths';
 
 describe('GroupService', () => {
   let service: GroupService;
-  let testingController: HttpTestingController
+  let testingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,7 +35,7 @@ describe('GroupService', () => {
       expect(mockGroups).toBe(groups);
     });
 
-    const request = testingController.expectOne(`${service.API_URL}/all`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Group}/all`);
     expect(request.request.method).toEqual('GET');
     request.flush(mockGroups);
 
@@ -48,7 +49,7 @@ describe('GroupService', () => {
       expect(mockGroup).toBe(group);
     });
 
-    const request = testingController.expectOne(service.API_URL);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Group}`);
     expect(request.request.method).toEqual('POST');
     request.flush(mockGroup);
 
@@ -62,7 +63,7 @@ describe('GroupService', () => {
       expect(mockGroup).toBe(group);
     });
 
-    const request = testingController.expectOne(`${service.API_URL}/4`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Group}/4`);
     expect(request.request.method).toEqual('PUT');
     request.flush(mockGroup);
 
@@ -81,7 +82,7 @@ describe('GroupService', () => {
       }
     );
 
-    const request = testingController.expectOne(`${service.API_URL}/4`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Group}/4`);
     request.flush(errorMessage, { status: 404, statusText: 'Not Found' });
 
   });
@@ -94,7 +95,7 @@ describe('GroupService', () => {
       expect(res.status).toEqual(200);
     });
 
-    const request = testingController.expectOne(`${service.API_URL}/5`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Group}/5`);
     expect(request.request.method).toEqual('DELETE');
     request.flush(mockResponse);
 
@@ -112,7 +113,7 @@ describe('GroupService', () => {
       }
     );
 
-    const request = testingController.expectOne(`${service.API_URL}/5`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Group}/5`);
     request.flush(errorMessage, { status: 404, statusText: 'Not Found' });
 
   });

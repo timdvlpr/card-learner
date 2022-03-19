@@ -4,6 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { CardService } from './card.service';
 import { Card } from './card.model';
+import { ApiPaths } from '../../core/enums/api-paths';
 
 describe('CardService', () => {
   let service: CardService;
@@ -34,7 +35,7 @@ describe('CardService', () => {
       expect(mockCards).toBe(cards);
     });
 
-    const request = testingController.expectOne(`${service.API_URL}/all`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Card}/all`);
     expect(request.request.method).toEqual('GET');
     request.flush(mockCards);
 
@@ -48,7 +49,7 @@ describe('CardService', () => {
       expect(mockCard).toBe(card);
     });
 
-    const request = testingController.expectOne(service.API_URL);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Card}`);
     expect(request.request.method).toEqual('POST');
     request.flush(mockCard);
 
@@ -62,7 +63,7 @@ describe('CardService', () => {
       expect(mockCard).toBe(card);
     });
 
-    const request = testingController.expectOne(`${service.API_URL}/1`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Card}/1`);
     expect(request.request.method).toEqual('PUT');
     request.flush(mockCard);
 
@@ -81,7 +82,7 @@ describe('CardService', () => {
       }
     );
 
-    const request = testingController.expectOne(`${service.API_URL}/1`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Card}/1`);
     request.flush(errorMessage, { status: 404, statusText: 'Not Found' });
 
   });
@@ -94,7 +95,7 @@ describe('CardService', () => {
       expect(res.status).toEqual(200);
     });
 
-    const request = testingController.expectOne(`${service.API_URL}/1`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Card}/1`);
     expect(request.request.method).toEqual('DELETE');
     request.flush(mockResponse);
 
@@ -112,7 +113,7 @@ describe('CardService', () => {
       }
     );
 
-    const request = testingController.expectOne(`${service.API_URL}/1`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Card}/1`);
     request.flush(errorMessage, { status: 404, statusText: 'Not Found' });
 
   });

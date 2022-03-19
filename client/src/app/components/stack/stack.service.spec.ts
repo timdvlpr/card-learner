@@ -4,6 +4,7 @@ import { StackService } from './stack.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Stack } from './stack.model';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { ApiPaths } from '../../core/enums/api-paths';
 
 describe('StackService', () => {
   let service: StackService;
@@ -34,7 +35,7 @@ describe('StackService', () => {
       expect(mockStacks).toBe(stacks);
     });
 
-    const request = testingController.expectOne(`${service.API_URL}/all`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Stack}/all`);
     expect(request.request.method).toEqual('GET');
     request.flush(mockStacks);
 
@@ -48,7 +49,7 @@ describe('StackService', () => {
       expect(mockStack).toBe(stack);
     });
 
-    const request = testingController.expectOne(service.API_URL);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Stack}`);
     expect(request.request.method).toEqual('POST');
     request.flush(mockStack);
 
@@ -62,7 +63,7 @@ describe('StackService', () => {
       expect(mockStack).toBe(stack);
     });
 
-    const request = testingController.expectOne(`${service.API_URL}/1`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Stack}/1`);
     expect(request.request.method).toEqual('PUT');
     request.flush(mockStack);
 
@@ -81,7 +82,7 @@ describe('StackService', () => {
       }
     );
 
-    const request = testingController.expectOne(`${service.API_URL}/1`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Stack}/1`);
     request.flush(errorMessage, { status: 404, statusText: 'Not Found' });
 
   });
@@ -94,7 +95,7 @@ describe('StackService', () => {
       expect(res.status).toEqual(200);
     });
 
-    const request = testingController.expectOne(`${service.API_URL}/1`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Stack}/1`);
     expect(request.request.method).toEqual('DELETE');
     request.flush(mockResponse);
 
@@ -112,7 +113,7 @@ describe('StackService', () => {
       }
     );
 
-    const request = testingController.expectOne(`${service.API_URL}/1`);
+    const request = testingController.expectOne(`${service.BASE_URL}${ApiPaths.Stack}/1`);
     request.flush(errorMessage, { status: 404, statusText: 'Not Found' });
 
   });
