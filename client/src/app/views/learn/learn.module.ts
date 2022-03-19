@@ -2,12 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LearnRoutingModule } from './learn-routing.module';
+import { CardModule } from '../../components/card/card.module';
+import { LearnComponent } from './learn.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    LearnComponent
+  ],
   imports: [
     CommonModule,
-    LearnRoutingModule
+    LearnRoutingModule,
+    CardModule
   ]
 })
 export class LearnModule { }
