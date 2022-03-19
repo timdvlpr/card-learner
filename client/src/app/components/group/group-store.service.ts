@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Group } from './group.model';
 import { GroupService } from './group.service';
-import { Store } from '../../shared/store';
+import { Store } from '../../core/interfaces/store';
 
 @Injectable({
   providedIn: 'root'

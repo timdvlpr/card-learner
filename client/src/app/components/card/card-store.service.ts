@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Card } from './card.model';
 import { CardService } from './card.service';
-import { Store } from '../../shared/store';
+import { Store } from '../../core/interfaces/store';
 import { map } from 'rxjs/operators';
 
 @Injectable({

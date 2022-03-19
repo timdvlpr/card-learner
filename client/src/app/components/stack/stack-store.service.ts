@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Stack } from './stack.model';
 import { StackService } from './stack.service';
-import { Store } from '../../shared/store';
+import { Store } from '../../core/interfaces/store';
 import { map } from 'rxjs/operators';
 
 @Injectable({
