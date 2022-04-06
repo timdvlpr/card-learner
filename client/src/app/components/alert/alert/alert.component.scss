@@ -6,15 +6,14 @@
   align-items: center;
   color: $text;
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem;
   border-radius: 0.25rem;
-  margin: 1rem 0;
 }
 .success-alert {
   border: 1px solid #1ba11b;
-  background: #1ba11b80;
+  background: #1c5e1c;
 }
 .error-alert {
   border: 1px solid #b82121;
-  background: #b8212180;
+  background: #702121;
 }

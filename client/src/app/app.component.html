@@ -1,4 +1,7 @@
 <app-header></app-header>
 <div class="container-content">
+    <div class="alerts">
+      <app-alert [type]="alert.type" [message]="alert.message" *ngFor="let alert of alertService.activeAlerts"></app-alert>
+    </div>
     <router-outlet></router-outlet>
 </div>

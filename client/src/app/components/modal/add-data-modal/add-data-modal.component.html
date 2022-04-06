@@ -21,10 +21,6 @@
       <button [class.selected-btn]="addType === 'card'" (click)="setAddType('card')">Karte</button>
     </div>
 
-    <div class="alerts" *ngIf="alertsActivated">
-      <app-alert [type]="alert.type" [message]="alert.message" *ngFor="let alert of alertService.activeAlerts"></app-alert>
-    </div>
-
     <app-group-form type="add" *ngIf="addType === 'group'"></app-group-form>
 
     <app-stack-form type="add" *ngIf="addType === 'stack'"></app-stack-form>

@@ -12,11 +12,10 @@ import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './views/home/home.module';
 import { LearnModule } from './views/learn/learn.module';
 import { CardsModule } from './views/cards/cards.module';
+import { AlertModule } from './components/alert/alert.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -25,6 +24,7 @@ import { CardsModule } from './views/cards/cards.module';
     CoreModule,
     HomeModule,
     LearnModule,
+    AlertModule,
     CardsModule,
     HttpClientModule,
     NgxSmartModalModule.forRoot()
@@ -32,4 +32,4 @@ import { CardsModule } from './views/cards/cards.module';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

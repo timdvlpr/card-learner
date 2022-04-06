@@ -7,7 +7,6 @@ import { InfoModalComponent } from './info-modal/info-modal.component';
 import { StackModule } from '../stack/stack.module';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { GroupModule } from '../group/group.module';
-import { AlertModule } from '../alert/alert.module';
 import { CardModule } from '../card/card.module';
 import { ModalService } from './modal.service';
 
@@ -22,13 +21,10 @@ import { ModalService } from './modal.service';
     CommonModule,
     StackModule,
     GroupModule,
-    AlertModule,
     CardModule,
     NgxSmartModalModule
   ],
-  providers: [
-    ModalService
-  ],
+  providers: [ModalService],
   exports: [
     AddDataModalComponent,
     DeleteDataModalComponent,
@@ -36,4 +32,4 @@ import { ModalService } from './modal.service';
     InfoModalComponent
   ]
 })
-export class ModalModule { }
+export class ModalModule {}

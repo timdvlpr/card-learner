@@ -11,21 +11,18 @@ import { AlertService } from '../../alert/alert.service';
   styleUrls: ['./edit-data-modal.component.scss']
 })
 export class EditDataModalComponent {
-
   editType: 'stack' | 'group' | 'card' | '' = '';
   editGroup: Group = {} as Group;
   editStack: Stack = {} as Stack;
   editCard: Card = {} as Card;
-  alertsActivated = false;
 
   constructor(
     private ngxSmartModalService: NgxSmartModalService,
     public alertService: AlertService
-  ) { }
+  ) {}
 
   getData(): void {
     this.alertService.reset();
-    this.alertsActivated = true;
     const modalData = this.ngxSmartModalService.getModalData('edit-data-modal');
 
     switch (modalData.type) {
@@ -44,12 +41,7 @@ export class EditDataModalComponent {
     }
   }
 
-  reset(): void {
-    this.alertsActivated = false;
-  }
-
   closeModal(): void {
     this.ngxSmartModalService.close('edit-data-modal');
   }
-
 }

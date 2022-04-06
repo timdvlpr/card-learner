@@ -5,10 +5,9 @@ import { Alert } from './alert.model';
   providedIn: 'root'
 })
 export class AlertService {
-
   activeAlerts: Alert[] = [];
 
-  constructor() { }
+  constructor() {}
 
   removeAlert(): void {
     this.activeAlerts.shift();
@@ -21,5 +20,4 @@ export class AlertService {
   reset(): void {
     this.activeAlerts = [];
   }
-
 }

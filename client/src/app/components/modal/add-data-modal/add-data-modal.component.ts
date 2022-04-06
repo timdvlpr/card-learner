@@ -9,20 +9,18 @@ import { Location } from '@angular/common';
   styleUrls: ['./add-data-modal.component.scss']
 })
 export class AddDataModalComponent {
-
   addType: 'stack' | 'group' | 'card' = 'group';
-  alertsActivated = false;
 
   constructor(
     private ngxSmartModalService: NgxSmartModalService,
     private location: Location,
-    public alertService: AlertService,
-  ) { }
+    public alertService: AlertService
+  ) {}
 
   getData(): void {
     this.alertService.reset();
-    this.alertsActivated = true;
-    this.addType = this.ngxSmartModalService.getModalData('add-data-modal').type;
+    this.addType =
+      this.ngxSmartModalService.getModalData('add-data-modal').type;
   }
 
   setAddType(type: 'stack' | 'group' | 'card') {
@@ -35,8 +33,6 @@ export class AddDataModalComponent {
   }
 
   locateBack(): void {
-    this.alertsActivated = false;
     this.location.back();
   }
-
 }
