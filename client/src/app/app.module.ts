@@ -8,10 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-import { HomeModule } from './views/home/home.module';
-import { LearnModule } from './views/learn/learn.module';
-import { CardsModule } from './views/cards/cards.module';
 import { AlertModule } from './components/alert/alert.module';
 
 @NgModule({
@@ -20,12 +16,8 @@ import { AlertModule } from './components/alert/alert.module';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    SharedModule,
     CoreModule,
-    HomeModule,
-    LearnModule,
     AlertModule,
-    CardsModule,
     HttpClientModule,
     NgxSmartModalModule.forRoot()
   ],
