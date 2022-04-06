@@ -9,7 +9,6 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class StackStoreService implements Store<Stack> {
-
   stackSource = new BehaviorSubject<Stack[]>([]);
   stacks$ = this.stackSource.asObservable();
 
@@ -24,55 +23,58 @@ export class StackStoreService implements Store<Stack> {
     this.stackSource.next(stacks);
   }
 
-  private loadInitialData() {
-    this.stackService.getStacks()
-      .pipe(map(data => data.stacks))
-      .subscribe((stacks: Stack[]) => {
-        this.setStacks(stacks);
-        if (stacks.length > 0) {
-          this.updateSelectedStack(stacks[0].id);
-        }
-      }, () => this.setStacks([]));
+  private loadInitialData(): void {
+    this.stackService
+      .getStacks()
+      .pipe(map((data) => data.stacks))
+      .subscribe(
+        (stacks: Stack[]) => {
+          this.setStacks(stacks);
+          if (stacks.length > 0) {
+            this.updateSelectedStack(stacks[0].id);
+          }
+        },
+        () => this.setStacks([])
+      );
   }
 
   getAll(): Stack[] {
     return this.stackSource.getValue();
   }
 
-  async add(stack: Stack): Promise<void> {
-    this.stackService.createStack(stack)
-      .pipe(map(data => data.stack))
+  add(stack: Stack): void {
+    this.stackService
+      .createStack(stack)
+      .pipe(map((data) => data.stack))
       .subscribe((stack: Stack) => {
         const stacks = [...this.getAll(), stack];
         this.setStacks(stacks);
       });
   }
 
-  async update(id: number, stack: Stack): Promise<void> {
-    this.stackService.updateStack(id, stack)
-      .pipe(map(data => data.stack))
+  update(id: number, stack: Stack): void {
+    this.stackService
+      .updateStack(id, stack)
+      .pipe(map((data) => data.stack))
       .subscribe((stack: Stack) => {
-        const stacks = this.getAll().map(s => {
-            if (s.id === stack.id) {
-              return new Stack(stack.id, stack.name, stack.slug, stack.inGroup)
-            }
-            return s;
+        const stacks = this.getAll().map((s) => {
+          if (s.id === stack.id) {
+            return new Stack(stack.id, stack.name, stack.slug, stack.inGroup);
           }
-        );
+          return s;
+        });
         this.setStacks(stacks);
       });
   }
 
-  async remove(id: number): Promise<void> {
-    this.stackService.deleteStack(id)
-      .subscribe(() => {
-        const stacks = this.getAll().filter(stack => stack.id !== id);
-        this.setStacks(stacks);
-      });
+  remove(id: number): void {
+    this.stackService.deleteStack(id).subscribe(() => {
+      const stacks = this.getAll().filter((stack) => stack.id !== id);
+      this.setStacks(stacks);
+    });
   }
 
-  updateSelectedStack(id: number) {
+  updateSelectedStack(id: number): void {
     this.selectedStackSource.next(id);
   }
-
 }
