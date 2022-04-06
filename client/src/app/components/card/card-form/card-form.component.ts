@@ -14,7 +14,6 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./card-form.component.scss']
 })
 export class CardFormComponent implements OnInit, OnDestroy {
-
   @ViewChild('cardForm') cardForm: NgForm | undefined;
   @Input() card: Card = {} as Card;
   @Input() type: 'add' | 'edit' = 'add';
@@ -25,38 +24,26 @@ export class CardFormComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private stackStore: StackStoreService,
     private cardStore: CardStoreService
-  ) { }
+  ) {}
 
-  async submitForm(): Promise<void> {
+  submitForm(): void {
     if (this.type === 'add') {
-      try {
-        const inStack = this.card.inStack;
-        await this.cardStore.add(this.card);
-        this.alertService.activateAlert('success', 'Karte erfolgreich angelegt');
-        this.cardForm?.resetForm({ inStack: inStack });
-      } catch (e) {
-        this.alertService.activateAlert('error', e.error.message);
-      }
+      const inStack = this.card.inStack;
+      this.cardStore.add(this.card);
+      this.cardForm?.resetForm({ inStack: inStack });
     } else {
-      try {
-        await this.cardStore.update(this.card.id, this.card);
-        this.alertService.activateAlert('success', 'Karte erfolgreich bearbeitet');
-      } catch (e) {
-        this.alertService.activateAlert('error', e.error.message);
-      }
+      this.cardStore.update(this.card.id, this.card);
     }
   }
 
   ngOnInit() {
     this.stackStore.stacks$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(stacks => this.stackOptions = stacks);
+      .subscribe((stacks) => (this.stackOptions = stacks));
   }
 
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
 }
-

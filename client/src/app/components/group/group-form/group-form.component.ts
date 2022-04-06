@@ -1,6 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Group } from '../group.model';
-import { AlertService } from '../../alert/alert.service';
 import { GroupStoreService } from '../group-store.service';
 import { NgForm } from '@angular/forms';
 
@@ -10,33 +9,18 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./group-form.component.scss']
 })
 export class GroupFormComponent {
-
   @ViewChild('groupForm') groupForm: NgForm | undefined;
   @Input() group: Group = new Group('');
   @Input() type: 'add' | 'edit' = 'add';
 
-  constructor(
-    private groupStore: GroupStoreService,
-    private alertService: AlertService
-  ) { }
+  constructor(private groupStore: GroupStoreService) {}
 
-  async submitForm(): Promise<void> {
+  submitForm(): void {
     if (this.type === 'add') {
-      try {
-        await this.groupStore.add(this.group);
-        this.alertService.activateAlert('success', 'Gruppe erfolgreich angelegt');
-        this.groupForm!.resetForm();
-      } catch (e) {
-        this.alertService.activateAlert('error', e.error.message);
-      }
+      this.groupStore.add(this.group);
+      this.groupForm!.resetForm();
     } else {
-        try {
-          await this.groupStore.update(this.group.id!, this.group)
-          this.alertService.activateAlert('success', 'Gruppe erfolgreich bearbeitet');
-        } catch (e) {
-          this.alertService.activateAlert('error', e.error.message);
-        }
+      this.groupStore.update(this.group.id!, this.group);
     }
   }
-
 }

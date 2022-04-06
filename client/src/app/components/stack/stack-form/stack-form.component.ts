@@ -14,7 +14,6 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./stack-form.component.scss']
 })
 export class StackFormComponent implements OnInit, OnDestroy {
-
   @ViewChild('stackForm') stackForm: NgForm | undefined;
   @Input() stack: Stack = {} as Stack;
   @Input() type: 'add' | 'edit' = 'add';
@@ -24,37 +23,26 @@ export class StackFormComponent implements OnInit, OnDestroy {
   constructor(
     private alertService: AlertService,
     private groupStore: GroupStoreService,
-    private stackStore: StackStoreService,
-  ) { }
+    private stackStore: StackStoreService
+  ) {}
 
-  async submitForm(): Promise<void> {
+  submitForm(): void {
     if (this.type === 'add') {
-      try {
-        await this.stackStore.add(this.stack);
-        this.alertService.activateAlert('success', 'Stapel erfolgreich angelegt');
-        this.stackForm!.resetForm();
-      } catch (e) {
-        this.alertService.activateAlert('error', e.error.message);
-      }
+      this.stackStore.add(this.stack);
+      this.stackForm!.resetForm();
     } else {
-      try {
-        await this.stackStore.update(this.stack.id, this.stack);
-        this.alertService.activateAlert('success', 'Stapel erfolgreich bearbeitet');
-      } catch (e) {
-        this.alertService.activateAlert('error', e.error.message);
-      }
+      this.stackStore.update(this.stack.id, this.stack);
     }
   }
 
   ngOnInit() {
     this.groupStore.groups$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(groups => this.groupOptions = groups);
+      .subscribe((groups) => (this.groupOptions = groups));
   }
 
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
 }
