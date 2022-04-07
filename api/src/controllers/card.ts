@@ -45,11 +45,6 @@ exports.getAllCardsInStack = async function (
 
   try {
     const dbdata = await dbquery(query, [stackSlug]);
-    if (dbdata.length === 0) {
-      return next(
-        new ErrorResponse(404, "Keine Karten in diesem Stapel vorhanden")
-      );
-    }
     res.status(200).json({
       success: true,
       cards: dbdata,
