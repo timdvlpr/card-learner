@@ -1,16 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GroupListComponent } from './group-list.component';
+import { ModalService } from '../../modal/modal.service';
+import { GroupStoreService } from '../group-store.service';
+import { SharedModule } from '../../../shared/shared.module';
+import { GroupStoreMockService } from '../group-store.mock.service';
 
 describe('GroupListComponent', () => {
   let component: GroupListComponent;
   let fixture: ComponentFixture<GroupListComponent>;
 
+  const fakeModalService = {};
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GroupListComponent ]
-    })
-    .compileComponents();
+      declarations: [GroupListComponent],
+      imports: [SharedModule],
+      providers: [
+        { provide: ModalService, useValue: fakeModalService },
+        { provide: GroupStoreService, useClass: GroupStoreMockService }
+      ]
+    }).compileComponents();
   });
 
   beforeEach(() => {

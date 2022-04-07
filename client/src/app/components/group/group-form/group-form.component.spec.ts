@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GroupFormComponent } from './group-form.component';
+import { GroupStoreService } from '../group-store.service';
+import { FormsModule } from '@angular/forms';
+import { GroupStoreMockService } from '../group-store.mock.service';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -8,9 +11,12 @@ describe('GroupFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GroupFormComponent ]
-    })
-    .compileComponents();
+      declarations: [GroupFormComponent],
+      imports: [FormsModule],
+      providers: [
+        { provide: GroupStoreService, useClass: GroupStoreMockService }
+      ]
+    }).compileComponents();
   });
 
   beforeEach(() => {

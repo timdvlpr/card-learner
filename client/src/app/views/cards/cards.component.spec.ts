@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardsComponent } from './cards.component';
+import { CardStoreService } from '../../components/card/card-store.service';
+import { CardStoreMockService } from '../../components/card/card-store.mock.service';
 
 describe('CardsComponent', () => {
   let component: CardsComponent;
@@ -8,9 +10,9 @@ describe('CardsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CardsComponent ]
-    })
-    .compileComponents();
+      declarations: [CardsComponent],
+      providers: [{ provide: CardStoreService, useClass: CardStoreMockService }]
+    }).compileComponents();
   });
 
   beforeEach(() => {

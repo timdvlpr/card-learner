@@ -1,16 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddDataModalComponent } from './add-data-modal.component';
+import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
 
 describe('AddDataModalComponent', () => {
   let component: AddDataModalComponent;
   let fixture: ComponentFixture<AddDataModalComponent>;
 
+  const fakeModalService = {};
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddDataModalComponent ]
-    })
-    .compileComponents();
+      declarations: [AddDataModalComponent],
+      imports: [NgxSmartModalModule],
+      providers: [{ provide: NgxSmartModalService, useValue: fakeModalService }]
+    }).compileComponents();
   });
 
   beforeEach(() => {

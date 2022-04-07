@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StackListComponent } from './stack-list.component';
+import { StackStoreService } from '../stack-store.service';
+import { StackStoreMockService } from '../stack-store.mock.service';
 
 describe('StackListComponent', () => {
   let component: StackListComponent;
@@ -8,9 +10,11 @@ describe('StackListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StackListComponent ]
-    })
-    .compileComponents();
+      declarations: [StackListComponent],
+      providers: [
+        { provide: StackStoreService, useClass: StackStoreMockService }
+      ]
+    }).compileComponents();
   });
 
   beforeEach(() => {

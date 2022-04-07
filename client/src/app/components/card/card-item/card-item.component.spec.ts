@@ -1,16 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardItemComponent } from './card-item.component';
+import { ModalService } from '../../modal/modal.service';
 
 describe('CardItemComponent', () => {
   let component: CardItemComponent;
   let fixture: ComponentFixture<CardItemComponent>;
 
+  const fakeModalService = {};
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CardItemComponent ]
-    })
-    .compileComponents();
+      declarations: [CardItemComponent],
+      providers: [{ provide: ModalService, useValue: fakeModalService }]
+    }).compileComponents();
   });
 
   beforeEach(() => {
