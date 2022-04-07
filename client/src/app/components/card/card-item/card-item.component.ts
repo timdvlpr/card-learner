@@ -8,7 +8,6 @@ import { ModalService } from '../../modal/modal.service';
   styleUrls: ['./card-item.component.scss']
 })
 export class CardItemComponent implements OnInit {
-
   @Input() card: Card;
   previewQuestion: string = '';
 
@@ -17,15 +16,33 @@ export class CardItemComponent implements OnInit {
   }
 
   editCard(): void {
-    const card = new Card(this.card.id, this.card.question, this.card.answer, this.card.inStack, this.card.slug);
-    this.modalService.openModalWithData('edit-data-modal', {type: 'card', data: card});
+    const card = new Card(
+      this.card.id,
+      this.card.question,
+      this.card.answer,
+      this.card.inStack,
+      this.card.slug
+    );
+    this.modalService.openModalWithData('edit-data-modal', {
+      type: 'card',
+      data: card
+    });
   }
 
   deleteCard(): void {
-    this.modalService.openModalWithData('delete-data-modal', {type: 'card', data: this.card});
+    this.modalService.openModalWithData('delete-data-modal', {
+      type: 'card',
+      data: this.card
+    });
   }
 
   transformCard(characters: number): string {
+    if (!this.card.question) {
+      return '';
+    }
+    if (this.card.question.length < 100) {
+      return this.card.question;
+    }
     const question = this.card.question as string;
     return question.substr(0, characters) + ' ...';
   }
@@ -33,5 +50,4 @@ export class CardItemComponent implements OnInit {
   ngOnInit() {
     this.previewQuestion = this.transformCard(100);
   }
-
 }
