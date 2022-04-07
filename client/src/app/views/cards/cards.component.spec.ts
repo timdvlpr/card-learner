@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardsComponent } from './cards.component';
-import { CardStoreService } from '../../components/card/card-store.service';
-import { CardStoreMockService } from '../../components/card/card-store.mock.service';
+import { CardStoreService } from '../../features/card/services/card-store.service';
+import { CardStoreMockService } from '../../features/card/services/card-store.mock.service';
 
 describe('CardsComponent', () => {
   let component: CardsComponent;

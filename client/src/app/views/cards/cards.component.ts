@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ModalData } from '../../components/modal/modal-data';
-import { CardStoreService } from '../../components/card/card-store.service';
+import { ModalData } from '../../features/modal/modal-data';
+import { CardStoreService } from '../../features/card/services/card-store.service';
 
 @Component({
   selector: 'app-cards',

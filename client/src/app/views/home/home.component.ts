@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ModalData } from '../../components/modal/modal-data';
-import { GroupStoreService } from '../../components/group/group-store.service';
-import { StackStoreService } from '../../components/stack/stack-store.service';
+import { ModalData } from '../../features/modal/modal-data';
+import { GroupStoreService } from '../../features/group/services/group-store.service';
+import { StackStoreService } from '../../features/stack/services/stack-store.service';
 
 @Component({
   selector: 'app-home',

@@ -2,15 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
-import { StackModule } from '../../components/stack/stack.module';
+import { StackModule } from '../../features/stack/stack.module';
 import { HomeComponent } from './home.component';
-import { ModalModule } from '../../components/modal/modal.module';
+import { ModalModule } from '../../features/modal/modal.module';
 import { SidebarModule } from '../../shared/sidebar/sidebar.module';
 
 @NgModule({
-  declarations: [
-    HomeComponent
-  ],
+  declarations: [HomeComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
@@ -19,4 +17,4 @@ import { SidebarModule } from '../../shared/sidebar/sidebar.module';
     SidebarModule
   ]
 })
-export class HomeModule { }
+export class HomeModule {}

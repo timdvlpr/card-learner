@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { ModalService } from '../../../components/modal/modal.service';
+import { ModalService } from '../../../features/modal/services/modal.service';
 import { Location } from '@angular/common';
 
 @Component({
@@ -9,23 +9,22 @@ import { Location } from '@angular/common';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
   activeRoute = '/';
 
   constructor(
     private router: Router,
     private modalService: ModalService,
     private location: Location
-  ) { }
+  ) {}
 
   showAddModal(): void {
-    this.modalService.openModalWithData('add-data-modal', {type: 'stack'});
+    this.modalService.openModalWithData('add-data-modal', { type: 'stack' });
     this.location.go('/add');
     this.activeRoute = '/add';
   }
 
   ngOnInit(): void {
-    this.location.subscribe(val => {
+    this.location.subscribe((val) => {
       if (val.type === 'popstate') {
         if (val.url!.length === 0) {
           this.activeRoute = '/';
@@ -33,13 +32,11 @@ export class HeaderComponent implements OnInit {
           this.activeRoute = val.url!;
         }
       }
-    })
-    this.router.events
-      .subscribe((val) => {
-        if (val instanceof NavigationEnd) {
-          this.activeRoute = this.router.url;
-        }
+    });
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        this.activeRoute = this.router.url;
+      }
     });
   }
-
 }

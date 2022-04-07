@@ -1,25 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderComponent } from './header.component';
+import { StackItemComponent } from './stack-item.component';
+import { ModalService } from '../../../modal/services/modal.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ModalService } from '../../../features/modal/services/modal.service';
 
-describe('HeaderComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+describe('StackItemComponent', () => {
+  let component: StackItemComponent;
+  let fixture: ComponentFixture<StackItemComponent>;
 
   const fakeModalService = {};
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HeaderComponent],
+      declarations: [StackItemComponent],
       imports: [RouterTestingModule.withRoutes([])],
       providers: [{ provide: ModalService, useValue: fakeModalService }]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(StackItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

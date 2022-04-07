@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
-import { AlertModule } from './components/alert/alert.module';
+import { AlertModule } from './features/alert/alert.module';
 
 @NgModule({
   declarations: [AppComponent],

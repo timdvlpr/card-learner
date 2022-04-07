@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertService } from './components/alert/alert.service';
+import { AlertService } from './features/alert/alert.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({

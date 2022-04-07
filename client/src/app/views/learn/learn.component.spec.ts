@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LearnComponent } from './learn.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CardService } from '../../components/card/card.service';
-import { Card } from '../../components/card/card.model';
+import { CardService } from '../../features/card/services/card.service';
+import { Card } from '../../features/card/card.model';
 import { of } from 'rxjs';
 
 describe('LearnComponent', () => {
