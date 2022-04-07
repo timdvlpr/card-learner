@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CardService } from '../../components/card/card.service';
-import { Card } from '../../components/card/card.model';
+import { CardService } from '../../features/card/services/card.service';
+import { Card } from '../../features/card/card.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -11,7 +11,6 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./learn.component.scss']
 })
 export class LearnComponent implements OnInit, OnDestroy {
-
   slug = '';
   cards: Card[] = [];
   currentCardIndex = 0;
@@ -22,7 +21,7 @@ export class LearnComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private cardService: CardService
-  ) { }
+  ) {}
 
   showNextCard(): void {
     if (this.currentCardIndex + 1 < this.cards.length) {
@@ -60,22 +59,20 @@ export class LearnComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(params => {
-        this.slug = params['slug'];
-        this.cardService.getCardsInStack(this.slug)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe(
-            (data) => this.cards = this.shuffleCards(data.cards),
-            () => this.cards = []
-          );
-      });
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
+      this.slug = params['slug'];
+      this.cardService
+        .getCardsInStack(this.slug)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
+          (data) => (this.cards = this.shuffleCards(data.cards)),
+          () => (this.cards = [])
+        );
+    });
   }
 
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
 }
