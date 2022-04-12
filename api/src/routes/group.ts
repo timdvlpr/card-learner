@@ -1,17 +1,17 @@
-import express from 'express';
+import express from "express";
 
-const {validateGroup} = require('../middleware/groupValidator');
-const groupController = require('../controllers/group');
+const { validateGroup } = require("../middleware/groupValidator");
+const groupController = require("../controllers/group");
 const router = express();
 
-router.get('/all', groupController.getAllGroups);
+router.get("/all", groupController.getAllGroups);
 
-router.get('/:slug', groupController.getGroup);
+router.get("/:slug", groupController.getGroup);
 
-router.post('/', validateGroup, groupController.createGroup);
+router.post("/", validateGroup, groupController.createGroup);
 
-router.put('/:id', validateGroup, groupController.updateGroup);
+router.put("/:id", validateGroup, groupController.updateGroup);
 
-router.delete('/:id', groupController.deleteGroup);
+router.delete("/:id", groupController.deleteGroup);
 
 module.exports = router;

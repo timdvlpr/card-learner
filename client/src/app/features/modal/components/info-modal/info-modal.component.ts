@@ -7,13 +7,10 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
   styleUrls: ['./info-modal.component.scss']
 })
 export class InfoModalComponent {
-
   @Input() identifier = '';
   text = '';
 
-  constructor(
-    private ngxSmartModalService: NgxSmartModalService
-  ) { }
+  constructor(private ngxSmartModalService: NgxSmartModalService) {}
 
   getData(): void {
     this.text = this.ngxSmartModalService.getModalData(this.identifier);
@@ -22,5 +19,4 @@ export class InfoModalComponent {
   closeModal(): void {
     this.ngxSmartModalService.close(this.identifier);
   }
-
 }

@@ -8,13 +8,12 @@ import { AlertService } from '../alert.service';
   styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent implements AfterViewInit {
-
   @Input() alert = {} as Alert;
   @Input() message = '';
   @Input() type = '';
   remainingTime = 3;
 
-  constructor(private alertService: AlertService) { }
+  constructor(private alertService: AlertService) {}
 
   startRemainingTime(): void {
     const interval = setInterval(() => {
@@ -29,5 +28,4 @@ export class AlertComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.startRemainingTime();
   }
-
 }
