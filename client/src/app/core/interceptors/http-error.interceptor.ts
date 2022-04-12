@@ -27,7 +27,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         } else {
           message = `${error.status}: Server Error aufgetreten`;
         }
-        this.alertService.activateAlert('error', message);
+        this.alertService.activateAlert({ type: 'error', message: message });
         return throwError(message);
       })
     );

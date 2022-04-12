@@ -1,4 +1,6 @@
+type AlertType = 'success' | 'error' | 'warning';
+
 export interface Alert {
-  type: string;
+  type: AlertType;
   message: string;
 }

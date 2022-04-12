@@ -7,14 +7,12 @@ import { Alert } from './alert.model';
 export class AlertService {
   activeAlerts: Alert[] = [];
 
-  constructor() {}
-
   removeAlert(): void {
     this.activeAlerts.shift();
   }
 
-  activateAlert(alertType: string, message: string): void {
-    this.activeAlerts.push({ type: alertType, message: message });
+  activateAlert(alert: Alert): void {
+    this.activeAlerts.push(alert);
   }
 
   reset(): void {

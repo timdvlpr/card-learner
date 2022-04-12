@@ -32,20 +32,15 @@ describe('AlertService', () => {
   });
 
   it('should activate alert', () => {
-    const mockAlert = [
-      {
-        type: 'error',
-        message: 'error message'
-      }
-    ];
-    service.activateAlert('error', 'error message');
-    expect(service.activeAlerts).toEqual(mockAlert);
+    service.activateAlert({ type: 'error', message: 'error message' });
+    expect(service.activeAlerts.length).toBe(1);
   });
 
   it('should remove alert', () => {
     service.activeAlerts = mockAlerts;
     service.removeAlert();
-    expect(service.activeAlerts).toEqual([{ type: 'success', message: 'alert success message' }]);
+    expect(service.activeAlerts).toEqual([
+      { type: 'success', message: 'alert success message' }
+    ]);
   });
-
 });
