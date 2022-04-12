@@ -41,7 +41,7 @@ describe('StackStoreService', () => {
 
   it('should add a stack to the store', () => {
     stackServiceSpy.createStack.and.returnValue(
-      of({ success: true, group: mockStack })
+      of({ success: true, stack: mockStack })
     );
     service.add(mockStack);
     service.stacks$.subscribe((stacks) => {
@@ -53,7 +53,7 @@ describe('StackStoreService', () => {
   it('update a stack from the store', () => {
     service.stackSource.next([mockStack]);
     stackServiceSpy.updateStack.and.returnValue(
-      of({ success: true, group: mockStack })
+      of({ success: true, stack: mockStack })
     );
     service.update(mockStack.id!, mockStack);
     service.stacks$.subscribe((stacks) => {
