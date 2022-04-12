@@ -14,8 +14,6 @@ export class SearchbarComponent {
   searchInput = '';
   filteredArray: Array<Group | Stack> = [];
 
-  constructor() {}
-
   filter(): void {
     const input = this.searchInput.toLowerCase();
     this.filteredArray = this.searchArray.filter((e) => {

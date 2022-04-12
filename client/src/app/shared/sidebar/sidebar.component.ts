@@ -6,11 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-
   @Input() listType = '';
   sidebarCollapsed = false;
-
-  constructor() { }
 
   collapseSidebar(): void {
     this.sidebarCollapsed = true;
@@ -19,5 +16,4 @@ export class SidebarComponent {
   showSidebar(): void {
     this.sidebarCollapsed = false;
   }
-
 }

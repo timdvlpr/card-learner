@@ -6,13 +6,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./data-option-bar.component.scss']
 })
 export class DataOptionBarComponent {
-
   @Input() sortedByName = false;
   @Input() sortedDescending = false;
   @Output() sortedByNameEvent = new EventEmitter();
   @Output() sortedOrderEvent = new EventEmitter();
-
-  constructor() { }
 
   sortByName(): void {
     this.sortedByNameEvent.emit();
@@ -21,5 +18,4 @@ export class DataOptionBarComponent {
   changeSortOrder(): void {
     this.sortedOrderEvent.emit();
   }
-
 }

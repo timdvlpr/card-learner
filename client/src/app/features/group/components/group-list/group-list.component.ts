@@ -21,7 +21,7 @@ export class GroupListComponent implements OnInit, OnDestroy {
     private groupStore: GroupStoreService
   ) {}
 
-  async selectGroup(group: Group) {
+  selectGroup(group: Group): void {
     this.groupStore.updateSelectedGroup(group.id!);
   }
 
