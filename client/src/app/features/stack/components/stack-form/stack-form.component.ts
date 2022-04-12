@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Stack } from '../../stack.model';
-import { AlertService } from '../../../alert/alert.service';
 import { GroupStoreService } from '../../../group/services/group-store.service';
 import { Group } from '../../../group/group.model';
 import { Subject } from 'rxjs';
@@ -21,7 +20,6 @@ export class StackFormComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
 
   constructor(
-    private alertService: AlertService,
     private groupStore: GroupStoreService,
     private stackStore: StackStoreService
   ) {}

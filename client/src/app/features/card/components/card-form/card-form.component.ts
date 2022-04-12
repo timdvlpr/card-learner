@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Card } from '../../card.model';
-import { AlertService } from '../../../alert/alert.service';
 import { Stack } from '../../../stack/stack.model';
 import { Subject } from 'rxjs';
 import { StackStoreService } from '../../../stack/services/stack-store.service';
@@ -21,7 +20,6 @@ export class CardFormComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
 
   constructor(
-    private alertService: AlertService,
     private stackStore: StackStoreService,
     private cardStore: CardStoreService
   ) {}

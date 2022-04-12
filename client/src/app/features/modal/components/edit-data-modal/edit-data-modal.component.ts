@@ -3,7 +3,6 @@ import { Stack } from '../../../stack/stack.model';
 import { Group } from '../../../group/group.model';
 import { Card } from '../../../card/card.model';
 import { NgxSmartModalService } from 'ngx-smart-modal';
-import { AlertService } from '../../../alert/alert.service';
 
 @Component({
   selector: 'app-edit-data-modal',
@@ -16,13 +15,9 @@ export class EditDataModalComponent {
   editStack: Stack = {} as Stack;
   editCard: Card = {} as Card;
 
-  constructor(
-    private ngxSmartModalService: NgxSmartModalService,
-    public alertService: AlertService
-  ) {}
+  constructor(private ngxSmartModalService: NgxSmartModalService) {}
 
   getData(): void {
-    this.alertService.reset();
     const modalData = this.ngxSmartModalService.getModalData('edit-data-modal');
 
     switch (modalData.type) {
