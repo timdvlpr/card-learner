@@ -7,7 +7,7 @@
 </app-data-option-bar>
 <div class="cards-container">
   <div class="no-cards-message fade-in-anim" *ngIf="cards.length === 0">
-    <i class="fas fa-info-circle"></i> Keine Karten vorhanden
+    <fa-icon icon="info-circle"></fa-icon> Keine Karten vorhanden
   </div>
   <app-card-item
     *ngFor="let card of cards"

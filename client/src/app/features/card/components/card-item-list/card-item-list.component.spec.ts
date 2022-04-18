@@ -5,6 +5,7 @@ import { CardStoreService } from '../../services/card-store.service';
 import { StackStoreService } from '../../../stack/services/stack-store.service';
 import { StackStoreMockService } from '../../../stack/services/stack-store.mock.service';
 import { CardStoreMockService } from '../../services/card-store.mock.service';
+import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 
 describe('CardItemListComponent', () => {
   let component: CardItemListComponent;
@@ -13,6 +14,7 @@ describe('CardItemListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CardItemListComponent],
+      imports: [FontAwesomeTestingModule],
       providers: [
         { provide: CardStoreService, useClass: CardStoreMockService },
         { provide: StackStoreService, useClass: StackStoreMockService }

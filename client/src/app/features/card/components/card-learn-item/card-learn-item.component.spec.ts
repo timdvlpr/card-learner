@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardLearnItemComponent } from './card-learn-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 
 describe('CardLearnItemComponent', () => {
   let component: CardLearnItemComponent;
@@ -10,7 +11,7 @@ describe('CardLearnItemComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CardLearnItemComponent],
-      imports: [BrowserAnimationsModule]
+      imports: [BrowserAnimationsModule, FontAwesomeTestingModule]
     }).compileComponents();
   });
 

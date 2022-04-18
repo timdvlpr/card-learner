@@ -27,7 +27,7 @@
   color: $btnBlue;
   p {
     @include flex-center;
-    i {
+    fa-icon {
       margin-right: 0.25rem;
     }
   }

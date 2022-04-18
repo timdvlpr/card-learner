@@ -8,6 +8,17 @@ import { CardService } from './services/card.service';
 import { CardStoreService } from './services/card-store.service';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
+import {
+  FontAwesomeModule,
+  FaIconLibrary
+} from '@fortawesome/angular-fontawesome';
+import {
+  faExclamationCircle,
+  faInfoCircle,
+  faQuestionCircle,
+  faEdit,
+  faTrash
+} from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -16,7 +27,7 @@ import { SharedModule } from '../../shared/shared.module';
     CardItemListComponent,
     CardLearnItemComponent
   ],
-  imports: [CommonModule, FormsModule, SharedModule],
+  imports: [CommonModule, FormsModule, SharedModule, FontAwesomeModule],
   providers: [CardService, CardStoreService],
   exports: [
     CardFormComponent,
@@ -25,4 +36,14 @@ import { SharedModule } from '../../shared/shared.module';
     CardLearnItemComponent
   ]
 })
-export class CardModule {}
+export class CardModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(
+      faExclamationCircle,
+      faInfoCircle,
+      faQuestionCircle,
+      faEdit,
+      faTrash
+    );
+  }
+}
