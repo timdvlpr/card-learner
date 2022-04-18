@@ -5,6 +5,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CardService } from '../../features/card/services/card.service';
 import { Card } from '../../features/card/card.model';
 import { of } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 
 describe('LearnComponent', () => {
   let component: LearnComponent;
@@ -18,7 +20,11 @@ describe('LearnComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LearnComponent],
-      imports: [RouterTestingModule.withRoutes([])],
+      imports: [
+        RouterTestingModule.withRoutes([]),
+        FontAwesomeTestingModule,
+        BrowserAnimationsModule
+      ],
       providers: [{ provide: CardService, useValue: fakeCardService }]
     }).compileComponents();
   });

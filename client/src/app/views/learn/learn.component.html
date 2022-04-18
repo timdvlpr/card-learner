@@ -7,7 +7,7 @@
   <div class="learn-container fade-in-anim">
 
     <div class="no-cards-message" *ngIf="cards.length === 0">
-      <i class="fas fa-info-circle"></i> Keine Karten in diesem Stapel vorhanden!
+      <fa-icon icon="info-circle"></fa-icon> Keine Karten in diesem Stapel vorhanden!
       <a routerLink="/">Karte hinzufügen</a>
     </div>
 
@@ -15,19 +15,19 @@
 
       <div class="learn-info">
         <div class="tooltip tooltip-keys">
-          <i class="far fa-keyboard" title="Tastenkombinationen"></i>
+          <fa-icon icon="keyboard" title="Tastenbkombinationen"></fa-icon>
           <div class="tooltiptext">
             <p>
-              Weiter <i class="fas fa-long-arrow-alt-right"></i>
+              Weiter <fa-icon icon="long-arrow-alt-right"></fa-icon>
             </p>
             <p>
-              Zurück <i class="fas fa-long-arrow-alt-left"></i>
+              Zurück <fa-icon icon="long-arrow-alt-left"></fa-icon>
             </p>
             <p>
               Umdrehen
               <span>
-                <i class="fas fa-long-arrow-alt-up"></i>
-                <i class="fas fa-long-arrow-alt-down"></i>
+                <fa-icon icon="long-arrow-alt-up"></fa-icon>
+                <fa-icon icon="long-arrow-alt-down"></fa-icon>
               </span>
             </p>
           </div>
@@ -42,9 +42,9 @@
       </app-card-learn-item>
 
       <div class="learn-toolbar">
-          <i class="fas fa-chevron-left" (click)="showPreviousCard()" [class.disabled]="currentCardIndex === 0"></i>
-          <p>{{currentCardIndex + 1}}/{{cards.length}}</p>
-          <i class="fas fa-chevron-right" (click)="showNextCard()"></i>
+        <fa-icon icon="chevron-left" (click)="showPreviousCard()" [class.disabled]="currentCardIndex === 0"></fa-icon>
+        <p>{{currentCardIndex + 1}}/{{cards.length}}</p>
+        <fa-icon icon="chevron-right" (click)="showNextCard()"></fa-icon>
       </div>
 
     </section>

@@ -22,7 +22,7 @@ section {
   width: 100%;
   font-size: 1rem;
   text-align: right;
-  i {
+  fa-icon {
     cursor: pointer;
   }
   h3 {
@@ -30,7 +30,7 @@ section {
   }
 }
 .sidebar-arrows {
-  i {
+  fa-icon {
     transition: 0.25s;
     &:hover {
       color: $medium;

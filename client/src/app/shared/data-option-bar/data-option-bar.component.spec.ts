@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DataOptionBarComponent } from './data-option-bar.component';
+import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 
 describe('DataOptionBarComponent', () => {
   let component: DataOptionBarComponent;
@@ -8,9 +9,9 @@ describe('DataOptionBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DataOptionBarComponent ]
-    })
-    .compileComponents();
+      declarations: [DataOptionBarComponent],
+      imports: [FontAwesomeTestingModule]
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -10,7 +10,6 @@ import { Stack } from '../../features/stack/stack.model';
 export class SearchbarComponent {
   @Output() searchUpdate = new EventEmitter<Array<any>>();
   @Input() searchArray: Array<Group | Stack> = [];
-
   searchInput = '';
   filteredArray: Array<Group | Stack> = [];
 

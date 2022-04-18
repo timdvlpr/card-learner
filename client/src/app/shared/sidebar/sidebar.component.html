@@ -1,12 +1,12 @@
 <section [class.collapsed]="sidebarCollapsed">
 
   <div class="sidebar-header" [class.align-items]="sidebarCollapsed">
-    <i class="fas fa-layer-group"></i>
+    <fa-icon icon="layer-group"></fa-icon>
     <h3 *ngIf="listType === 'group'">Gruppen</h3>
     <h3 *ngIf="listType === 'stack'">Stapel</h3>
     <div class="sidebar-arrows">
-      <i class="fas fa-arrow-circle-up" *ngIf="!sidebarCollapsed" (click)="collapseSidebar()"></i>
-      <i class="fas fa-arrow-circle-down" *ngIf="sidebarCollapsed" (click)="showSidebar()"></i>
+      <fa-icon icon="arrow-circle-up" *ngIf="!sidebarCollapsed" (click)="collapseSidebar()"></fa-icon>
+      <fa-icon icon="arrow-circle-down" *ngIf="sidebarCollapsed" (click)="showSidebar()"></fa-icon>
     </div>
   </div>
 

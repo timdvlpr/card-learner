@@ -26,7 +26,7 @@ main {
   justify-content: space-around;
   margin: 2rem 0;
   color: $text;
-  i {
+  fa-icon {
     cursor: pointer;
     transition: 0.25s;
     border: 2px solid $light;
@@ -43,7 +43,7 @@ main {
   justify-content: flex-end;
   color: $text;
   padding: 1rem 0;
-  .fa-keyboard {
+  fa-icon[icon="keyboard"] {
     margin: 0 1rem;
     font-size: 1.2rem;
     cursor: pointer;
@@ -90,15 +90,10 @@ main {
       justify-content: space-between;
       margin: 0.5rem 0;
     }
-    i {
-      padding: 0.25rem;
-      border: 1px solid $text;
-      opacity: 50%;
-    }
     position: absolute;
     z-index: 100;
-    bottom: -305%;
-    left: -165%;
+    top: -2.7rem;
+    left: -5.5rem;
     margin-left: -6rem;
     opacity: 0;
     transition: opacity 0.3s;

@@ -22,11 +22,11 @@ header {
     a {
       margin: 0 1rem;
       cursor: pointer;
-      i {
+      fa-icon {
         font-size: 1.1rem;
         transition: 0.25s;
       }
-      &:hover i {
+      &:hover fa-icon {
         color: $btnBlue;
       }
       span {
