@@ -9,6 +9,16 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { GroupModule } from '../group/group.module';
 import { CardModule } from '../card/card.module';
 import { ModalService } from './services/modal.service';
+import {
+  FontAwesomeModule,
+  FaIconLibrary
+} from '@fortawesome/angular-fontawesome';
+import {
+  faLayerGroup,
+  faTimesCircle,
+  faExclamationTriangle,
+  faInfoCircle
+} from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -22,7 +32,8 @@ import { ModalService } from './services/modal.service';
     StackModule,
     GroupModule,
     CardModule,
-    NgxSmartModalModule
+    NgxSmartModalModule,
+    FontAwesomeModule
   ],
   providers: [ModalService],
   exports: [
@@ -32,4 +43,13 @@ import { ModalService } from './services/modal.service';
     InfoModalComponent
   ]
 })
-export class ModalModule {}
+export class ModalModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(
+      faLayerGroup,
+      faTimesCircle,
+      faExclamationTriangle,
+      faInfoCircle
+    );
+  }
+}
