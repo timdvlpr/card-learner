@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Group } from '../group.model';
 import { GroupService } from './group.service';
 import { Store } from '../../../core/interfaces/store';
+import { AlertService } from '../../alert/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,15 @@ export class GroupStoreService implements Store<Group> {
   selectedGroupSource = new BehaviorSubject<number>(-1);
   selectedGroup$ = this.selectedGroupSource.asObservable();
 
-  constructor(private groupService: GroupService) {
+  constructor(
+    private groupService: GroupService,
+    private alertService: AlertService
+  ) {
     this.loadInitialData();
+  }
+
+  private handleSuccess(message: string): void {
+    this.alertService.activateAlert({ type: 'success', message: message });
   }
 
   private setGroups(groups: Group[]): void {
@@ -53,6 +61,7 @@ export class GroupStoreService implements Store<Group> {
       .subscribe((group: Group) => {
         const groups = [...this.getAll(), group];
         this.setGroups(groups);
+        this.handleSuccess('Gruppe erfolgreich hinzugefügt');
       });
   }
 
@@ -68,6 +77,7 @@ export class GroupStoreService implements Store<Group> {
           return g;
         });
         this.setGroups(groups);
+        this.handleSuccess('Gruppe erfolgreich bearbeitet');
       });
   }
 
@@ -75,6 +85,7 @@ export class GroupStoreService implements Store<Group> {
     this.groupService.deleteGroup(id).subscribe(() => {
       const groups = this.getAll().filter((group) => group.id !== id);
       this.setGroups(groups);
+      this.handleSuccess('Gruppe erfolgreich gelöscht');
     });
   }
 }

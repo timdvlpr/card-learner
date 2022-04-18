@@ -4,6 +4,7 @@ import { Stack } from '../stack.model';
 import { StackService } from './stack.service';
 import { Store } from '../../../core/interfaces/store';
 import { map } from 'rxjs/operators';
+import { AlertService } from '../../alert/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,15 @@ export class StackStoreService implements Store<Stack> {
   selectedStackSource = new BehaviorSubject<number>(-1);
   selectedStack$ = this.selectedStackSource.asObservable();
 
-  constructor(private stackService: StackService) {
+  constructor(
+    private stackService: StackService,
+    private alertService: AlertService
+  ) {
     this.loadInitialData();
+  }
+
+  private handleSuccess(message: string): void {
+    this.alertService.activateAlert({ type: 'success', message: message });
   }
 
   private setStacks(stacks: Stack[]): void {
@@ -49,6 +57,7 @@ export class StackStoreService implements Store<Stack> {
       .subscribe((stack: Stack) => {
         const stacks = [...this.getAll(), stack];
         this.setStacks(stacks);
+        this.handleSuccess('Stapel erfolgreich hinzugefügt');
       });
   }
 
@@ -64,6 +73,7 @@ export class StackStoreService implements Store<Stack> {
           return s;
         });
         this.setStacks(stacks);
+        this.handleSuccess('Stapel erfolgreich bearbeitet');
       });
   }
 
@@ -71,6 +81,7 @@ export class StackStoreService implements Store<Stack> {
     this.stackService.deleteStack(id).subscribe(() => {
       const stacks = this.getAll().filter((stack) => stack.id !== id);
       this.setStacks(stacks);
+      this.handleSuccess('Stapel erfolgreich gelöscht');
     });
   }
 

@@ -4,6 +4,7 @@ import { Card } from '../card.model';
 import { CardService } from './card.service';
 import { Store } from '../../../core/interfaces/store';
 import { map } from 'rxjs/operators';
+import { AlertService } from '../../alert/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,15 @@ export class CardStoreService implements Store<Card> {
   cardSource = new BehaviorSubject<Card[]>([]);
   cards$ = this.cardSource.asObservable();
 
-  constructor(private cardService: CardService) {
+  constructor(
+    private cardService: CardService,
+    private alertService: AlertService
+  ) {
     this.loadInitialData();
+  }
+
+  private handleSuccess(message: string): void {
+    this.alertService.activateAlert({ type: 'success', message: message });
   }
 
   private setCards(cards: Card[]): void {
@@ -41,6 +49,7 @@ export class CardStoreService implements Store<Card> {
       .subscribe((card: Card) => {
         const cards = [...this.getAll(), card];
         this.setCards(cards);
+        this.handleSuccess('Karte erfolgreich hinzugefügt');
       });
   }
 
@@ -62,6 +71,7 @@ export class CardStoreService implements Store<Card> {
           return c;
         });
         this.setCards(cards);
+        this.handleSuccess('Karte erfolgreich bearbeitet');
       });
   }
 
@@ -69,6 +79,7 @@ export class CardStoreService implements Store<Card> {
     this.cardService.deleteCard(id).subscribe(() => {
       const cards = this.getAll().filter((card) => card.id !== id);
       this.setCards(cards);
+      this.handleSuccess('Karte erfolgreich gelöscht');
     });
   }
 }
