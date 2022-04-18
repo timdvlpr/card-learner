@@ -5,6 +5,7 @@ import { ModalService } from '../../../modal/services/modal.service';
 import { GroupStoreService } from '../../services/group-store.service';
 import { SharedModule } from '../../../../shared/shared.module';
 import { GroupStoreMockService } from '../../services/group-store.mock.service';
+import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 
 describe('GroupListComponent', () => {
   let component: GroupListComponent;
@@ -15,7 +16,7 @@ describe('GroupListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [GroupListComponent],
-      imports: [SharedModule],
+      imports: [SharedModule, FontAwesomeTestingModule],
       providers: [
         { provide: ModalService, useValue: fakeModalService },
         { provide: GroupStoreService, useClass: GroupStoreMockService }

@@ -8,6 +8,16 @@ import { StackService } from './services/stack.service';
 import { StackStoreService } from './services/stack-store.service';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
+import {
+  FontAwesomeModule,
+  FaIconLibrary
+} from '@fortawesome/angular-fontawesome';
+import {
+  faExclamationCircle,
+  faEdit,
+  faTrash,
+  faInfoCircle
+} from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -16,7 +26,7 @@ import { SharedModule } from '../../shared/shared.module';
     StackItemComponent,
     StackListComponent
   ],
-  imports: [CommonModule, FormsModule, SharedModule],
+  imports: [CommonModule, FormsModule, SharedModule, FontAwesomeModule],
   providers: [StackService, StackStoreService],
   exports: [
     StackFormComponent,
@@ -25,4 +35,8 @@ import { SharedModule } from '../../shared/shared.module';
     StackListComponent
   ]
 })
-export class StackModule {}
+export class StackModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(faExclamationCircle, faEdit, faTrash, faInfoCircle);
+  }
+}

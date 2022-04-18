@@ -5,6 +5,7 @@ import { StackStoreService } from '../../services/stack-store.service';
 import { GroupStoreService } from '../../../group/services/group-store.service';
 import { StackStoreMockService } from '../../services/stack-store.mock.service';
 import { GroupStoreMockService } from '../../../group/services/group-store.mock.service';
+import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 
 describe('StackItemListComponent', () => {
   let component: StackItemListComponent;
@@ -13,6 +14,7 @@ describe('StackItemListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [StackItemListComponent],
+      imports: [FontAwesomeTestingModule],
       providers: [
         { provide: StackStoreService, useClass: StackStoreMockService },
         { provide: GroupStoreService, useClass: GroupStoreMockService }

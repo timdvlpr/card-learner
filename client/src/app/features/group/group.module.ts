@@ -6,11 +6,25 @@ import { GroupService } from './services/group.service';
 import { GroupStoreService } from './services/group-store.service';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
+import {
+  FontAwesomeModule,
+  FaIconLibrary
+} from '@fortawesome/angular-fontawesome';
+import {
+  faExclamationCircle,
+  faInfoCircle,
+  faEdit,
+  faTrash
+} from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [GroupFormComponent, GroupListComponent],
-  imports: [CommonModule, FormsModule, SharedModule],
+  imports: [CommonModule, FormsModule, SharedModule, FontAwesomeModule],
   providers: [GroupService, GroupStoreService],
   exports: [GroupFormComponent, GroupListComponent]
 })
-export class GroupModule {}
+export class GroupModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(faExclamationCircle, faInfoCircle, faEdit, faTrash);
+  }
+}

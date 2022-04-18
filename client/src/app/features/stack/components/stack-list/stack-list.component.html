@@ -3,12 +3,12 @@
   <app-searchbar (searchUpdate)="filterStacks($event)" [searchArray]="stacks"></app-searchbar>
 
   <p class="msg" *ngIf="stacks.length === 0">
-    <i class="fas fa-info-circle"></i>
+    <fa-icon icon="info-circle"></fa-icon>
     Keine Stapel vorhanden
   </p>
 
   <p class="msg" *ngIf="filteredStacks.length === 0 && stacks.length !== 0">
-    <i class="fas fa-info-circle"></i>
+    <fa-icon icon="info-circle"></fa-icon>
     Kein Suchergebnis
   </p>
 
