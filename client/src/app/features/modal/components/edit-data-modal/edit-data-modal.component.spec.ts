@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditDataModalComponent } from './edit-data-modal.component';
 import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
+import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 
 describe('EditDataModalComponent', () => {
   let component: EditDataModalComponent;
@@ -12,7 +13,7 @@ describe('EditDataModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [EditDataModalComponent],
-      imports: [NgxSmartModalModule],
+      imports: [NgxSmartModalModule, FontAwesomeTestingModule],
       providers: [{ provide: NgxSmartModalService, useValue: fakeModalService }]
     }).compileComponents();
   });

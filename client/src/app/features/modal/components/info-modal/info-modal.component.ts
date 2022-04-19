@@ -7,7 +7,7 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
   styleUrls: ['./info-modal.component.scss']
 })
 export class InfoModalComponent {
-  @Input() identifier = '';
+  @Input() identifier = 'info-modal';
   text = '';
 
   constructor(private ngxSmartModalService: NgxSmartModalService) {}

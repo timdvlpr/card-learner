@@ -7,6 +7,8 @@ import { Card } from '../../features/card/card.model';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
+import { MockComponent } from 'ng-mocks';
+import { CardLearnItemComponent } from '../../features/card/components/card-learn-item/card-learn-item.component';
 
 describe('LearnComponent', () => {
   let component: LearnComponent;
@@ -19,7 +21,7 @@ describe('LearnComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LearnComponent],
+      declarations: [LearnComponent, MockComponent(CardLearnItemComponent)],
       imports: [
         RouterTestingModule.withRoutes([]),
         FontAwesomeTestingModule,

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DeleteDataModalComponent } from './delete-data-modal.component';
 import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
+import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 
 describe('DeleteDataModalComponent', () => {
   let component: DeleteDataModalComponent;
@@ -12,7 +13,7 @@ describe('DeleteDataModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DeleteDataModalComponent],
-      imports: [NgxSmartModalModule],
+      imports: [NgxSmartModalModule, FontAwesomeTestingModule],
       providers: [{ provide: NgxSmartModalService, useValue: fakeModalService }]
     }).compileComponents();
   });

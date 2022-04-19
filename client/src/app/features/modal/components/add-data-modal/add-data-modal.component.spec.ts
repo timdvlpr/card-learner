@@ -2,6 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddDataModalComponent } from './add-data-modal.component';
 import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
+import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
+import { MockComponent } from 'ng-mocks';
+import { GroupFormComponent } from '../../../group/components/group-form/group-form.component';
+import { StackFormComponent } from '../../../stack/components/stack-form/stack-form.component';
+import { CardFormComponent } from '../../../card/components/card-form/card-form.component';
 
 describe('AddDataModalComponent', () => {
   let component: AddDataModalComponent;
@@ -11,8 +16,13 @@ describe('AddDataModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddDataModalComponent],
-      imports: [NgxSmartModalModule],
+      declarations: [
+        AddDataModalComponent,
+        MockComponent(GroupFormComponent),
+        MockComponent(StackFormComponent),
+        MockComponent(CardFormComponent)
+      ],
+      imports: [NgxSmartModalModule, FontAwesomeTestingModule],
       providers: [{ provide: NgxSmartModalService, useValue: fakeModalService }]
     }).compileComponents();
   });

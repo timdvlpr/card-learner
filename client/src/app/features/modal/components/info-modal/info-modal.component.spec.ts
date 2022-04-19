@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InfoModalComponent } from './info-modal.component';
-import { NgxSmartModalService } from 'ngx-smart-modal';
+import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
+import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 
 describe('InfoModalComponent', () => {
   let component: InfoModalComponent;
@@ -12,6 +13,7 @@ describe('InfoModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [InfoModalComponent],
+      imports: [NgxSmartModalModule, FontAwesomeTestingModule],
       providers: [{ provide: NgxSmartModalService, useValue: fakeModalService }]
     }).compileComponents();
   });
